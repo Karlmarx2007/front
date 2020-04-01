@@ -1,8 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { faCannabis, faCouch, faBolt, faCookieBite, faJoint } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+
+import "./index.css";
+import App from "./App";
+
+
+library.add(faCannabis, faCouch, faBolt, faCookieBite, faJoint);
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
