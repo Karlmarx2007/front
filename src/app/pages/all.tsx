@@ -1,27 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Container, Row, Col } from 'react-bootstrap'
-import axios from 'axios';
 
 import Photo from '../components/photo';
 import { Product } from '../models/product';
+import { useSelector, useDispatch } from 'react-redux';
+import { listProducts } from '../actions/productActions';
+
+export interface IRootState {
+  productList: Product[];
+}
 
 const All = () => {
-  const [state, setState] = useState({
-    products: [],
-  });
+
+  const productList = useSelector<IRootState, any>(
+    state => state.productList
+  );
+  const {products, loading, error} = productList;
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios.get('/api/products');
-      setState({products: result.data})
-    };
-    fetchData();
-  }, []);
+    dispatch(listProducts());
+  }, [])
 
-  return (
+  return loading ? <div>Loading...</div> : error ? <div>{error}</div> :
+  (
     <Container className="d-flex justify-content-center">
       <Row>
-        {state.products.map((p: Product) => (
+        {products.map((p: Product) => (
           <Col className="mb-2" key={p.id}>
             <Photo
               {...p}
