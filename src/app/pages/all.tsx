@@ -4,7 +4,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import Photo from '../components/photo';
 import { Product } from '../models/product';
 import { useSelector, useDispatch } from 'react-redux';
-import { listProducts } from '../actions/productActions';
+import { productListAction } from '../actions/productActions';
 import Loader from '../components/loader';
 
 export interface IRootState {
@@ -19,7 +19,7 @@ const All = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(listProducts());
+    dispatch(productListAction());
   }, [dispatch])
 
   return loading ? <div><Loader size='large'/></div> : error ? <div>{error}</div> :

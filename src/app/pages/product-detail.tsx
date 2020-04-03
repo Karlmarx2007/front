@@ -21,7 +21,7 @@ const ProductDetail =  (props: any) => {
 
   useEffect(() => {
     dispatch(productDetailsAction(id))
-  }, []);
+  }, [dispatch, id]);
 
 
   const imageSrc = require(`../../assets/images/${product && product.source ? product.source : 'default-weed.jpg'}`);
