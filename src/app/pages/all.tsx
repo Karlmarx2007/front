@@ -5,13 +5,13 @@ import Photo from '../components/photo';
 import { Product } from '../models/product';
 import { useSelector, useDispatch } from 'react-redux';
 import { listProducts } from '../actions/productActions';
+import Loader from '../components/loader';
 
 export interface IRootState {
   productList: Product[];
 }
 
-const All = () => {
-
+const All = () => {  
   const productList = useSelector<IRootState, any>(
     state => state.productList
   );
@@ -20,9 +20,9 @@ const All = () => {
 
   useEffect(() => {
     dispatch(listProducts());
-  }, [])
+  }, [dispatch])
 
-  return loading ? <div>Loading...</div> : error ? <div>{error}</div> :
+  return loading ? <div><Loader size='large'/></div> : error ? <div>{error}</div> :
   (
     <Container className="d-flex justify-content-center">
       <Row>

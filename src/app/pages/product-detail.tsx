@@ -1,17 +1,40 @@
-import React from 'react';
-import products from '../models/product';
+import React, { useEffect } from 'react';
+import { Product } from '../models/product';
 import Image from 'react-bootstrap/Image';
 import { Container, Row, Col } from 'react-bootstrap';
+import { useSelector, useDispatch } from 'react-redux';
+import { productDetailsAction } from '../actions/productActions';
+import Loader from '../components/loader';
 
+export interface ProductDetailState {
+  productDetails: Product;
+}
 
-const ProductDetail= (props: any) => {
+const ProductDetail =  (props: any) => {
   const id = props.match.params.id;
-  const product = products.find(p => p.id === id);
-  console.log('product > ', product);
-  
+  const productDetails =  useSelector<ProductDetailState, any>(
+    state => state.productDetails
+  );
+  const {product, loading, error} = productDetails;
 
-  if (product) {
-    const imageSrc = require(`../../assets/images/${product.source}`);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(productDetailsAction(id))
+  }, []);
+
+
+  const imageSrc = require(`../../assets/images/${product && product.source ? product.source : 'default-weed.jpg'}`);
+
+  if (loading) {
+    return <div><Loader size='large' /></div>
+  }
+  if (error) {
+    return <div>{error}</div>
+  }
+  if (Object.keys(product).length === 0) {
+    return <div>Product not found hahaha</div>
+  } else {
     return (
       <Container fluid>
         <Row>
@@ -26,8 +49,6 @@ const ProductDetail= (props: any) => {
         </Row>
       </Container>
     )
-  } else {
-    return (<p>Product not found</p>)
   }
 }
 
