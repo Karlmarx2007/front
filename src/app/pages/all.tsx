@@ -11,8 +11,7 @@ export interface IRootState {
   productList: Product[];
 }
 
-const All = () => {
-
+const All = () => {  
   const productList = useSelector<IRootState, any>(
     state => state.productList
   );
@@ -21,7 +20,7 @@ const All = () => {
 
   useEffect(() => {
     dispatch(listProducts());
-  }, [])
+  }, [dispatch])
 
   return loading ? <div><Loader size='large'/></div> : error ? <div>{error}</div> :
   (
