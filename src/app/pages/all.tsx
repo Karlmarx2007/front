@@ -11,7 +11,7 @@ export interface IRootState {
   productList: Product[];
 }
 
-const All = () => {  
+const All = () => {
   const productList = useSelector<IRootState, any>(
     state => state.productList
   );

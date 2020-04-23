@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ProductList, ProductDetails } from './../constants/productConstants';
+import { ProductList, ProductDetails, IndicaList, SativaList } from './../constants/productConstants';
 
 
 const productListAction = () => async (dispatch:any) => {  
@@ -22,4 +22,24 @@ const productDetailsAction = (productId: any) => async (dispatch:any) => {
   }
 }
 
-export { productListAction, productDetailsAction};
+const indicaListAction = () => async (dispatch: any) => {
+  try {
+    dispatch({ type: IndicaList.INDICA_LIST_REQUEST });
+    const { data } = await axios.get('/api/products/indica');
+    dispatch({ type: IndicaList.INDICA_LIST_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({ type: IndicaList.INDICA_LIST_FAIL, payload: error.message })
+  }
+}
+
+const sativaListAction = () => async (dispatch: any) => {
+  try {
+    dispatch({ type: SativaList.SATIVA_REQUEST });
+    const { data } = await axios.get('/api/products/sativa');
+    dispatch({ type: SativaList.SATIVA_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({ type: SativaList.SATIVA_FAIL, payload: error.message })
+  }
+}
+
+export { productListAction, productDetailsAction, indicaListAction, sativaListAction};

@@ -1,27 +1,32 @@
-import React from 'react';
-import products from '../models/product';
-import { Container } from 'react-bootstrap';
-import { Row, Col } from 'antd';
+import React, { useEffect } from 'react';
+import { Product } from '../models/product';
+import { Container, Row, Col } from 'react-bootstrap';
 import Photo from '../components/photo';
+import { useSelector, useDispatch } from 'react-redux';
+import Loader from '../components/loader';
+import { indicaListAction } from '../actions/productActions';
 
+interface IndicaState {
+  indicaList: Product[];
+}
 
 const Indica = () => {
-  return (
+  const indicaList = useSelector<IndicaState, any>(state => state.indicaList);
+  const {products, loading, error} = indicaList;
+  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(indicaListAction())
+  }, [dispatch])
+
+  return loading ? <div><Loader size='large' /></div> : error ? <div>{error}</div> :
+  (
     <Container className="d-flex justify-content-center">
       <Row>
-        {products.filter((p) => p.dominant === 'Indica').map(p => (
+        {products.map((p: Product) => (
           <Col className="mb-2" key={p.id}>
             <Photo
-              id={p.id}
-              title={p.title}
-              source={p.source}
-              price={p.price}
-              type={p.type}
-              dominant={p.dominant}
-              thcPercent={p.thcPercent}
-              cbdPercent={p.cbdPercent}
-              thcGram={p.thcGram ? p.thcGram : undefined}
-              cbdGram={p.cbdGram ? p.cbdGram : undefined}
+              {...p}
             />
           </Col>
         ))}
