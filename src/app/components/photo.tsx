@@ -1,10 +1,9 @@
-import React from 'react';
-import Image from 'react-bootstrap/Image';
-import Card from 'react-bootstrap/Card';
-import { Product } from '../models/product';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
+import React from "react";
+import Image from "react-bootstrap/Image";
+import Card from "react-bootstrap/Card";
+import { Product } from "../models/product";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
 const Photo: React.FC<Product> = (props) => {
   const imageSrc = require(`../../assets/images/${props.source}`);
@@ -26,7 +25,7 @@ const Photo: React.FC<Product> = (props) => {
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>
-            <b>from ${props.price}/g</b>
+            <b>from ${props.price["1"]}/g</b>
             <br />
             contains more {props.dominant}
             <br />
@@ -38,6 +37,6 @@ const Photo: React.FC<Product> = (props) => {
       </StyledCard>
     </Link>
   );
-}
+};
 
 export default Photo;
