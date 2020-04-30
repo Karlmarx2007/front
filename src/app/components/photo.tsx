@@ -5,19 +5,21 @@ import { Product } from "../models/product";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+const StyledCard = styled(Card)`
+  width: 13rem;
+  height: 20rem;
+  color: #3c3d3d;
+  &:hover {
+    background-color: #f2f4f7;
+  }
+`;
+const StyledImage = styled(Image)`
+  height: 10rem;
+`;
+
 const Photo: React.FC<Product> = (props) => {
   const imageSrc = require(`../../assets/images/${props.source}`);
-  const StyledCard = styled(Card)`
-    width: 13rem;
-    height: 20rem;
-    color: #3c3d3d;
-    &:hover {
-      background-color: #f2f4f7;
-    }
-  `;
-  const StyledImage = styled(Image)`
-    height: 10rem;
-  `;
+  
   return (
     <Link to={"/product/" + props.id}>
       <StyledCard>

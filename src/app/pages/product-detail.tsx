@@ -65,7 +65,7 @@ const ProductDetail = (props: any) => {
             </p>
           </Col>
           <Col>
-            <AddToCart price={product.price} available={product.available} />
+            <AddToCart id={product.id} price={product.price} available={product.available} />
           </Col>
         </Row>
       </Container>

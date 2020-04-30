@@ -4,9 +4,10 @@ import Button from "react-bootstrap/Button";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import Form from "react-bootstrap/Form";
-import { Price } from "../models/price";
+import { Link } from "react-router-dom";
 
 type Props = {
+  id: string;
   price: any;
   available: boolean;
 };
@@ -26,8 +27,10 @@ const quantitySource = [
 ];
 
 const AddToCart: React.FC<Props> = ({ ...props }) => {
-  console.log("props > ", props);
-  const [price, setPrice] = useState(props.price["1"]);
+  const [state, setState] = useState({
+    price: props.price['1'],
+    quantity: 1
+  });
 
   return (
     <Card>
@@ -46,7 +49,7 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
             <Form noValidate onSubmit={formik.handleSubmit}>
               <Form.Row>
                 <p>
-                  Price: <b style={{ color: "#b50404" }}> ${price}</b>
+                  Price: <b style={{ color: "#b50404" }}> ${state.price}</b>
                 </p>
               </Form.Row>
               <Form.Row>
@@ -62,7 +65,7 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
                   name="quantity"
                   onChange={(e: React.FormEvent<HTMLInputElement>) => {
                     formik.handleChange(e);
-                    setPrice(props.price[e.currentTarget.value]);
+                    setState({ ...state, price: props.price[e.currentTarget.value], quantity: Number(e.currentTarget.value)})
                   }}
                 >
                   {quantitySource.map((s, index) => (
@@ -72,9 +75,11 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
                   ))}
                 </Field>
               </Form.Row>
-              <Button type="submit" variant="primary" className="mt-2">
-                Add to cart
-              </Button>
+              <Link to={`/cart/${props.id}?qty=${state.quantity}`}>
+                <Button type="submit" disabled={!props.available} variant="primary" className="mt-2">
+                    Add to cart
+                </Button>
+              </Link>
             </Form>
           )}
         </Formik>
