@@ -76,7 +76,7 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
                 </Field>
               </Form.Row>
               <Link to={`/cart/${props.id}?qty=${state.quantity}`}>
-                <Button type="submit" disabled={!props.available} variant="primary" className="mt-2">
+                <Button type="submit" disabled={!props.available} variant="info" className="mt-2">
                     Add to cart
                 </Button>
               </Link>
