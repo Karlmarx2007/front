@@ -1,11 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import styled from 'styled-components';
 import Image from "react-bootstrap/Image";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
 
 import { CartItem } from '../models/cart-item';
-import Button from 'react-bootstrap/Button';
+import { useDispatch } from 'react-redux';
+import { removeFromCart } from '../actions/cartActions';
 
 
 const StyledImage = styled(Image)`
@@ -14,11 +16,11 @@ const StyledImage = styled(Image)`
 `;
 
 const CartData = (props: CartItem) => {  
+  const dispatch = useDispatch();
   const imageSrc = require(`../../assets/images/${props.source}`);
 
   const removeItemHandler = (id: string) => {
-    console.log('Delete called');
-    
+    dispatch(removeFromCart(id));
   }
   return (
     <Fragment>
@@ -26,7 +28,7 @@ const CartData = (props: CartItem) => {
       <Row>
         <Col>
           <StyledImage src={String(imageSrc)} alt="ii" rounded fluid />
-          <Button variant="link" onClick-={() => removeItemHandler(props.id)}>Remove</Button>
+          <Button variant="link" onClick={() =>removeItemHandler(props.id)}>Remove</Button>
         </Col>
         <Col>
           <p><b>{props.title}</b></p>

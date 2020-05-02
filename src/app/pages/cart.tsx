@@ -5,8 +5,6 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../actions/cartActions';
-import styled from 'styled-components';
-import Image from "react-bootstrap/Image";
 import Loader from '../components/loader';
 import { CartItem } from '../models/cart-item';
 import CartData from '../components/cart-data';
@@ -15,10 +13,6 @@ import CartData from '../components/cart-data';
 export interface ICartState {
   cart: CartItem[];
 }
-const StyledImage = styled(Image)`
-  max-height: 5rem;
-  max-width: 5rem;
-`;
 
 
 const Cart = (props: any) => {
@@ -39,7 +33,10 @@ const Cart = (props: any) => {
   
   return !cart.cartItems.length ? (
     <div>
-      <Loader size="large" />
+      <Container>
+        <h2>Your Shopping Cart</h2>
+        <p>Your shopping cart is empty</p>
+      </Container>
     </div>
   ) : (
       <Container>

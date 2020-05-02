@@ -1,15 +1,17 @@
-import { CartAdd } from "../constants/cartConstants";
+import { CartItem } from './../models/cart-item';
+import { Cart } from "../constants/cartConstants";
 
-export function cartAddReducer(state = { cartItems: [] }, action: any) {
+export function cartReducer(state = { cartItems: [] }, action: any) {
   switch (action.type) {
-    case CartAdd.CART_ADD_ITEM:
-      const item = action.payload;      
-      const product: any = state.cartItems.find((x: any) => x.id === item.id)
-      // if (product) {
-      //   console.log('yes Product > ', { cartItems: state.cartItems.map((x: any) => x.id === product.id ? product : x) });
-      //   return { cartItems: state.cartItems.map((x: any) => x.id === product.id ? product : x) }
-      // }
+    case Cart.CART_ADD_ITEM:
+      const item: CartItem = action.payload;
       return { cartItems: [...state.cartItems, item] };
+
+    case Cart.CART_REMOVE_ITEM:
+      const productId = action.payload;
+      const filtered = state.cartItems.filter((x: CartItem) => x.id !== productId);      
+      return { cartItems: filtered }
+      
     default:
       return state;
   }
