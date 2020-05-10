@@ -30,7 +30,7 @@ const Sativa = () => {
     <Container className="d-flex justify-content-center">
       <Row>
         {products.map((p: Product) => (
-          <Col className="mb-2" key={p.id}>
+          <Col className="mb-2" key={p._id}>
             <Photo {...p} />
           </Col>
         ))}

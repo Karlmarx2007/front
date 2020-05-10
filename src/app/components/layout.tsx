@@ -26,10 +26,10 @@ const MainLayout = () => {
             breakpoint="md"
             collapsedWidth="0"
             onBreakpoint={broken => {
-              console.log(broken);
+              console.log('broken >',broken);
             }}
             onCollapse={(collapsed, type) => {
-              console.log(collapsed, type);
+              console.log('collapsed >', collapsed, type);
             }}
           >
             <h6>Shopping Categories</h6>

@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
 
 type Props = {
-  id: string;
+  _id: string;
   price: any;
   available: boolean;
 };
@@ -22,7 +22,7 @@ const initialValues = {
 
 const quantitySource = [
   { label: "1g", value: 1 },
-  { label: "3.5g", value: 3.5 },
+  { label: "3.5g", value: 3 },
   { label: "7g", value: 7 },
 ];
 
@@ -33,7 +33,7 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
   });
 
   return (
-    <Card>
+    <Card style={{maxWidth: '200px', margin: 'auto'}}>
       <Card.Body>
         <Formik
           initialValues={initialValues}
@@ -75,8 +75,8 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
                   ))}
                 </Field>
               </Form.Row>
-              <Link to={`/cart/${props.id}?qty=${state.quantity}`}>
-                <Button type="submit" disabled={!props.available} variant="info" className="mt-2">
+              <Link to={`/cart/${props._id}?qty=${state.quantity}`}>
+                <Button type="submit" disabled={!props.available} variant="info" className="mt-2" block>
                     Add to cart
                 </Button>
               </Link>

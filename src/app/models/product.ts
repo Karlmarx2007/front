@@ -1,6 +1,6 @@
 import { Price } from './price';
 export interface Product {
-  id: string;
+  _id: string;
   title: string;
   price: Price;
   available: boolean;

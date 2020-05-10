@@ -7,6 +7,8 @@ import Edibles from '../pages/edibles';
 import Rolls from '../pages/rolls';
 import ProductDetail from '../pages/product-detail';
 import Cart from '../pages/cart';
+import SignIn from '../pages/signin';
+import SignUp from '../pages/signup';
 
 const routes = [
   {
@@ -29,6 +31,14 @@ const routes = [
   {
     path: '/rolls',
     main: () => <Rolls />,
+  },
+  {
+    path: '/signin',
+    main: () => <SignIn />,
+  },
+  {
+    path: '/signup',
+    main: () => <SignUp />,
   },
   {
     path: '/product/:id?',

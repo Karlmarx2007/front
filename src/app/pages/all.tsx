@@ -32,7 +32,7 @@ const All = () => {
     <Container className="d-flex justify-content-center">
       <Row>
         {products.map((p: Product) => (
-          <Col className="mb-2" key={p.id}>
+          <Col className="mb-2" key={p._id} style={{display: 'inline-block'}}>
             <Photo {...p} />
           </Col>
         ))}

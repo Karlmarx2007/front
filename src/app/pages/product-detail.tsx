@@ -44,7 +44,7 @@ const ProductDetail = (props: any) => {
     return (
       <Container fluid>
         <Row>
-          <Col>
+          <Col xs={12} sm={6}>
             <Image
               src={String(imageSrc)}
               alt="ii"
@@ -64,8 +64,8 @@ const ProductDetail = (props: any) => {
               <b>CBD</b> {product.cbdPercent.min} - {product.cbdPercent.max}%
             </p>
           </Col>
-          <Col>
-            <AddToCart id={product.id} price={product.price} available={product.available} />
+          <Col xs={12} sm={6}>
+            <AddToCart _id={product._id} price={product.price} available={product.available} />
           </Col>
         </Row>
       </Container>

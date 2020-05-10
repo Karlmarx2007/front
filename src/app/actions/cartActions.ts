@@ -10,7 +10,7 @@ const addToCart = (productId: string, quantity: number) => async (dispatch: any)
       id: data.id,
       title: data.title,
       source: data.source,
-      price: quantity === 3.5 ? data.price['3.5'] : data.price[quantity],
+      price: data.price[quantity],
       quantity,
     }
     
