@@ -7,12 +7,12 @@ import { useSelector, useDispatch } from "react-redux";
 import { productListAction } from "../actions/productActions";
 import Loader from "../components/loader";
 
-export interface IRootState {
+export interface IProductListState {
   productList: Product[];
 }
 
 const All = () => {
-  const productList = useSelector<IRootState, any>(
+  const productList = useSelector<IProductListState, any>(
     (state) => state.productList
   );
   const { products, loading, error } = productList;

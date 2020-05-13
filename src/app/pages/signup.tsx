@@ -1,11 +1,18 @@
-import React from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import { Formik, Field } from 'formik';
 import * as yup from "yup";
 import Form from 'react-bootstrap/Form';
-import TextInput from '../components/text-input';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+
+import TextInput from '../components/text-input';
+import { useDispatch, useSelector } from 'react-redux';
+import { signUp } from '../actions/userActions';
+
+export interface IUserSignUp {
+  userSignUp: any
+};
 
 const schema = yup.object({
   name: yup.string().required('Required'),
@@ -21,53 +28,73 @@ const initialValues = {
   repeatPassword: ''
 };
 
-const SignUp = () => {
+const SignUp = (props: any) => {
+  const userSignUp = useSelector<IUserSignUp, any>(
+    state => state.userSignUp
+  );
+  const { loading, userInfo, error } = userSignUp;
+  console.log('userSignUp >> ', userSignUp);
+  
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (userInfo) {
+      props.history.push('/signin')
+    }
+  }, [userInfo]);
   return (
-    <Card style={{ maxWidth: '400px', margin: 'auto' }}>
-      <Card.Body>
-        <Card.Title>Sign-Up</Card.Title>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={schema}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
+    <Fragment>
+      {error ? <Card style={{ maxWidth: '400px', margin: 'auto' }} className="mb-1">
+        <Card.Body>
+          <Card.Text style={{ color: 'red' }}>{error}</Card.Text>
+        </Card.Body>
+      </Card> : undefined}
+      <br />
+      <Card style={{ maxWidth: '400px', margin: 'auto' }}>
+        <Card.Body>
+          <Card.Title>Sign-Up</Card.Title>
+          {loading ? <Card.Subtitle className="mb-2 text-muted">Loading...</Card.Subtitle> : undefined}
+          <Formik
+            initialValues={initialValues}
+            validationSchema={schema}
+            onSubmit={(values, { setSubmitting }) => {
+              console.log('values >> ', values);
+              dispatch(signUp(values))
               setSubmitting(false);
-            }, 400);
-          }}
-        >
-          {(formik) => (
-            <Form noValidate onSubmit={formik.handleSubmit} >
-              <TextInput
-                label="Your Name"
-                name="name"
-              />
-              <TextInput
-                label="E-mail address"
-                name="email"
-                type="email"
-              />
-              <TextInput
-                label="Password"
-                name="password"
-                type="password"
-              />
-              <TextInput
-                label="Repeat Password"
-                name="repeatPassword"
-                type="password"
-              />
-              <Button type="submit" variant="info" size="lg" block>Create Account</Button>
-              <hr />
-              <h6>Already a user?</h6>
-              <Link to={'/signin'}>
-                <Button variant="secondary" size="lg" block>Sign-In</Button>
-              </Link>
-            </Form>
-          )}
-        </Formik>
-      </Card.Body>
-    </Card>
+            }}
+          >
+            {(formik) => (
+              <Form noValidate onSubmit={formik.handleSubmit} >
+                <TextInput
+                  label="Your Name"
+                  name="name"
+                />
+                <TextInput
+                  label="E-mail address"
+                  name="email"
+                  type="email"
+                />
+                <TextInput
+                  label="Password"
+                  name="password"
+                  type="password"
+                />
+                <TextInput
+                  label="Repeat Password"
+                  name="repeatPassword"
+                  type="password"
+                />
+                <Button type="submit" variant="info" size="lg" block>Create Account</Button>
+                <hr />
+                <h6>Already a user?</h6>
+                <Link to={'/signin'}>
+                  <Button variant="secondary" size="lg" block>Sign-In</Button>
+                </Link>
+              </Form>
+            )}
+          </Formik>
+        </Card.Body>
+      </Card>
+    </Fragment>
   )
 }
 

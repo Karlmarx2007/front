@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import * as yup from "yup";
 import Form from 'react-bootstrap/Form';
-import TextInput from '../components/text-input';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { signIn } from '../actions/userActions';
+import TextInput from '../components/text-input';
 
+export interface IUserSignIn { 
+  userSignIn: any
+};
 const schema = yup.object({
   email: yup.string().email('Invalid email address').required('Required'),
   password: yup.string().min(6).required('Required')
@@ -18,49 +23,63 @@ const initialValues = {
   password: ''
 };
 
-const SignIn = () => {
-  const [state, setState] = useState({
-    email: '',
-    password: ''
-  });
+const SignIn = (props: any) => {
+  const userSignIn = useSelector<IUserSignIn, any>(
+    (state) => state.userSignIn
+  );
+  const { loading, userInfo, error } = userSignIn;
+  const dispatch = useDispatch();
+
+  useEffect(() => {    
+    if (userInfo) {
+      props.history.push('/')
+    }
+  }, [userInfo]);
 
   return (
-    <Card style={{ maxWidth: '400px', margin: 'auto' }}>
-      <Card.Body>
-        <Card.Title>Sign-In</Card.Title>
-        <Formik
-          initialValues={initialValues}
-          validationSchema={schema}
-          onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
+    <Fragment>
+      {error ? <Card style={{ maxWidth: '400px', margin: 'auto' }} className="mb-1">
+        <Card.Body>
+          <Card.Text style={{color: 'red'}}>{error}</Card.Text>
+        </Card.Body>
+      </Card> : undefined}
+      <br/>
+      <Card style={{ maxWidth: '400px', margin: 'auto' }}>
+        <Card.Body>
+          <Card.Title>Sign-In</Card.Title>
+          {loading ? <Card.Subtitle className="mb-2 text-muted">Loading...</Card.Subtitle> : undefined}
+          <Formik
+            initialValues={initialValues}
+            validationSchema={schema}
+            onSubmit={(values, { setSubmitting }) => {
+              dispatch(signIn(values));
               setSubmitting(false);
-            }, 400);
-          }}
-        >
-          {(formik) => (
-            <Form noValidate onSubmit={formik.handleSubmit} >
-              <TextInput
-                label="E-mail address"
-                name="email"
-                type="email"
-              />
-              <TextInput
-                label="Password"
-                name="password"
-                type="password"
-              />
-              <Button type="submit" variant="info" size="lg" block>Sign-In</Button>
-              <hr />
-              <h6>New User?</h6>
-              <Link to={'/signup'}>
-                <Button variant="secondary" size="lg" block>Create Account</Button>
-              </Link>
-            </Form>
-          )}
-        </Formik>
-      </Card.Body>
-    </Card>
+            }}
+          >
+            {(formik) => (
+              <Form noValidate onSubmit={formik.handleSubmit} >
+                <TextInput
+                  label="E-mail address"
+                  name="email"
+                  type="email"
+                />
+                <TextInput
+                  label="Password"
+                  name="password"
+                  type="password"
+                />
+                <Button type="submit" variant="info" size="lg" block>Sign-In</Button>
+                <hr />
+                <h6>New User?</h6>
+                <Link to={'/signup'}>
+                  <Button variant="secondary" size="lg" block>Create Account</Button>
+                </Link>
+              </Form>
+            )}
+          </Formik>
+        </Card.Body>
+      </Card>
+    </Fragment>
   )
 }
 

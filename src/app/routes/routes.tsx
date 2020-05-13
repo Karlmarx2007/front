@@ -9,6 +9,7 @@ import ProductDetail from '../pages/product-detail';
 import Cart from '../pages/cart';
 import SignIn from '../pages/signin';
 import SignUp from '../pages/signup';
+import Inventory from '../pages/inventory';
 
 const routes = [
   {
@@ -34,11 +35,15 @@ const routes = [
   },
   {
     path: '/signin',
-    main: () => <SignIn />,
+    main: (props: string) => <SignIn {...props}/>,
   },
   {
     path: '/signup',
-    main: () => <SignUp />,
+    main: (props: string) => <SignUp {...props}/>,
+  },
+  {
+    path: '/inventory',
+    main: () => <Inventory />,
   },
   {
     path: '/product/:id?',

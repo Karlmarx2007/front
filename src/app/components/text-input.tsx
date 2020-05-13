@@ -21,7 +21,7 @@ const TextInput: React.FC<Props>  = props => {
   //     c.setFieldValue("lol");
   //   }
   // }, [c]);
-  console.log('c >> ', c);
+  // console.log('c >> ', c);
   return (
     <Form.Group controlId={props.id || props.name}>
       {props.label ? <Form.Label className="ml-0"><b>{props.label}</b></Form.Label> : null}
