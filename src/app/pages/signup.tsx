@@ -57,7 +57,7 @@ const SignUp = (props: any) => {
             initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values, { setSubmitting }) => {
-              dispatch(signUp(values))
+              dispatch(signUp(values));
               setSubmitting(false);
             }}
           >

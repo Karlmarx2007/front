@@ -9,7 +9,23 @@ import Button from 'react-bootstrap/Button';
 import TextInput from './text-input';
 import SelectInput from './select-input';
 import TextArea from './text-area';
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewProduct } from '../actions/newProductActions';
+import { Product } from '../models/product';
 
+export interface ICreateNewProduct {
+  available: boolean;
+  dominant: 'Sativa' | 'Indica';
+  price: number;
+  source: string;
+  title: string;
+  type: 'Sativa' | 'Indica' | 'hybrid';
+  minThc: number;
+  maxThc: number;
+  minCbd: number;
+  maxCbd: number;
+  description: string;
+};
 
 const initialValues = {
   available: true,
@@ -18,11 +34,15 @@ const initialValues = {
   source: '',
   title: '',
   type: '',
-  minimumThc: '',
-  maximumThc: '',
-  minimumCbd: '',
-  maximumCbd: '',
-  description: ''
+  minThc: '',
+  maxThc: '',
+  minCbd: '',
+  maxCbd: '',
+  description: '',
+  minThcPerGram: '',
+  maxThcPerGram: '',
+  minCbdPerGram: '',
+  maxCbdPerGram: '',
 };
 
 const schema = yup.object({
@@ -32,11 +52,15 @@ const schema = yup.object({
   source: yup.string().required('Required'),
   title: yup.string().required('Required'),
   type: yup.string().oneOf(['Sativa', 'Indica', 'Hybrid']).required('Required'),
-  minimumThc: yup.number().min(0).max(100).required('Required'),
-  maximumThc: yup.number().min(0).max(100).required('Required'),
-  minimumCbd: yup.number().min(0).max(100).required('Required'),
-  maximumCbd: yup.number().min(0).max(100).required('Required'),
-  description: yup.string().max(2000).required('Required')
+  minThc: yup.number().min(0).max(100).required('Required'),
+  maxThc: yup.number().min(0).max(100).required('Required'),
+  minCbd: yup.number().min(0).max(100).required('Required'),
+  maxCbd: yup.number().min(0).max(100).required('Required'),
+  description: yup.string().max(2000).required('Required'),
+  minThcPerGram: yup.number().min(0).max(100).required('Required'),
+  maxThcPerGram: yup.number().min(0).max(100).required('Required'),
+  minCbdPerGram: yup.number().min(0).max(100).required('Required'),
+  maxCbdPerGram: yup.number().min(0).max(100).required('Required'),
 });
 
 const typeSource = [
@@ -55,6 +79,7 @@ type Props = {
 }
 
 const CreateProduct: React.FC<Props> = (props) => {
+  const dispatch = useDispatch();
   const [state, setState] = useState({
     checked: true
   });
@@ -72,9 +97,22 @@ const CreateProduct: React.FC<Props> = (props) => {
             initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values, { setSubmitting }) => {
-              console.log('values >> ', values);
-              alert(JSON.stringify(values, null, 2));
+              const payload = {
+                title: values.title,
+                price: parseFloat(values.price),
+                available: values.available,
+                type: values.type,
+                dominant: values.dominant,
+                source: values.source,
+                thcPercent: { min: parseFloat(values.minThc), max: parseFloat(values.maxThc) },
+                thcGram: { min: parseFloat(values.minThcPerGram), max: parseFloat(values.maxThcPerGram) },
+                cbdPercent: { min: parseFloat(values.minCbd), max: parseFloat(values.maxCbd) },
+                cbdGram: { min: parseFloat(values.minCbdPerGram), max: parseFloat(values.maxCbdPerGram) },
+                description: values.description
+              }
+              dispatch(createNewProduct(payload));
               setSubmitting(false);
+              props.productHandler(false);
             }}
           >
             {(formik) => (
@@ -113,14 +151,14 @@ const CreateProduct: React.FC<Props> = (props) => {
                 <Form.Row>
                   <Col>
                     <TextInput
-                      name="minimumThc"
-                      label="Minimum THC %"
+                      name="minThc"
+                      label="Min THC %"
                     />
                   </Col>
                   <Col>
                     <TextInput
-                      name="maximumThc"
-                      label="Maximum THC %"
+                      name="maxThc"
+                      label="Max THC %"
                     />
                   </Col>
                 </Form.Row>
@@ -128,14 +166,44 @@ const CreateProduct: React.FC<Props> = (props) => {
                 <Form.Row>
                   <Col>
                     <TextInput
-                      name="minimumCbd"
-                      label="Minimum CBD %"
+                      name="minThcPerGram"
+                      label="Min THC /g"
                     />
                   </Col>
                   <Col>
                     <TextInput
-                      name="maximumCbd"
-                      label="Maximum CBD %"
+                      name="maxThcPerGram"
+                      label="Max THC /g"
+                    />
+                  </Col>
+                </Form.Row>
+
+                <Form.Row>
+                  <Col>
+                    <TextInput
+                      name="minCbd"
+                      label="Min CBD %"
+                    />
+                  </Col>
+                  <Col>
+                    <TextInput
+                      name="maxCbd"
+                      label="Max CBD %"
+                    />
+                  </Col>
+                </Form.Row>
+
+                <Form.Row>
+                  <Col>
+                    <TextInput
+                      name="minCbdPerGram"
+                      label="Min CBD /g"
+                    />
+                  </Col>
+                  <Col>
+                    <TextInput
+                      name="maxCbdPerGram"
+                      label="Max CBD /g"
                     />
                   </Col>
                 </Form.Row>

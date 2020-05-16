@@ -24,9 +24,12 @@ const ProductDetail = (props: any) => {
     dispatch(productDetailsAction(id));
   }, [dispatch, id]);
 
-  const imageSrc = require(`../../assets/images/${
-    product && product.source ? product.source : "default-weed.jpg"
-  }`);
+  const imageSrc = product && product.source ? product.source : '';
+  const errorImage = require(`../../assets/images/${"default-weed.jpg"}`);
+  const handleImageError = (e: any) => {
+    e.target.onerror = null;
+    e.target.src = String(errorImage);
+  }
 
   if (loading) {
     return (
@@ -51,6 +54,7 @@ const ProductDetail = (props: any) => {
               style={{ height: "10rem" }}
               rounded
               fluid
+              onError={(e) => handleImageError(e)}
             />
             <h6>{product.title}</h6>
             <p>

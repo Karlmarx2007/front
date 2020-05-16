@@ -27,12 +27,17 @@ const StyledImage = styled(Image)`
 `;
 
 const Photo: React.FC<Product> = (props) => {
-  const imageSrc = require(`../../assets/images/${props.source}`);
+  const imageSrc = props.source;
+  const errorImage = require(`../../assets/images/${"default-weed.jpg"}`);
+  const handleImageError = (e: any) => {
+    e.target.onerror = null;
+    e.target.src = String(errorImage);
+  }
   
   return (
     <Link to={"/product/" + props._id}>
       <StyledCard>
-        <StyledImage src={String(imageSrc)} alt="ii" rounded fluid />
+        <StyledImage src={String(imageSrc)} onError={(e) => handleImageError(e)} alt="ii" rounded fluid />
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>
@@ -47,25 +52,6 @@ const Photo: React.FC<Product> = (props) => {
         </Card.Body>
       </StyledCard>
     </Link>
-    // <Link to={"/product/" + props.id}>
-    //   <Container>
-    //     <Row>
-    //       <Col>
-    //         <StyledImage src={String(imageSrc)} alt="ii" rounded fluid />
-    //         {props.title}
-    //       </Col>
-    //       <Col>
-    //         <b>from ${props.price["1"]}/g</b>
-    //         <br />
-    //         contains more {props.dominant}
-    //         <br />
-    //         <b>THC</b> {props.thcPercent.min} - {props.thcPercent.max}%
-    //         <br />
-    //         <b>CBD</b> {props.cbdPercent.min} - {props.cbdPercent.max}%
-    //       </Col>
-    //     </Row>
-    //   </Container>
-    // </Link>
   );
 };
 

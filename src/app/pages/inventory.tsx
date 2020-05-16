@@ -8,6 +8,10 @@ import { Product } from '../models/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CreateProduct from '../components/create-product';
 
+export interface INewProduct {
+  newProductDetails: any
+};
+
 const Inventory = () => {
   const [state, setState] = useState({
     openModal: false
@@ -16,13 +20,14 @@ const Inventory = () => {
   const productList = useSelector<IProductListState, any>(
     state => state.productList
   );
+  const newProductDetails = useSelector<INewProduct, any>(
+    state => state.newProductDetails
+  );
   
   const { products, loading, error } = productList;
   useEffect(() => {
     dispatch(productListAction())
-  }, [dispatch]);
-
-  console.log('products > ', products);
+  }, [dispatch, newProductDetails]);
   
 
   const createProductHandler = (value: boolean) => {
