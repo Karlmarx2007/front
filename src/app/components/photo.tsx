@@ -36,7 +36,7 @@ const Photo: React.FC<Product> = (props) => {
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>
-            <b>from ${props.price["1"]}/g</b>
+            <b>from ${props.price}/g</b>
             <br />
             contains more {props.dominant}
             <br />

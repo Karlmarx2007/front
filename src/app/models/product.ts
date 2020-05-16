@@ -1,8 +1,7 @@
-import { Price } from './price';
 export interface Product {
   _id: string;
   title: string;
-  price: Price;
+  price: number;
   available: boolean;
   type: 'Sativa' | 'Indica' | 'Hybrid';
   dominant: 'Sativa' | 'Indica';

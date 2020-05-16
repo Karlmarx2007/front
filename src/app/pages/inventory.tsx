@@ -6,28 +6,44 @@ import Loader from '../components/loader';
 import { Container, Row, Col, Button, Table, Card } from 'react-bootstrap';
 import { Product } from '../models/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import CreateProduct from '../components/create-product';
 
 const Inventory = () => {
   const [state, setState] = useState({
-    createProduct: false
+    openModal: false
   });
   const dispatch = useDispatch();
   const productList = useSelector<IProductListState, any>(
     state => state.productList
   );
+  
   const { products, loading, error } = productList;
   useEffect(() => {
     dispatch(productListAction())
   }, [dispatch]);
 
+  console.log('products > ', products);
+  
+
+  const createProductHandler = (value: boolean) => {
+    setState({ ...state, openModal: value });
+  }
+
 
   return (
     <Container>
-      <Row>
-        <Col><Button variant="secondary">Create Product</Button></Col>
-      </Row>
+      {!state.openModal ? <Row>
+        <Col><Button variant="secondary" onClick={() => createProductHandler(true)}>Create Product</Button></Col>
+      </Row> : undefined
+      }
+      {
+        state.openModal ? 
+          <Row>
+            <Col><CreateProduct productHandler={createProductHandler}/></Col>
+          </Row> : undefined
+      }
       <Row className="mt-4">
-        <Col><h5>Product Details</h5></Col>
+        <Col><h5>All Inventory</h5></Col>
       </Row>
       {
         products ? 

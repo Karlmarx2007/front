@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
-import { Formik, Field } from 'formik';
+import { Formik } from 'formik';
 import * as yup from "yup";
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -57,7 +57,6 @@ const SignUp = (props: any) => {
             initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values, { setSubmitting }) => {
-              console.log('values >> ', values);
               dispatch(signUp(values))
               setSubmitting(false);
             }}

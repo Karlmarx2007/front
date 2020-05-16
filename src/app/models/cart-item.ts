@@ -1,4 +1,3 @@
-import { Price } from "./price";
 
 export interface CartItem {
   id: string;
