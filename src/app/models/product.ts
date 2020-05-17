@@ -10,4 +10,5 @@ export interface Product {
   source: string;
   thcGram?: { min: number, max: number };
   cbdGram?: { min: number, max: number };
+  description: string;
 }

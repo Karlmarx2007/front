@@ -12,6 +12,7 @@ import TextArea from './text-area';
 import { useDispatch, useSelector } from 'react-redux';
 import { createNewProduct } from '../actions/newProductActions';
 import { Product } from '../models/product';
+import { updateProductAction } from '../actions/productActions';
 
 export interface ICreateNewProduct {
   available: boolean;
@@ -27,23 +28,7 @@ export interface ICreateNewProduct {
   description: string;
 };
 
-const initialValues = {
-  available: true,
-  dominant: '',
-  price: '',
-  source: '',
-  title: '',
-  type: '',
-  minThc: '',
-  maxThc: '',
-  minCbd: '',
-  maxCbd: '',
-  description: '',
-  minThcPerGram: '',
-  maxThcPerGram: '',
-  minCbdPerGram: '',
-  maxCbdPerGram: '',
-};
+
 
 const schema = yup.object({
   available: yup.boolean().default(true).required('Required'),
@@ -75,13 +60,32 @@ const dominantSource = [
 ];
 
 type Props = {
-  productHandler: any
+  productHandler: any,
+  product: Product | undefined
 }
 
 const CreateProduct: React.FC<Props> = (props) => {
+  const initialValues = {
+    available: props.product?.available || true,
+    dominant: props.product?.dominant || '',
+    price: props.product?.price || '',
+    source: props.product?.source || '',
+    title: props.product?.title || '',
+    type: props.product?.type || '',
+    minThc: props.product?.thcPercent.min || '',
+    maxThc: props.product?.thcPercent.max || '',
+    minCbd: props.product?.cbdPercent.min || '',
+    maxCbd: props.product?.cbdPercent.max || '',
+    description: props.product?.description || '',
+    minThcPerGram: props.product?.thcGram?.min || '',
+    maxThcPerGram: props.product?.thcGram?.max || '',
+    minCbdPerGram: props.product?.cbdGram?.min || '',
+    maxCbdPerGram: props.product?.cbdGram?.max || '',
+  };
+  
   const dispatch = useDispatch();
   const [state, setState] = useState({
-    checked: true
+    checked: props.product ? props.product.available : true
   });
 
   const handleCheck = () => {
@@ -97,20 +101,25 @@ const CreateProduct: React.FC<Props> = (props) => {
             initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values, { setSubmitting }) => {
-              const payload = {
+              let payload = {
                 title: values.title,
-                price: parseFloat(values.price),
+                price: values.price,
                 available: values.available,
                 type: values.type,
                 dominant: values.dominant,
                 source: values.source,
-                thcPercent: { min: parseFloat(values.minThc), max: parseFloat(values.maxThc) },
-                thcGram: { min: parseFloat(values.minThcPerGram), max: parseFloat(values.maxThcPerGram) },
-                cbdPercent: { min: parseFloat(values.minCbd), max: parseFloat(values.maxCbd) },
-                cbdGram: { min: parseFloat(values.minCbdPerGram), max: parseFloat(values.maxCbdPerGram) },
+                thcPercent: { min: values.minThc, max: values.maxThc },
+                thcGram: { min: values.minThcPerGram, max: values.maxThcPerGram },
+                cbdPercent: { min: values.minCbd, max: values.maxCbd },
+                cbdGram: { min: values.minCbdPerGram, max: values.maxCbdPerGram },
                 description: values.description
               }
-              dispatch(createNewProduct(payload));
+              if (props.product) {
+                const UpdatePayload = { _id: props.product._id, ...payload };
+                dispatch(updateProductAction(UpdatePayload))
+              } else {
+                dispatch(createNewProduct(payload))
+              }
               setSubmitting(false);
               props.productHandler(false);
             }}
@@ -208,7 +217,7 @@ const CreateProduct: React.FC<Props> = (props) => {
                   </Col>
                 </Form.Row>
                 <Form.Row className="mt-4 mb-4">
-                  <Button type="submit" variant="success" block>Submit</Button>
+                  <Button type="submit" variant="success" block>{props.product ? 'Update' : 'Submit'}</Button>
                 </Form.Row>
                 <Form.Row>
                   <Col>

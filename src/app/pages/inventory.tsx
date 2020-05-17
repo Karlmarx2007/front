@@ -1,8 +1,7 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IProductListState } from './all';
-import { productListAction } from '../actions/productActions';
-import Loader from '../components/loader';
+import { productListAction, productDeleteAction } from '../actions/productActions';
 import { Container, Row, Col, Button, Table, Card } from 'react-bootstrap';
 import { Product } from '../models/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -12,9 +11,18 @@ export interface INewProduct {
   newProductDetails: any
 };
 
+export interface IProductDelete {
+  productDeleted: any
+};
+
+export interface IProductUpdate {
+  productUpdate: any
+};
+
 const Inventory = () => {
-  const [state, setState] = useState({
-    openModal: false
+  const [state, setState] = useState<any>({
+    openModal: false,
+    editProduct: undefined
   });
   const dispatch = useDispatch();
   const productList = useSelector<IProductListState, any>(
@@ -23,15 +31,33 @@ const Inventory = () => {
   const newProductDetails = useSelector<INewProduct, any>(
     state => state.newProductDetails
   );
-  
-  const { products, loading, error } = productList;
+
+  const productDeleted = useSelector<IProductDelete, any>(
+    state => state.productDeleted
+  );
+
+  const productUpdated = useSelector<IProductUpdate, any>(
+    state => state.productUpdate
+  );
+
+  const { products } = productList;
   useEffect(() => {
     dispatch(productListAction())
-  }, [dispatch, newProductDetails]);
+  }, [dispatch, newProductDetails, productDeleted, productUpdated]);
   
 
   const createProductHandler = (value: boolean) => {
-    setState({ ...state, openModal: value });
+    setState({ ...state, openModal: value, editProduct: undefined });
+  };
+
+  const handleDelete = (id: string) => {
+    dispatch(productDeleteAction(id));
+  };
+
+  const handleEdit = (product: Product) => {
+    console.log('product > ', product);
+    setState({...state, openModal: true, editProduct: product})
+    
   }
 
 
@@ -44,7 +70,7 @@ const Inventory = () => {
       {
         state.openModal ? 
           <Row>
-            <Col><CreateProduct productHandler={createProductHandler}/></Col>
+            <Col><CreateProduct product={state.editProduct} productHandler={createProductHandler}/></Col>
           </Row> : undefined
       }
       <Row className="mt-4">
@@ -76,8 +102,8 @@ const Inventory = () => {
                           <td>{p.type}</td>
                           <td>{p.dominant}</td>
                           <td>{p.available ? 'Available' : 'Out of stock'}</td>
-                          <td><FontAwesomeIcon icon="edit" className="fas" /></td>
-                          <td><FontAwesomeIcon icon="trash" className="fas" /></td>
+                          <td><FontAwesomeIcon icon="edit" className="fas" onClick={() => handleEdit(p)}/></td>
+                          <td><FontAwesomeIcon icon="trash" className="fas" onClick={() => handleDelete(p._id)}/></td>
                         </tr>
                       )}
                     </tbody>
@@ -89,19 +115,6 @@ const Inventory = () => {
       
     </Container>
   );
-  // return loading ? (
-  //   <Fragment>
-  //     <Loader size="large" />
-  //   </Fragment>
-  // ) : error ? (
-  //   <Fragment>{error}</Fragment>
-  // ) : !products.length ? (
-  //   <Fragment>No Products to display</Fragment>
-  // ) :(
-  //   <Fragment>
-  //     Inventory
-  //   </Fragment>
-  // )
 }
 
 export default Inventory;

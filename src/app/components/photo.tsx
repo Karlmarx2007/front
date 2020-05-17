@@ -36,7 +36,7 @@ const Photo: React.FC<Product> = (props) => {
   
   return (
     <Link to={"/product/" + props._id}>
-      <StyledCard>
+      <StyledCard className="mb-4">
         <StyledImage src={String(imageSrc)} onError={(e) => handleImageError(e)} alt="ii" rounded fluid />
         <Card.Body>
           <Card.Title>{props.title}</Card.Title>
