@@ -10,24 +10,18 @@ const NavBar = () => {
   const userSignIn = useSelector<IUserSignIn, any>(
     (state) => state.userSignIn
   );
-  const { userInfo } = userSignIn;
-  console.log('userInfo @@>>> ', userInfo);
-  
-  const [state, setState] = useState({
-    current: 'user'
-  });
+  const { userInfo } = userSignIn;  
+  const [state, setState] = useState('user');
 
   const handleClick = (e: any)=> {
-    setState({
-      current: e.key
-    })
+    setState(e.key)
   }
 
   return (
     <Menu
       theme="dark"
       mode="horizontal"
-      selectedKeys={[state.current]}
+      selectedKeys={[state]}
       onClick={handleClick}
       style={{ lineHeight: "40px" }}
     >

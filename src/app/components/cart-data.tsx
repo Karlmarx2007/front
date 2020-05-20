@@ -15,9 +15,17 @@ const StyledImage = styled(Image)`
   max-width: 5rem;
 `;
 
-const CartData = (props: CartItem) => {  
+const CartData = (props: CartItem) => { 
+  console.log('props >> ', props);
+  
   const dispatch = useDispatch();
-  const imageSrc = require(`../../assets/images/${props.source}`);
+  const imageSrc = props.source;
+  const errorImage = require(`../../assets/images/${"default-weed.jpg"}`);
+
+  const handleImageError = (e: any) => {
+    e.target.onerror = null;
+    e.target.src = String(errorImage);
+  }
 
   const removeItemHandler = (id: string) => {
     dispatch(removeFromCart(id));
@@ -27,7 +35,7 @@ const CartData = (props: CartItem) => {
       <hr/>
       <Row>
         <Col>
-          <StyledImage src={String(imageSrc)} alt="ii" rounded fluid />
+          <StyledImage src={String(imageSrc)} onError={(e) => handleImageError(e)} alt="ii" rounded fluid />
           <Button variant="link" onClick={() =>removeItemHandler(props.id)}>Remove</Button>
         </Col>
         <Col>

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 type Props = {
   _id: string;
-  price: any;
+  price: number;
   available: boolean;
 };
 
@@ -28,7 +28,7 @@ const quantitySource = [
 
 const AddToCart: React.FC<Props> = ({ ...props }) => {
   const [state, setState] = useState({
-    price: props.price['1'],
+    price: props.price,
     quantity: 1
   });
 
@@ -65,7 +65,7 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
                   name="quantity"
                   onChange={(e: React.FormEvent<HTMLInputElement>) => {
                     formik.handleChange(e);
-                    setState({ ...state, price: props.price[e.currentTarget.value], quantity: Number(e.currentTarget.value)})
+                    setState({price: props.price, quantity: Number(e.currentTarget.value) });
                   }}
                 >
                   {quantitySource.map((s, index) => (

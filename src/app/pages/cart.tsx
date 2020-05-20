@@ -16,10 +16,16 @@ export interface ICartState {
 
 
 const Cart = (props: any) => {
+  console.log('props @@@@ > ', props);
+  
   let totalPrice;
   const dispatch = useDispatch();
   const cart: {cartItems: CartItem[]} = useSelector<ICartState, any>(state => state.cart);
   const productId = props.match.params.id;
+  console.log('cart >> ', cart);
+  
+  console.log('productId >> ', productId);
+  
   const quantity = props.location.search ? Number(props.location.search.split('=')[1]) : 1;
   if (cart.cartItems.length) {
     totalPrice = cart.cartItems.map(c => c.price).reduce((a, b) => b ? a + b : a, 0).toFixed(2);

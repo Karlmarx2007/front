@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IProductListState } from './all';
 import { productListAction, productDeleteAction } from '../actions/productActions';
@@ -6,6 +6,7 @@ import { Container, Row, Col, Button, Table, Card } from 'react-bootstrap';
 import { Product } from '../models/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CreateProduct from '../components/create-product';
+import { IUserSignIn } from './signin';
 
 export interface INewProduct {
   newProductDetails: any
@@ -40,25 +41,24 @@ const Inventory = () => {
     state => state.productUpdate
   );
 
+  const userSignIn = useSelector<IUserSignIn, any>(
+    (state) => state.userSignIn
+  );
+  const { userInfo } = userSignIn;
+
   const { products } = productList;
   useEffect(() => {
     dispatch(productListAction())
   }, [dispatch, newProductDetails, productDeleted, productUpdated]);
   
 
-  const createProductHandler = (value: boolean) => {
-    setState({ ...state, openModal: value, editProduct: undefined });
+  const createProductHandler = (openModal: boolean, editProduct?: Product) => {
+    setState({openModal, editProduct });
   };
 
   const handleDelete = (id: string) => {
-    dispatch(productDeleteAction(id));
+    dispatch(productDeleteAction(id, userInfo));
   };
-
-  const handleEdit = (product: Product) => {
-    console.log('product > ', product);
-    setState({...state, openModal: true, editProduct: product})
-    
-  }
 
 
   return (
@@ -73,46 +73,47 @@ const Inventory = () => {
             <Col><CreateProduct product={state.editProduct} productHandler={createProductHandler}/></Col>
           </Row> : undefined
       }
-      <Row className="mt-4">
-        <Col><h5>All Inventory</h5></Col>
-      </Row>
       {
-        products ? 
-          <Row>
-            <Col>
-              <Card>
-                <Card.Body>
-                  <Table responsive>
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Type</th>
-                        <th>Dominant</th>
-                        <th>Status</th>
-                        <th>Edit</th>
-                        <th>Delete</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {products.map((p: Product, index: number) =>
-                        <tr key={index + 1 + p.title}>
-                          <td>{index + 1}</td>
-                          <td>{p.title}</td>
-                          <td>{p.type}</td>
-                          <td>{p.dominant}</td>
-                          <td>{p.available ? 'Available' : 'Out of stock'}</td>
-                          <td><FontAwesomeIcon icon="edit" className="fas" onClick={() => handleEdit(p)}/></td>
-                          <td><FontAwesomeIcon icon="trash" className="fas" onClick={() => handleDelete(p._id)}/></td>
+        products && !state.openModal ? 
+          <Fragment>
+            <Row className="mt-4">
+              <Col><h5>All Inventory</h5></Col>
+            </Row>
+            <Row>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <Table responsive>
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Name</th>
+                          <th>Type</th>
+                          <th>Dominant</th>
+                          <th>Status</th>
+                          <th>Edit</th>
+                          <th>Delete</th>
                         </tr>
-                      )}
-                    </tbody>
-                  </Table>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row> : undefined}
-      
+                      </thead>
+                      <tbody>
+                        {products.map((p: Product, index: number) =>
+                          <tr key={index + 1 + p.title}>
+                            <td>{index + 1}</td>
+                            <td>{p.title}</td>
+                            <td>{p.type}</td>
+                            <td>{p.dominant}</td>
+                            <td>{p.available ? 'Available' : 'Out of stock'}</td>
+                            <td><FontAwesomeIcon icon="edit" className="fas" onClick={() => createProductHandler(true, p)} /></td>
+                            <td><FontAwesomeIcon icon="trash" className="fas" onClick={() => handleDelete(p._id)} /></td>
+                          </tr>
+                        )}
+                      </tbody>
+                    </Table>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Fragment> : undefined}
     </Container>
   );
 }

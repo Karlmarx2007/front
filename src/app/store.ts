@@ -7,8 +7,10 @@ import { cartReducer } from './reducers/cartReducer';
 import { userSignInReducer, userSignUpReducer } from './reducers/userReducer';
 import { createNewProductReducer } from './reducers/newProductReducer';
 
+const cartItems = Cookie.getJSON('cartItems') || [];
 const userInfo = Cookie.getJSON('userInfo') || null;
-const initialState = { userSignIn: {userInfo}};
+
+const initialState = { cart: {cartItems}, userSignIn: {userInfo}};
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,

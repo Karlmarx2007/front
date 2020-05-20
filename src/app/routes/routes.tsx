@@ -50,7 +50,7 @@ const routes = [
     main: (props: string) => <ProductDetail {...props}/>,
   },
   {
-    path: '/cart/:id',
+    path: '/cart/:id?',
     main: (props: string) => <Cart {...props}/>
   }
 ]

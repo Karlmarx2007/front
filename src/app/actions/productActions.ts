@@ -22,20 +22,28 @@ const productDetailsAction = (productId: any) => async (dispatch:any) => {
   }
 }
 
-const productDeleteAction = (productId: string) => async (dispatch: any) => {
+const productDeleteAction = (productId: string, userInfo: any) => async (dispatch: any) => {
   try {
     dispatch({ type: ProductDelete.PRODUCT_DELETE_REQUEST, payload: productId });
-    const { data } = await axios.delete('/api/products/' + productId);
+    const { data } = await axios.delete('/api/products/' + productId, {
+      headers: {
+        Authorization: 'Bearer' + userInfo.token
+      }
+    });
     dispatch({ type: ProductDelete.PRODUCT_DELETE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: ProductDelete.PRODUCT_DELETE_FAIL, error: 'Failed to delete Product' });
   }
 }
 
-const updateProductAction = (product: any) => async (dispatch: any) => {
+const updateProductAction = (product: any, userInfo: any) => async (dispatch: any) => {
   try {
     dispatch({ type: ProductUpdate.PRODUCT_UPDATE_REQUEST, payload: product });
-    const { data } = await axios.patch('/api/products/update', product);
+    const { data } = await axios.patch('/api/products/update', product, {
+      headers: {
+        Authorization: 'Bearer' + userInfo.token
+      }
+    });
     dispatch({ type: ProductUpdate.PRODUCT_UPDATE_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: ProductUpdate.PRODUCT_UPDATE_FAIL, error: 'Failed to update Product' });

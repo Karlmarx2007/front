@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createNewProduct } from '../actions/newProductActions';
 import { Product } from '../models/product';
 import { updateProductAction } from '../actions/productActions';
+import { IUserSignIn } from '../pages/signin';
 
 export interface ICreateNewProduct {
   available: boolean;
@@ -65,6 +66,10 @@ type Props = {
 }
 
 const CreateProduct: React.FC<Props> = (props) => {
+  const userSignIn = useSelector<IUserSignIn, any>(
+    (state) => state.userSignIn
+  );
+  const { userInfo } = userSignIn;
   const initialValues = {
     available: props.product?.available || true,
     dominant: props.product?.dominant || '',
@@ -89,9 +94,9 @@ const CreateProduct: React.FC<Props> = (props) => {
   });
 
   const handleCheck = () => {
-    setState({...state, checked: !state.checked})
+    setState((prevState) => ({ checked: !prevState.checked }));
   }
-  
+
   return (
     <Fragment>
       <Card className="mb-2" style={{ maxWidth: '600px', margin: 'auto'}}>
@@ -116,7 +121,7 @@ const CreateProduct: React.FC<Props> = (props) => {
               }
               if (props.product) {
                 const UpdatePayload = { _id: props.product._id, ...payload };
-                dispatch(updateProductAction(UpdatePayload))
+                dispatch(updateProductAction(UpdatePayload, userInfo))
               } else {
                 dispatch(createNewProduct(payload))
               }
@@ -217,7 +222,7 @@ const CreateProduct: React.FC<Props> = (props) => {
                   </Col>
                 </Form.Row>
                 <Form.Row className="mt-4 mb-4">
-                  <Button type="submit" variant="success" block>{props.product ? 'Update' : 'Submit'}</Button>
+                  <Button type="submit" variant="success" block>{props.product ? 'Update' : 'Create'}</Button>
                 </Form.Row>
                 <Form.Row>
                   <Col>
