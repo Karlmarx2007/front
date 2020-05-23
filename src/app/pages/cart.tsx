@@ -5,9 +5,9 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { addToCart } from '../actions/cartActions';
-import Loader from '../components/loader';
 import { CartItem } from '../models/cart-item';
 import CartData from '../components/cart-data';
+import { Link } from 'react-router-dom';
 
 
 export interface ICartState {
@@ -15,16 +15,12 @@ export interface ICartState {
 }
 
 
-const Cart = (props: any) => {
-  console.log('props @@@@ > ', props);
-  
+const Cart = (props: any) => {  
   let totalPrice;
   const dispatch = useDispatch();
   const cart: {cartItems: CartItem[]} = useSelector<ICartState, any>(state => state.cart);
   const productId = props.match.params.id;
   console.log('cart >> ', cart);
-  
-  console.log('productId >> ', productId);
   
   const quantity = props.location.search ? Number(props.location.search.split('=')[1]) : 1;
   if (cart.cartItems.length) {
@@ -56,7 +52,7 @@ const Cart = (props: any) => {
           <Col><span style={{ color: 'red' }}><b>CDN${totalPrice}</b></span></Col>
         </Row>
         <hr />
-        <Button variant="info">Checkout</Button>
+        <Link to="/checkout"><Button variant="info">Checkout</Button></Link>
     </Container>
  )
 }

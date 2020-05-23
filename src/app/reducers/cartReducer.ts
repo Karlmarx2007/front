@@ -1,7 +1,7 @@
 import { CartItem } from './../models/cart-item';
 import { Cart } from "../constants/cartConstants";
 
-export function cartReducer(state = { cartItems: [] }, action: any) {
+function cartReducer(state = { cartItems: [] }, action: any) {
   switch (action.type) {
     case Cart.CART_ADD_ITEM:
       const item: CartItem = action.payload;
@@ -16,3 +16,4 @@ export function cartReducer(state = { cartItems: [] }, action: any) {
       return state;
   }
 }
+export { cartReducer}

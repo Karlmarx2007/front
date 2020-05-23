@@ -40,7 +40,7 @@ const SignUp = (props: any) => {
     if (userInfo) {
       props.history.push('/signin')
     }
-  }, [userInfo]);
+  }, [userInfo, props.history]);
   return (
     <Fragment>
       {error ? <Card style={{ maxWidth: '400px', margin: 'auto' }} className="mb-1">

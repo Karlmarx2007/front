@@ -1,5 +1,4 @@
 import { CartItem } from './../models/cart-item';
-import { Product } from './../models/product';
 import Cookie from "js-cookie";
 import axios from 'axios';
 import { Cart } from '../constants/cartConstants';

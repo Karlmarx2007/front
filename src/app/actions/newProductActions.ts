@@ -1,6 +1,5 @@
 import { CREATE_PRODUCT } from './../constants/createProductConstants';
 import axios from 'axios';
-import { ICreateNewProduct } from '../components/create-product';
 
 const createNewProduct = (newProductValues: any) => async (dispatch: any) => {
   console.log('DISPATCH');

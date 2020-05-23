@@ -34,7 +34,7 @@ const SignIn = (props: any) => {
     if (userInfo) {
       props.history.push('/')
     }
-  }, [userInfo]);
+  }, [userInfo, props.history]);
 
   return (
     <Fragment>

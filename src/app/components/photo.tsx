@@ -4,7 +4,6 @@ import Card from "react-bootstrap/Card";
 import { Product } from "../models/product";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Container, Row, Col } from "react-bootstrap";
 
 const StyledCard = styled(Card)`
   width: 13rem;
@@ -17,11 +16,6 @@ const StyledCard = styled(Card)`
   };
 `;
 
-const styledCardTitle = styled(Card.Title)`
-  &:hover {
-    color: #138496;
-  };
-`;
 const StyledImage = styled(Image)`
   height: 10rem;
 `;

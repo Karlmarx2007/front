@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import Image from "react-bootstrap/Image";
 import Row from 'react-bootstrap/Row';
@@ -16,7 +16,6 @@ const StyledImage = styled(Image)`
 `;
 
 const CartData = (props: CartItem) => { 
-  console.log('props >> ', props);
   
   const dispatch = useDispatch();
   const imageSrc = props.source;

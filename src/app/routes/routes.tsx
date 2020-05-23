@@ -10,6 +10,7 @@ import Cart from '../pages/cart';
 import SignIn from '../pages/signin';
 import SignUp from '../pages/signup';
 import Inventory from '../pages/inventory';
+import Checkout from '../pages/checkout';
 
 const routes = [
   {
@@ -44,6 +45,10 @@ const routes = [
   {
     path: '/inventory',
     main: () => <Inventory />,
+  },
+  {
+    path: '/checkout',
+    main: () => <Checkout />,
   },
   {
     path: '/product/:id?',
