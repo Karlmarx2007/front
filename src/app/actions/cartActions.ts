@@ -1,6 +1,5 @@
 import { CartItem } from './../models/cart-item';
 import Cookie from "js-cookie";
-import axios from 'axios';
 import { Cart } from '../constants/cartConstants';
 
 const addToCart = (cartItem: CartItem) => async (dispatch: any, getState: any) => {

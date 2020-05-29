@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Menu, Badge } from 'antd';
+import React from 'react';
+import { Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -42,10 +42,8 @@ const StyledNav = styled.nav`
   height: 40px;
 `;
 
-const StyledDiv = styled.div`
-`;
 
-const NavBar = (props: any) => {
+const NavBar = () => {
   const cart: { cartItems: CartItem[] } = useSelector<ICartState, any>(state => state.cart);
 
   const userSignIn = useSelector<IUserSignIn, any>(

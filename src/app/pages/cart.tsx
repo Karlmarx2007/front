@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../actions/cartActions';
+import { useSelector } from 'react-redux';
 import { CartItem } from '../models/cart-item';
 import CartData from '../components/cart-data';
 import { Link } from 'react-router-dom';
@@ -15,7 +14,7 @@ export interface ICartState {
 }
 
 
-const Cart = (props: any) => {  
+const Cart = () => {  
   let totalPrice;
   const cart: {cartItems: CartItem[]} = useSelector<ICartState, any>(state => state.cart);
 
