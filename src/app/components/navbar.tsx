@@ -2,42 +2,63 @@ import React, { useState } from 'react';
 import { Menu } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 import { IUserSignIn } from '../pages/signin';
+import styled from 'styled-components';
 
-const NavBar = () => {
+const StyledLogo = styled(NavLink)`
+  font-size: 2rem;
+  text-align: center;
+  color: white;
+`;
+const StyledLink = styled(NavLink)`
+  text-transform: capitalize;
+  color: var(--color-primary);
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid transparent;
+  transition: border-color 1s;
+  &:hover {
+    color: var(--color-primary);
+    border-color: var(--color-medium);
+  }
+  &.current {
+    border-color: var(--color-primary);
+  }
+`;
+const StyledLi = styled.li`
+  padding: 0.1rem 1rem
+`;
+
+const StyledUl = styled.ul`
+  display: flex;
+`;
+
+const StyledNav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+`;
+
+const NavBar = (props: any) => {
   const userSignIn = useSelector<IUserSignIn, any>(
     (state) => state.userSignIn
   );
-  const { userInfo } = userSignIn;  
-  const [state, setState] = useState('user');
-
-  const handleClick = (e: any)=> {
-    setState(e.key)
-  }
-
-  const menuItemStyle = {
-    paddingTop: '15px'
-  }
+  const { userInfo } = userSignIn;
 
   return (
-    <Menu
-      theme="dark"
-      mode="horizontal"
-      selectedKeys={[state]}
-      onClick={handleClick}
-      style={{ lineHeight: "40px" }}
-    >
-      <Menu.Item key="user" style={menuItemStyle}>
-        {userInfo ? <Link to="/profile">{userInfo._doc.name}</Link> : <Link to="/signin"><FontAwesomeIcon icon="user" className="fas" size="2x" /></Link>}
-      </Menu.Item>
-      <Menu.Item key="shopping-bag" style={menuItemStyle}>
-        <Link to="/cart"><FontAwesomeIcon icon="shopping-bag" className="fas" size="2x" /></Link>
-      </Menu.Item>
-    </Menu>
+    <StyledNav>
+      <StyledLogo to="/">W C</StyledLogo>
+      <StyledUl>
+        <StyledLi>
+          {userInfo ? <StyledLink activeClassName="current" to="/profile">{userInfo._doc.name}</StyledLink> : <StyledLink activeClassName="current" to="/signin"><FontAwesomeIcon icon="user" className="fas" size="2x" /></StyledLink>}
+        </StyledLi>
+        <StyledLi>
+          <StyledLink activeClassName="current" to="/cart"><FontAwesomeIcon icon="shopping-bag" className="fas" size="2x" /></StyledLink>
+        </StyledLi>
+      </StyledUl>
+    </StyledNav>
   );
 }
-    
 
 export default NavBar;
