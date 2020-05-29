@@ -10,14 +10,14 @@ import { CartItem } from '../models/cart-item';
 import { ICartState } from '../pages/cart';
 
 const StyledLogo = styled(NavLink)`
-  font-size: 2rem;
+  font-size: 1.5rem;
   text-align: center;
-  color: white;
+  color: var(--color-primary);;
 `;
 const StyledLink = styled(NavLink)`
   text-transform: capitalize;
   color: var(--color-primary);
-  padding-bottom: 0.5rem;
+  padding-bottom: 0.4rem;
   border-bottom: 3px solid transparent;
   transition: border-color 1s;
   &:hover {
@@ -29,11 +29,12 @@ const StyledLink = styled(NavLink)`
   }
 `;
 const StyledLi = styled.li`
-  padding: 0.3rem 1rem
+  padding: 0.1rem 1rem
 `;
 
 const StyledUl = styled.ul`
   display: flex;
+  list-style: none;
 `;
 
 const StyledNav = styled.nav`

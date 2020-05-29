@@ -11,6 +11,7 @@ import SignIn from '../pages/signin';
 import SignUp from '../pages/signup';
 import Inventory from '../pages/inventory';
 import Checkout from '../pages/checkout';
+import { RouteComponentProps } from 'react-router-dom';
 
 const routes = [
   {
@@ -52,7 +53,7 @@ const routes = [
   },
   {
     path: '/product/:id?',
-    main: (props: string) => <ProductDetail {...props}/>,
+    main: (props: RouteComponentProps<any>) => <ProductDetail {...props}/>,
   },
   {
     path: '/cart',

@@ -10,9 +10,15 @@ import styled from 'styled-components';
 
 const { Header, Content, Sider } = Layout;
 const StyledSider = styled(Sider)`
-background: #fff;
-width: 200px;
-transition: 300ms ease;
+  background: #fff;
+  width: 200px;
+  transition: 300ms ease;
+`;
+
+const StyledHeader = styled(Header)`
+  background-color: white;
+  border-bottom: 3px solid transparent;
+  border-color: #efeaea;
 `;
 
 
@@ -22,10 +28,10 @@ const MainLayout = () => {
   return (
     <BrowserRouter>
       <Layout>
-        <Header className="header">
+        <StyledHeader className="header">
           <div className="logo" />
           <NavBar />
-        </Header>
+        </StyledHeader>
         <Layout>
           <StyledSider
             breakpoint="md"

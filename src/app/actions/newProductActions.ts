@@ -1,12 +1,16 @@
 import { CREATE_PRODUCT } from './../constants/createProductConstants';
 import axios from 'axios';
 
-const createNewProduct = (newProductValues: any) => async (dispatch: any) => {
+const createNewProduct = (newProductValues: any, userInfo: any) => async (dispatch: any) => {
   console.log('DISPATCH');
   
   dispatch({ type: CREATE_PRODUCT.CREATE_PRODUCT_REQUEST, payload: newProductValues });
   try {
-    const { data } = await axios.post('/api/products/product', newProductValues);
+    const { data } = await axios.post('/api/products/product', newProductValues, {
+      headers: {
+        Authorization: 'Bearer' + userInfo.token
+      }
+    });
     dispatch({ type: CREATE_PRODUCT.CREATE_PRODUCT_SUCCESS, payload: data });
   } catch (error) {
     console.log('Error creating New P > ', error);

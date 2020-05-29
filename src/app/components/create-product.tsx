@@ -123,7 +123,7 @@ const CreateProduct: React.FC<Props> = (props) => {
                 const UpdatePayload = { _id: props.product._id, ...payload };
                 dispatch(updateProductAction(UpdatePayload, userInfo))
               } else {
-                dispatch(createNewProduct(payload))
+                dispatch(createNewProduct(payload, userInfo))
               }
               setSubmitting(false);
               props.productHandler(false);

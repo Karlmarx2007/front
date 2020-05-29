@@ -4,12 +4,15 @@ import Button from "react-bootstrap/Button";
 import { Formik, Field } from "formik";
 import * as yup from "yup";
 import Form from "react-bootstrap/Form";
-import { calculatePrice } from "../utils";
 import { useDispatch } from "react-redux";
+import { RouteComponentProps } from 'react-router-dom';
+
 import { addToCart } from "../actions/cartActions";
 import { CartItem } from "../models/cart-item";
+import { calculatePrice } from "../utils";
 
-type Props = {
+
+interface Props extends RouteComponentProps<any> {
   id: string;
   price: number;
   source: string;
@@ -31,7 +34,9 @@ const quantitySource = [
   { label: "7g", value: 7 },
 ];
 
-const AddToCart: React.FC<Props> = ({ ...props }) => {
+const AddToCart: React.SFC<Props> = ({ ...props }) => {
+  console.log('props > ', props);
+  
   const [state, setState] = useState({
     price: props.price,
     quantity: 1
@@ -54,7 +59,11 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
               source: props.source,
               title: props.title,
             }
-            dispatch(addToCart(cartItem))
+            dispatch(addToCart(cartItem));
+            props.history.goBack();
+            console.log('====================================');
+            console.log('@@@@@');
+            console.log('====================================');
           }}
         >
           {(formik) => (
