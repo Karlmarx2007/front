@@ -18,8 +18,7 @@ export interface ICartState {
 const Cart = (props: any) => {  
   let totalPrice;
   const cart: {cartItems: CartItem[]} = useSelector<ICartState, any>(state => state.cart);
-  console.log('cart >> ', cart);
-  
+
   if (cart.cartItems.length) {
     totalPrice = cart.cartItems.map(c => c.price).reduce((a, b) => b ? a + b : a, 0).toFixed(2);
   }

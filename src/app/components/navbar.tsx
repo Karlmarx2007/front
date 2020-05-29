@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Menu } from 'antd';
+import { Menu, Badge } from 'antd';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { IUserSignIn } from '../pages/signin';
 import styled from 'styled-components';
+import { CartItem } from '../models/cart-item';
+import { ICartState } from '../pages/cart';
 
 const StyledLogo = styled(NavLink)`
   font-size: 2rem;
@@ -27,7 +29,7 @@ const StyledLink = styled(NavLink)`
   }
 `;
 const StyledLi = styled.li`
-  padding: 0.1rem 1rem
+  padding: 0.3rem 1rem
 `;
 
 const StyledUl = styled.ul`
@@ -40,7 +42,12 @@ const StyledNav = styled.nav`
   height: 40px;
 `;
 
+const StyledDiv = styled.div`
+`;
+
 const NavBar = (props: any) => {
+  const cart: { cartItems: CartItem[] } = useSelector<ICartState, any>(state => state.cart);
+
   const userSignIn = useSelector<IUserSignIn, any>(
     (state) => state.userSignIn
   );
@@ -51,10 +58,17 @@ const NavBar = (props: any) => {
       <StyledLogo to="/">W C</StyledLogo>
       <StyledUl>
         <StyledLi>
-          {userInfo ? <StyledLink activeClassName="current" to="/profile">{userInfo._doc.name}</StyledLink> : <StyledLink activeClassName="current" to="/signin"><FontAwesomeIcon icon="user" className="fas" size="2x" /></StyledLink>}
+          {
+            userInfo ?
+              <StyledLink activeClassName="current" to="/profile">{userInfo._doc.name}</StyledLink> :
+              <StyledLink activeClassName="current" to="/signin"><FontAwesomeIcon icon="user" className="fas" size="2x" /></StyledLink>}
         </StyledLi>
         <StyledLi>
-          <StyledLink activeClassName="current" to="/cart"><FontAwesomeIcon icon="shopping-bag" className="fas" size="2x" /></StyledLink>
+          <StyledLink activeClassName="current" to="/cart">
+            <Badge count={cart.cartItems.length} style={{backgroundColor: 'green'}}>
+              <FontAwesomeIcon icon="shopping-bag" className="fas" size="2x" />
+            </Badge>
+          </StyledLink>
         </StyledLi>
       </StyledUl>
     </StyledNav>
