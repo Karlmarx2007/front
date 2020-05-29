@@ -6,10 +6,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NavBar from './navbar';
 import { Link, BrowserRouter, Switch, Route } from 'react-router-dom';
 import routes from '../routes/routes';
-
-
+import styled from 'styled-components';
 
 const { Header, Content, Sider } = Layout;
+const StyledSider = styled(Sider)`
+background: #fff;
+width: 200px;
+transition: 300ms ease;
+`;
+
+
+
 
 const MainLayout = () => {
   return (
@@ -20,17 +27,9 @@ const MainLayout = () => {
           <NavBar />
         </Header>
         <Layout>
-          <Sider
-            width={200}
-            style={{ background: "#fff" }}
+          <StyledSider
             breakpoint="md"
             collapsedWidth="0"
-            onBreakpoint={broken => {
-              console.log('broken >',broken);
-            }}
-            onCollapse={(collapsed, type) => {
-              console.log('collapsed >', collapsed, type);
-            }}
           >
             <h6>Shopping Categories</h6>
             <Menu
@@ -71,14 +70,14 @@ const MainLayout = () => {
                 </Link>
               </Menu.Item>
             </Menu>
-          </Sider>
+          </StyledSider>
           <Layout style={{ padding: "0 24px 24px" }}>
             <Content
               style={{
                 background: "#fff",
                 padding: 24,
                 margin: 0,
-                minHeight: 500
+                minHeight: '100vh'
               }}
             >
               <Switch>

@@ -58,7 +58,7 @@ const ProductDetail = (props: any) => {
             />
             <h6>{product.title}</h6>
             <p>
-              <b>from ${product.price["1"]}/g</b>
+              <b>from ${product.price}/g</b>
             </p>
             <p>contains more {product.dominant}</p>
             <p>
@@ -69,7 +69,13 @@ const ProductDetail = (props: any) => {
             </p>
           </Col>
           <Col xs={12} sm={6}>
-            <AddToCart _id={product._id} price={product.price} available={product.available} />
+            <AddToCart
+              id={product._id}
+              price={product.price}
+              source={product.source}
+              available={product.available}
+              title={product.title}
+            />
           </Col>
         </Row>
       </Container>

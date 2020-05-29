@@ -17,21 +17,12 @@ export interface ICartState {
 
 const Cart = (props: any) => {  
   let totalPrice;
-  const dispatch = useDispatch();
   const cart: {cartItems: CartItem[]} = useSelector<ICartState, any>(state => state.cart);
-  const productId = props.match.params.id;
   console.log('cart >> ', cart);
   
-  const quantity = props.location.search ? Number(props.location.search.split('=')[1]) : 1;
   if (cart.cartItems.length) {
     totalPrice = cart.cartItems.map(c => c.price).reduce((a, b) => b ? a + b : a, 0).toFixed(2);
   }
-
-  useEffect(() => {
-    if (productId) {
-      dispatch(addToCart(productId, quantity));
-    }
-  }, [dispatch, productId, quantity]);
   
   return !cart.cartItems.length ? (
     <div>

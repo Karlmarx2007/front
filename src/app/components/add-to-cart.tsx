@@ -5,11 +5,17 @@ import { Formik, Field } from "formik";
 import * as yup from "yup";
 import Form from "react-bootstrap/Form";
 import { Link } from "react-router-dom";
+import { calculatePrice } from "../utils";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../actions/cartActions";
+import { CartItem } from "../models/cart-item";
 
 type Props = {
-  _id: string;
+  id: string;
   price: number;
+  source: string;
   available: boolean;
+  title: string;
 };
 
 const schema = yup.object({
@@ -22,7 +28,7 @@ const initialValues = {
 
 const quantitySource = [
   { label: "1g", value: 1 },
-  { label: "3.5g", value: 3 },
+  { label: "3.5g", value: 3.5 },
   { label: "7g", value: 7 },
 ];
 
@@ -32,6 +38,8 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
     quantity: 1
   });
 
+  const dispatch = useDispatch();
+
   return (
     <Card style={{maxWidth: '200px', margin: 'auto'}}>
       <Card.Body>
@@ -39,10 +47,15 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
           initialValues={initialValues}
           validationSchema={schema}
           onSubmit={(values, { setSubmitting }) => {
-            setTimeout(() => {
-              alert(JSON.stringify(values, null, 2));
-              setSubmitting(false);
-            }, 400);
+            setSubmitting(false);
+            const cartItem: CartItem = {
+              id: props.id,
+              price: state.price,
+              quantity: state.quantity,
+              source: props.source,
+              title: props.title,
+            }
+            dispatch(addToCart(cartItem))
           }}
         >
           {(formik) => (
@@ -65,7 +78,9 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
                   name="quantity"
                   onChange={(e: React.FormEvent<HTMLInputElement>) => {
                     formik.handleChange(e);
-                    setState({price: props.price, quantity: Number(e.currentTarget.value) });
+                    const amount = Number(e.currentTarget.value);
+                    const realPrice = calculatePrice(props.price, amount);
+                    setState({price: realPrice, quantity: amount });
                   }}
                 >
                   {quantitySource.map((s, index) => (
@@ -75,11 +90,9 @@ const AddToCart: React.FC<Props> = ({ ...props }) => {
                   ))}
                 </Field>
               </Form.Row>
-              <Link to={`/cart/${props._id}?qty=${state.quantity}`}>
-                <Button type="submit" disabled={!props.available} variant="info" className="mt-2" block>
-                    Add to cart
-                </Button>
-              </Link>
+              <Button type="submit" disabled={!props.available} variant="info" className="mt-2" block>
+                Add to cart
+              </Button>
             </Form>
           )}
         </Formik>

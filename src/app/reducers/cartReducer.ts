@@ -5,7 +5,20 @@ function cartReducer(state = { cartItems: [] }, action: any) {
   switch (action.type) {
     case Cart.CART_ADD_ITEM:
       const item: CartItem = action.payload;
-      return { cartItems: [...state.cartItems, item] };
+      const cartItems = state.cartItems;      
+      const similarItemInCart: CartItem | undefined = cartItems.find((i: CartItem) => i.id === item.id);
+     
+      if (!similarItemInCart) {
+        return { cartItems: [...state.cartItems, item] };
+      }
+
+      const newItem: CartItem = {
+        ...similarItemInCart as CartItem,
+        quantity: item.quantity + (similarItemInCart as CartItem).quantity,
+        price: item.price + (similarItemInCart as CartItem).price
+      }
+
+      return { cartItems: cartItems.map((cartItem: CartItem) => cartItem.id === newItem.id ? newItem : cartItem)}
 
     case Cart.CART_REMOVE_ITEM:
       const productId = action.payload;

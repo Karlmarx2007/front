@@ -17,6 +17,10 @@ const NavBar = () => {
     setState(e.key)
   }
 
+  const menuItemStyle = {
+    paddingTop: '15px'
+  }
+
   return (
     <Menu
       theme="dark"
@@ -25,10 +29,10 @@ const NavBar = () => {
       onClick={handleClick}
       style={{ lineHeight: "40px" }}
     >
-      <Menu.Item key="user">
+      <Menu.Item key="user" style={menuItemStyle}>
         {userInfo ? <Link to="/profile">{userInfo._doc.name}</Link> : <Link to="/signin"><FontAwesomeIcon icon="user" className="fas" size="2x" /></Link>}
       </Menu.Item>
-      <Menu.Item key="shopping-bag">
+      <Menu.Item key="shopping-bag" style={menuItemStyle}>
         <Link to="/cart"><FontAwesomeIcon icon="shopping-bag" className="fas" size="2x" /></Link>
       </Menu.Item>
     </Menu>

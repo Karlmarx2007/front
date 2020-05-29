@@ -55,8 +55,8 @@ const routes = [
     main: (props: string) => <ProductDetail {...props}/>,
   },
   {
-    path: '/cart/:id?',
-    main: (props: string) => <Cart {...props}/>
+    path: '/cart',
+    main: () => <Cart />
   }
 ]
 
