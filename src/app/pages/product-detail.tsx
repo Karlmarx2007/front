@@ -48,7 +48,7 @@ const ProductDetail = (props: RouteComponentProps<any>) => {
     return (
       <Container fluid>
         <Row>
-          <Col xs={12} sm={6}>
+          <Col xs={12} sm={6} style={{textAlign: 'center'}}>
             <Image
               src={String(imageSrc)}
               alt="ii"

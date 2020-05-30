@@ -33,12 +33,14 @@ const SignUp = (props: any) => {
     state => state.userSignUp
   );
   const { loading, userInfo, error } = userSignUp;
-  console.log('userSignUp >> ', userSignUp);
-  
   const dispatch = useDispatch();
+  console.log('signup props >> ', props);
+  const redirect = props.location.search ? props.location.search.split('=')[1] : '/'
+  console.log('redirect >> ', redirect);
+  
   useEffect(() => {
     if (userInfo) {
-      props.history.push('/signin')
+      props.history.push(redirect)
     }
   }, [userInfo, props.history]);
   return (
@@ -85,7 +87,7 @@ const SignUp = (props: any) => {
                 <Button type="submit" variant="info" size="lg" block>Create Account</Button>
                 <hr />
                 <h6>Already a user?</h6>
-                <Link to={'/signin'}>
+                <Link to={redirect === '/' ? '/signin' : '/signin?redirect=' + redirect}>
                   <Button variant="secondary" size="lg" block>Sign-In</Button>
                 </Link>
               </Form>

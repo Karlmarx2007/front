@@ -10,6 +10,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import { addToCart } from "../actions/cartActions";
 import { CartItem } from "../models/cart-item";
 import { calculatePrice } from "../utils";
+import { message } from "antd";
 
 
 interface Props extends RouteComponentProps<any> {
@@ -44,6 +45,8 @@ const AddToCart: React.SFC<Props> = ({ ...props }) => {
 
   const dispatch = useDispatch();
 
+  const success = () => message.success('Item added to cart');
+
   return (
     <Card style={{maxWidth: '200px', margin: 'auto'}}>
       <Card.Body>
@@ -61,9 +64,7 @@ const AddToCart: React.SFC<Props> = ({ ...props }) => {
             }
             dispatch(addToCart(cartItem));
             props.history.goBack();
-            console.log('====================================');
-            console.log('@@@@@');
-            console.log('====================================');
+            success();
           }}
         >
           {(formik) => (

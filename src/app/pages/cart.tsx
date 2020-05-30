@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { CartItem } from '../models/cart-item';
 import CartData from '../components/cart-data';
 import { Link } from 'react-router-dom';
+import { IUserSignIn } from './signin';
 
 
 export interface ICartState {
@@ -21,7 +22,13 @@ const Cart = () => {
   if (cart.cartItems.length) {
     totalPrice = cart.cartItems.map(c => c.price).reduce((a, b) => b ? a + b : a, 0).toFixed(2);
   }
-  
+
+  const userSignIn = useSelector<IUserSignIn, any>(
+    (state) => state.userSignIn
+  );
+
+  const { userInfo } = userSignIn;
+
   return !cart.cartItems.length ? (
     <div>
       <Container>
@@ -41,7 +48,7 @@ const Cart = () => {
           <Col><span style={{ color: 'red' }}><b>CDN${totalPrice}</b></span></Col>
         </Row>
         <hr />
-        <Link to="/checkout"><Button variant="info">Checkout</Button></Link>
+        <Link to={userInfo ? '/checkout' : '/signup?redirect=checkout'} style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}><Button variant="info">Checkout</Button></Link>
     </Container>
  )
 }

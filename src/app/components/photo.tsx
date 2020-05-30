@@ -6,18 +6,21 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const StyledCard = styled(Card)`
+  display: flex; 
   width: 13rem;
   height: 20rem;
   color: #3c3d3d;
-  border: none;
+  border:  0.3px solid transparent;
   margin: 0 auto;
+  transition: border-color 600ms;
   &:hover {
-    background-color: #f2f4f7;
+    border-color: #cfd7e6;
   };
 `;
 
 const StyledImage = styled(Image)`
   height: 10rem;
+  width: auto;
 `;
 
 const Photo: React.FC<Product> = (props) => {
@@ -32,7 +35,7 @@ const Photo: React.FC<Product> = (props) => {
     <Link to={"/product/" + props._id}>
       <StyledCard className="mb-4">
         <StyledImage src={String(imageSrc)} onError={(e) => handleImageError(e)} alt="ii" rounded fluid />
-        <Card.Body>
+        <Card.Body style={{textAlign: 'center', top: '30px'}}>
           <Card.Title>{props.title}</Card.Title>
           <Card.Text>
             <b>from ${props.price}/g</b>
