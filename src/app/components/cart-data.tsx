@@ -8,6 +8,7 @@ import Button from 'react-bootstrap/Button';
 import { CartItem } from '../models/cart-item';
 import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../actions/cartActions';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const StyledImage = styled(Image)`
@@ -33,9 +34,9 @@ const CartData = (props: CartItem) => {
     <Fragment>
       <hr/>
       <Row>
-        <Col>
+        <Col style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           <StyledImage src={String(imageSrc)} onError={(e) => handleImageError(e)} alt="ii" rounded fluid />
-          <Button variant="link" onClick={() =>removeItemHandler(props.id)}>Remove</Button>
+          <FontAwesomeIcon icon="trash" className="fas mt-4" onClick={() => removeItemHandler(props.id)} style={{cursor: 'pointer'}}/>
         </Col>
         <Col>
           <p><b>{props.title}</b></p>
