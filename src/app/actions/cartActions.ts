@@ -1,3 +1,4 @@
+import { ShippingAddress } from './../models/shipping-address';
 import { CartItem } from './../models/cart-item';
 import Cookie from "js-cookie";
 import { Cart } from '../constants/cartConstants';
@@ -32,4 +33,11 @@ const removeFromCart = (productId: string) => async (dispatch: any, getState: an
   }
 }
 
-export { addToCart, removeFromCart };
+const createShippingAddress = (shippingAddress: ShippingAddress) => async (dispatch: any) => {  
+  dispatch({
+    type: Cart.SAVE_SHIPPING_ADDRESS,
+    payload: shippingAddress
+  });
+}
+
+export { addToCart, removeFromCart, createShippingAddress };

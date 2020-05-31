@@ -48,7 +48,7 @@ const Cart = () => {
           <Col><span style={{ color: 'red' }}><b>CDN${totalPrice}</b></span></Col>
         </Row>
         <hr />
-        <Link to={userInfo ? '/checkout' : '/signup?redirect=checkout'} style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}><Button variant="info">Checkout</Button></Link>
+        <Link to={userInfo ? '/shipping' : '/signup?redirect=shipping'} style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}><Button variant="info">Checkout</Button></Link>
     </Container>
  )
 }
