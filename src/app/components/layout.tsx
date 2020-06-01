@@ -19,6 +19,7 @@ const StyledHeader = styled(Header)`
   background-color: white;
   border-bottom: 3px solid transparent;
   border-color: #efeaea;
+  width: 100%;
 `;
 
 const StyledIcon = styled(FontAwesomeIcon)`
@@ -63,8 +64,6 @@ const MainLayout = () => {
             <Menu
               mode="inline"
               theme="light"
-              defaultSelectedKeys={["1"]}
-              defaultOpenKeys={["sub1"]}
               style={{ height: "100%", borderRight: 0, textAlign: 'left' }}
             >
               <StyledMenuItem key="1">
@@ -99,12 +98,11 @@ const MainLayout = () => {
               </StyledMenuItem>
             </Menu>
           </StyledSider>
-          <Layout style={{ padding: "0 24px 24px" }}>
+          <Layout >
             <Content
               style={{
                 background: "#fff",
-                padding: 24,
-                margin: 0,
+                padding: '24px',
                 minHeight: '100vh'
               }}
             >

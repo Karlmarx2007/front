@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Image from "react-bootstrap/Image";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import Button from 'react-bootstrap/Button';
 
 import { CartItem } from '../models/cart-item';
 import { useDispatch } from 'react-redux';

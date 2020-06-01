@@ -34,15 +34,13 @@ const SignUp = (props: any) => {
   );
   const { loading, userInfo, error } = userSignUp;
   const dispatch = useDispatch();
-  console.log('signup props >> ', props);
   const redirect = props.location.search ? props.location.search.split('=')[1] : '/'
-  console.log('redirect >> ', redirect);
   
   useEffect(() => {
     if (userInfo) {
       props.history.push(redirect)
     }
-  }, [userInfo, props.history]);
+  }, [userInfo, redirect, props.history]);
   return (
     <Fragment>
       {error ? <Card style={{ maxWidth: '400px', margin: 'auto' }} className="mb-1">

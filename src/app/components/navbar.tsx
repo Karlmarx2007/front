@@ -1,5 +1,5 @@
 import React from 'react';
-import { Badge } from 'antd';
+import { Badge, Input } from 'antd';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { ShoppingOutlined, UserOutlined } from '@ant-design/icons';
@@ -7,6 +7,7 @@ import { IUserSignIn } from '../pages/signin';
 import styled from 'styled-components';
 import { CartItem } from '../models/cart-item';
 import { ICartState } from '../pages/cart';
+import Search from 'antd/lib/input/Search';
 
 const StyledLogo = styled(NavLink)`
   font-size: 1.5rem;
@@ -37,11 +38,25 @@ const StyledUl = styled.ul`
   list-style: none;
 `;
 
+const StyledSearch = styled(Search)`
+  width: 12rem;
+`;
+
 const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
   height: 40px;
-`;
+  width: 100%;
+
+  @media only screen and (max-width: 600px) {
+    ${StyledLogo} {
+      display: none;
+    }
+    ${StyledSearch} {
+      width: 6rem;
+    }
+  }
+`; 
 
 
 const NavBar = () => {
@@ -51,11 +66,15 @@ const NavBar = () => {
     (state) => state.userSignIn
   );
   const { userInfo } = userSignIn;
+  const onChange = (e: any) => console.log(e);
 
   return (
     <StyledNav>
       <StyledLogo to="/">W C</StyledLogo>
       <StyledUl>
+        <StyledLi>
+          <Input placeholder="search..." allowClear onChange={onChange} />
+        </StyledLi>
         <StyledLi>
           {
             userInfo ?

@@ -30,15 +30,13 @@ const Cart = () => {
   const { userInfo } = userSignIn;
 
   return !cart.cartItems.length ? (
-    <div>
       <Container>
-        <h2>Your Shopping Cart</h2>
-        <p>Your shopping cart is empty</p>
+      <h2 style={{ textAlign: 'center' }}>Your Shopping Cart</h2>
+      <p style={{ textAlign: 'center' }}>Your shopping cart is empty</p>
       </Container>
-    </div>
   ) : (
       <Container>
-        <h2>Your Shopping Cart</h2>
+        <h2 style={{textAlign: 'center'}}>Your Shopping Cart</h2>
         {
           cart.cartItems.map((item, index) => <CartData key={index + item.title} {...item} />)
         }
@@ -48,7 +46,9 @@ const Cart = () => {
           <Col><span style={{ color: 'red' }}><b>CDN${totalPrice}</b></span></Col>
         </Row>
         <hr />
-        <Link to={userInfo ? '/shipping' : '/signup?redirect=shipping'} style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}><Button variant="info">Checkout</Button></Link>
+        <div style={{textAlign: 'center', width: '100%'}}>
+          <Link to={userInfo ? '/shipping' : '/signup?redirect=shipping'}><Button variant="info">Checkout</Button></Link>
+        </div>
     </Container>
  )
 }

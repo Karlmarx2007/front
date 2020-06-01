@@ -84,7 +84,7 @@ const Inventory = () => {
               <Col>
                 <Card>
                   <Card.Body>
-                    <Table responsive>
+                    <Table responsive striped>
                       <thead>
                         <tr>
                           <th>#</th>
