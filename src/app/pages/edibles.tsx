@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useEffect } from "react";
+import { Product } from "../models/product";
+import { useSelector, useDispatch } from "react-redux";
+import { ediblesListAction } from "../actions/productActions";
+import ProductRenderer from "../components/product-renderer";
+
+interface IEdibles {
+  edibleList: Product[];
+}
 
 const Edibles = () => {
-  return (
-    <h3>Coming Soon!!</h3>
-  )
-}
+  const edibleList = useSelector<IEdibles, any>((state) => state.edibleList);
+  const { products, loading, error } = edibleList;
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(ediblesListAction());
+  }, [dispatch]);
+
+  return <ProductRenderer products={products} loading={loading} error={error} />
+};
 
 export default Edibles;

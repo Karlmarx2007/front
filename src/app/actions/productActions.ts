@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ProductList, ProductDetails, IndicaList, SativaList, ProductDelete, ProductUpdate } from './../constants/productConstants';
+import { ProductList, ProductDetails, IndicaList, SativaList, ProductDelete, ProductUpdate, EdibleList, RollsList } from './../constants/productConstants';
 
 
 const productListAction = () => async (dispatch:any) => {  
@@ -70,4 +70,24 @@ const sativaListAction = () => async (dispatch: any) => {
   }
 }
 
-export { updateProductAction, productListAction, productDetailsAction, productDeleteAction, indicaListAction, sativaListAction};
+const ediblesListAction = () => async (dispatch: any) => {
+  try {
+    dispatch({ type: EdibleList.EDIBLE_REQUEST });
+    const { data } = await axios.get('/api/products/edibles');
+    dispatch({ type: EdibleList.EDIBLE_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({ type: EdibleList.EDIBLE_FAIL, payload: error.message })
+  }
+}
+
+const rollsListAction = () => async (dispatch: any) => {
+  try {
+    dispatch({ type: RollsList.ROLLS_REQUEST });
+    const { data } = await axios.get('/api/products/rolls');
+    dispatch({ type: RollsList.ROLLS_SUCCESS, payload: data })
+  } catch (error) {
+    dispatch({ type: RollsList.ROLLS_FAIL, payload: error.message })
+  }
+}
+
+export { updateProductAction, productListAction, productDetailsAction, productDeleteAction, indicaListAction, sativaListAction, ediblesListAction, rollsListAction };

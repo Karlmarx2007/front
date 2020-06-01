@@ -1,4 +1,5 @@
-import { ProductDetails, ProductList, IndicaList, SativaList, ProductDelete, ProductUpdate } from "../constants/productConstants"
+import { RollsList } from './../constants/productConstants';
+import { ProductDetails, ProductList, IndicaList, SativaList, ProductDelete, ProductUpdate, EdibleList } from "../constants/productConstants"
 
 
 export function productListReducer(state= {products: []}, action: any) {
@@ -90,6 +91,38 @@ export function sativaReducer(state = { products: [] }, action: any) {
       return { loading: false, products: action.payload }
 
     case SativaList.SATIVA_FAIL:
+      return { loading: false, error: action.payload }
+
+    default:
+      return state
+  }
+}
+
+export function edibleReducer(state = { products: [] }, action: any) {
+  switch (action.type) {
+    case EdibleList.EDIBLE_REQUEST:
+      return { loading: true }
+
+    case EdibleList.EDIBLE_SUCCESS:
+      return { loading: false, products: action.payload }
+
+    case EdibleList.EDIBLE_FAIL:
+      return { loading: false, error: action.payload }
+
+    default:
+      return state
+  }
+}
+
+export function rollsReducer(state = { products: [] }, action: any) {
+  switch (action.type) {
+    case RollsList.ROLLS_REQUEST:
+      return { loading: true }
+
+    case RollsList.ROLLS_SUCCESS:
+      return { loading: false, products: action.payload }
+
+    case RollsList.ROLLS_FAIL:
       return { loading: false, error: action.payload }
 
     default:

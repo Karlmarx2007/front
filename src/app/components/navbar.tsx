@@ -7,7 +7,6 @@ import { IUserSignIn } from '../pages/signin';
 import styled from 'styled-components';
 import { CartItem } from '../models/cart-item';
 import { ICartState } from '../pages/cart';
-import Search from 'antd/lib/input/Search';
 import { searchProduct } from '../actions/searchActions';
 
 const StyledLogo = styled(NavLink)`
@@ -39,10 +38,6 @@ const StyledUl = styled.ul`
   list-style: none;
 `;
 
-const StyledSearch = styled(Search)`
-  width: 12rem;
-`;
-
 const StyledNav = styled.nav`
   display: flex;
   justify-content: space-between;
@@ -52,9 +47,6 @@ const StyledNav = styled.nav`
   @media only screen and (max-width: 600px) {
     ${StyledLogo} {
       display: none;
-    }
-    ${StyledSearch} {
-      width: 6rem;
     }
   }
 `; 
