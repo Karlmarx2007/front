@@ -21,7 +21,7 @@ export interface ICreateNewProduct {
   price: number;
   source: string;
   title: string;
-  type: 'Sativa' | 'Indica' | 'hybrid';
+  type: 'Sativa' | 'Indica' | 'hybrid' | 'Edible' | 'Joint';
   minThc: number;
   maxThc: number;
   minCbd: number;
@@ -37,7 +37,7 @@ const schema = yup.object({
   price: yup.number().min(0).required('Required'),
   source: yup.string().required('Required'),
   title: yup.string().required('Required'),
-  type: yup.string().oneOf(['Sativa', 'Indica', 'Hybrid']).required('Required'),
+  type: yup.string().oneOf(['Sativa', 'Indica', 'Hybrid', 'Edible', 'Joint']).required('Required'),
   minThc: yup.number().min(0).max(100).required('Required'),
   maxThc: yup.number().min(0).max(100).required('Required'),
   minCbd: yup.number().min(0).max(100).required('Required'),
@@ -52,7 +52,9 @@ const schema = yup.object({
 const typeSource = [
   { key: 'Sativa', value: 'Sativa' },
   { key: 'Indica', value: 'Indica' },
-  { key: 'Hybrid', value: 'Hybrid' }
+  { key: 'Hybrid', value: 'Hybrid' },
+  { key: 'Edible', value: 'Edible' },
+  { key: 'Joint', value: 'Joint' }
 ];
 
 const dominantSource = [

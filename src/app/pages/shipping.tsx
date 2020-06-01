@@ -61,7 +61,7 @@ const Shipping = (props: RouteComponentProps<any>) => {
   }, [cart, props.history]);
   return (
     <Fragment>
-      <ProgressBar percent={0} />
+      <ProgressBar percent={25} />
       <Card style={{ maxWidth: '400px', margin: '1rem auto' }}>
         <Card.Body>
           <Card.Title>Shipping Address</Card.Title>

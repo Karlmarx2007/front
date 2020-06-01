@@ -1,8 +1,11 @@
-import React from 'react';
+import React, { Fragment } from 'react';
+import ProgressBar from '../components/progress-bar';
 
 const PaymentOptions = () => {
   return (
-    <div>Payment works</div>
+    <Fragment>
+      <ProgressBar percent={50}/>
+    </Fragment>
   )
 }
 

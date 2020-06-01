@@ -1,9 +1,8 @@
 import React from 'react';
 import { Badge } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
-
+import { ShoppingOutlined, UserOutlined } from '@ant-design/icons';
 import { IUserSignIn } from '../pages/signin';
 import styled from 'styled-components';
 import { CartItem } from '../models/cart-item';
@@ -18,6 +17,7 @@ const StyledLink = styled(NavLink)`
   text-transform: capitalize;
   color: var(--color-primary);
   padding-bottom: 0.4rem;
+  font-size: 1.2rem;
   border-bottom: 3px solid transparent;
   transition: border-color 1s;
   &:hover {
@@ -59,13 +59,13 @@ const NavBar = () => {
         <StyledLi>
           {
             userInfo ?
-              <StyledLink activeClassName="current" to="/profile">{userInfo._doc.name}</StyledLink> :
-              <StyledLink activeClassName="current" to="/signin"><FontAwesomeIcon icon="user" className="fas" size="2x" /></StyledLink>}
+              <StyledLink activeClassName="current" to="/inventory">{userInfo._doc.name}</StyledLink> :
+              <StyledLink activeClassName="current" to="/signin"><UserOutlined /></StyledLink>}
         </StyledLi>
         <StyledLi>
           <StyledLink activeClassName="current" to="/cart">
-            <Badge count={cart.cartItems.length} style={{ backgroundColor: '#b38507'}}>
-              <FontAwesomeIcon icon="shopping-bag" className="fas" size="2x" />
+            <Badge count={cart.cartItems.length} style={{ backgroundColor: '#b38507' }}>
+              <ShoppingOutlined style={{fontSize: '1.2rem'}}/>
             </Badge>
           </StyledLink>
         </StyledLi>

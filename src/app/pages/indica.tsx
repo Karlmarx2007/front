@@ -26,7 +26,7 @@ const Indica = () => {
   ) : error ? (
     <div>{error}</div>
   ) : (
-    <Container className="d-flex justify-content-center">
+        <Container className="d-flex justify-content-center flex-wrap-wrap">
       <Row>
         {products.map((p: Product) => (
           <Col className="mb-2" key={p._id}>
