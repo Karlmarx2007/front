@@ -11,9 +11,16 @@ export interface IProductListState {
   productList: Product[];
 }
 
+export interface ISearchState {
+  searchWord: string;
+}
+
 const All = () => {
   const productList = useSelector<IProductListState, any>(
     (state) => state.productList
+  );
+  const search = useSelector<ISearchState, any>(
+    state => state.searchWord
   );
   const { products, loading, error } = productList;
   const dispatch = useDispatch();
@@ -31,7 +38,7 @@ const All = () => {
   ) : (
     <Container className="d-flex justify-content-center flex-wrap-wrap">
       <Row>
-        {products.map((p: Product) => (
+        {products.filter((p: Product)=> p.title.toLowerCase().includes(search)).map((p: Product) => (
           <Col className="mb-2" key={p._id} style={{display: 'inline-block'}}>
             <Photo {...p} />
           </Col>

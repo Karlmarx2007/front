@@ -1,6 +1,6 @@
 import React from 'react';
 import { Badge, Input } from 'antd';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { ShoppingOutlined, UserOutlined } from '@ant-design/icons';
 import { IUserSignIn } from '../pages/signin';
@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import { CartItem } from '../models/cart-item';
 import { ICartState } from '../pages/cart';
 import Search from 'antd/lib/input/Search';
+import { searchProduct } from '../actions/searchActions';
 
 const StyledLogo = styled(NavLink)`
   font-size: 1.5rem;
@@ -61,12 +62,12 @@ const StyledNav = styled.nav`
 
 const NavBar = () => {
   const cart: { cartItems: CartItem[] } = useSelector<ICartState, any>(state => state.cart);
-
+  const dispatch = useDispatch();
   const userSignIn = useSelector<IUserSignIn, any>(
     (state) => state.userSignIn
   );
   const { userInfo } = userSignIn;
-  const onChange = (e: any) => console.log(e);
+  const onChange = (e: any) => dispatch(searchProduct(e.target.value));
 
   return (
     <StyledNav>

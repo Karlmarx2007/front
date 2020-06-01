@@ -6,6 +6,7 @@ import { productListReducer, productDetailsReducer, sativaReducer, indicaListRed
 import { cartReducer } from './reducers/cartReducer';
 import { userSignInReducer, userSignUpReducer } from './reducers/userReducer';
 import { createNewProductReducer } from './reducers/newProductReducer';
+import { searchReducer } from './reducers/searchReducer';
 
 const cartItems = Cookie.getJSON('cartItems') || [];
 const userInfo = Cookie.getJSON('userInfo') || null;
@@ -21,7 +22,8 @@ const reducer = combineReducers({
   userSignUp: userSignUpReducer,
   newProductDetails: createNewProductReducer,
   productDeleted: productDeleteReducer,
-  productUpdate: productUpdateReducer
+  productUpdate: productUpdateReducer,
+  searchWord: searchReducer
 });
 
 const composeEnhancer = (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
