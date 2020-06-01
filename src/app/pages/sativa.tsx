@@ -5,6 +5,7 @@ import Photo from "../components/photo";
 import { useSelector, useDispatch } from "react-redux";
 import { sativaListAction } from "../actions/productActions";
 import Loader from "../components/loader";
+import ProductRenderer from "../components/product-renderer";
 
 interface IndicaState {
   sativaList: Product[];
@@ -19,23 +20,7 @@ const Sativa = () => {
     dispatch(sativaListAction());
   }, [dispatch]);
 
-  return loading ? (
-    <div>
-      <Loader size="large" />
-    </div>
-  ) : error ? (
-    <div>{error}</div>
-  ) : (
-        <Container className="d-flex justify-content-center flex-wrap-wrap">
-          <Row>
-            {products.map((p: Product) => (
-              <Col className="mb-2" key={p._id}>
-                <Photo {...p} />
-              </Col>
-            ))}
-          </Row>
-        </Container>
-      );
+  return <ProductRenderer products={products} loading={loading} error={error} />
 };
 
 export default Sativa;

@@ -1,10 +1,8 @@
 import React, { useEffect } from "react";
 import { Product } from "../models/product";
-import { Container, Row, Col } from "react-bootstrap";
-import Photo from "../components/photo";
 import { useSelector, useDispatch } from "react-redux";
-import Loader from "../components/loader";
 import { indicaListAction } from "../actions/productActions";
+import ProductRenderer from "../components/product-renderer";
 
 interface IndicaState {
   indicaList: Product[];
@@ -19,23 +17,7 @@ const Indica = () => {
     dispatch(indicaListAction());
   }, [dispatch]);
 
-  return loading ? (
-    <div>
-      <Loader size="large" />
-    </div>
-  ) : error ? (
-    <div>{error}</div>
-  ) : (
-        <Container className="d-flex justify-content-center flex-wrap-wrap">
-      <Row>
-        {products.map((p: Product) => (
-          <Col className="mb-2" key={p._id}>
-            <Photo {...p} />
-          </Col>
-        ))}
-      </Row>
-    </Container>
-  );
+  return <ProductRenderer products={products} loading={loading} error={error} />
 };
 
 export default Indica;
