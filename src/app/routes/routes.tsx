@@ -10,7 +10,9 @@ import Cart from '../pages/cart';
 import SignIn from '../pages/signin';
 import SignUp from '../pages/signup';
 import Inventory from '../pages/inventory';
-import Checkout from '../pages/checkout';
+import { RouteComponentProps } from 'react-router-dom';
+import Shipping from '../pages/shipping';
+import PaymentOptions from '../pages/payment-options';
 
 const routes = [
   {
@@ -47,16 +49,20 @@ const routes = [
     main: () => <Inventory />,
   },
   {
-    path: '/checkout',
-    main: () => <Checkout />,
+    path: '/shipping',
+    main: (props: RouteComponentProps<any>) => <Shipping {...props} />,
   },
   {
     path: '/product/:id?',
-    main: (props: string) => <ProductDetail {...props}/>,
+    main: (props: RouteComponentProps<any>) => <ProductDetail {...props}/>,
   },
   {
     path: '/cart',
     main: () => <Cart />
+  },
+  {
+    path: '/payment-options',
+    main: () => <PaymentOptions />
   }
 ]
 

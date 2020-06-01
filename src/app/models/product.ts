@@ -3,7 +3,7 @@ export interface Product {
   title: string;
   price: number;
   available: boolean;
-  type: 'Sativa' | 'Indica' | 'Hybrid';
+  type: 'Sativa' | 'Indica' | 'Hybrid' | 'Edible' | 'Joint';
   dominant: 'Sativa' | 'Indica';
   thcPercent: { min: number, max: number };
   cbdPercent: { min: number, max: number };

@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import { useDispatch, useSelector } from 'react-redux';
-import { addToCart } from '../actions/cartActions';
+import { useSelector } from 'react-redux';
 import { CartItem } from '../models/cart-item';
 import CartData from '../components/cart-data';
 import { Link } from 'react-router-dom';
+import { IUserSignIn } from './signin';
 
 
 export interface ICartState {
@@ -15,15 +15,20 @@ export interface ICartState {
 }
 
 
-const Cart = (props: any) => {  
+const Cart = () => {  
   let totalPrice;
   const cart: {cartItems: CartItem[]} = useSelector<ICartState, any>(state => state.cart);
-  console.log('cart >> ', cart);
-  
+
   if (cart.cartItems.length) {
     totalPrice = cart.cartItems.map(c => c.price).reduce((a, b) => b ? a + b : a, 0).toFixed(2);
   }
-  
+
+  const userSignIn = useSelector<IUserSignIn, any>(
+    (state) => state.userSignIn
+  );
+
+  const { userInfo } = userSignIn;
+
   return !cart.cartItems.length ? (
     <div>
       <Container>
@@ -43,7 +48,7 @@ const Cart = (props: any) => {
           <Col><span style={{ color: 'red' }}><b>CDN${totalPrice}</b></span></Col>
         </Row>
         <hr />
-        <Link to="/checkout"><Button variant="info">Checkout</Button></Link>
+        <Link to={userInfo ? '/shipping' : '/signup?redirect=shipping'} style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}}><Button variant="info">Checkout</Button></Link>
     </Container>
  )
 }

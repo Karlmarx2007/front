@@ -4,28 +4,56 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 import NavBar from './navbar';
-import { Link, BrowserRouter, Switch, Route } from 'react-router-dom';
+import { NavLink, BrowserRouter, Switch, Route } from 'react-router-dom';
 import routes from '../routes/routes';
 import styled from 'styled-components';
 
 const { Header, Content, Sider } = Layout;
 const StyledSider = styled(Sider)`
-background: #fff;
-width: 200px;
-transition: 300ms ease;
+  background: #fff;
+  width: 200px;
+  transition: 300ms ease;
 `;
 
+const StyledHeader = styled(Header)`
+  background-color: white;
+  border-bottom: 3px solid transparent;
+  border-color: #efeaea;
+`;
 
+const StyledIcon = styled(FontAwesomeIcon)`
+`;
+
+const StyledSpan = styled.span`
+`;
+
+const StyledNavLink = styled(NavLink)`
+  &:hover {
+    ${StyledIcon}  {
+      color: var(--color-primary);
+    }
+    ${StyledSpan}  {
+      color: var(--color-primary);
+    }
+  }
+
+  &.active {
+    color: var(--color-primary);
+  }
+`;
+
+const StyledMenuItem = styled(Menu.Item)`
+`;
 
 
 const MainLayout = () => {
   return (
     <BrowserRouter>
       <Layout>
-        <Header className="header">
+        <StyledHeader className="header">
           <div className="logo" />
           <NavBar />
-        </Header>
+        </StyledHeader>
         <Layout>
           <StyledSider
             breakpoint="md"
@@ -39,36 +67,36 @@ const MainLayout = () => {
               defaultOpenKeys={["sub1"]}
               style={{ height: "100%", borderRight: 0, textAlign: 'left' }}
             >
-              <Menu.Item key="1">
-                <Link to="/">
-                  <FontAwesomeIcon icon="cannabis" className="fas" />
-                  <span className="ml-2">All</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Link to="/indica">
-                  <FontAwesomeIcon icon="couch" className="fas" />
-                  <span className="ml-2">Indica</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <Link to="/sativa">
-                  <FontAwesomeIcon icon="bolt" className="fas" />
-                  <span className="ml-2">Sativa</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="4">
-                <Link to="/edibles" >
-                  <FontAwesomeIcon icon="cookie-bite" className="fas" />
-                  <span className="ml-2">Edibles</span>
-                </Link>
-              </Menu.Item>
-              <Menu.Item key="5">
-                <Link to="/rolls">
-                  <FontAwesomeIcon icon="joint" className="fas" />
-                  <span className="ml-2">Rolls</span>
-                </Link>
-              </Menu.Item>
+              <StyledMenuItem key="1">
+                <StyledNavLink activeClassName="active" to="/">
+                  <StyledIcon icon="cannabis" className="fas" />
+                  <StyledSpan className="ml-2">All</StyledSpan>
+                </StyledNavLink>
+              </StyledMenuItem>
+              <StyledMenuItem key="2">
+                <StyledNavLink activeClassName="active" to="/indica">
+                  <StyledIcon icon="couch" className="fas" />
+                  <StyledSpan className="ml-2">Indica</StyledSpan>
+                </StyledNavLink>
+              </StyledMenuItem>
+              <StyledMenuItem key="3">
+                <StyledNavLink activeClassName="active" to="/sativa">
+                  <StyledIcon icon="bolt" className="fas" />
+                  <StyledSpan className="ml-2">Sativa</StyledSpan>
+                </StyledNavLink>
+              </StyledMenuItem>
+              <StyledMenuItem key="4">
+                <StyledNavLink activeClassName="active" to="/edibles" >
+                  <StyledIcon icon="cookie-bite" className="fas" />
+                  <StyledSpan className="ml-2">Edibles</StyledSpan>
+                </StyledNavLink>
+              </StyledMenuItem>
+              <StyledMenuItem key="5">
+                <StyledNavLink activeClassName="active" to="/rolls">
+                  <StyledIcon icon="joint" className="fas" />
+                  <StyledSpan className="ml-2">Rolls</StyledSpan>
+                </StyledNavLink>
+              </StyledMenuItem>
             </Menu>
           </StyledSider>
           <Layout style={{ padding: "0 24px 24px" }}>

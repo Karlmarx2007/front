@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { Container } from "react-bootstrap";
-import { Row, Col } from "antd";
+import { Container, Row, Col } from "react-bootstrap";
 import { Product } from "../models/product";
 import Photo from "../components/photo";
 import { useSelector, useDispatch } from "react-redux";
@@ -27,16 +26,16 @@ const Sativa = () => {
   ) : error ? (
     <div>{error}</div>
   ) : (
-    <Container className="d-flex justify-content-center">
-      <Row>
-        {products.map((p: Product) => (
-          <Col className="mb-2" key={p._id} style={{ display: 'inline-block' }}>
-            <Photo {...p} />
-          </Col>
-        ))}
-      </Row>
-    </Container>
-  );
+        <Container className="d-flex justify-content-center flex-wrap-wrap">
+          <Row>
+            {products.map((p: Product) => (
+              <Col className="mb-2" key={p._id}>
+                <Photo {...p} />
+              </Col>
+            ))}
+          </Row>
+        </Container>
+      );
 };
 
 export default Sativa;

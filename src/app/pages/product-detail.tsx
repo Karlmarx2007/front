@@ -6,12 +6,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { productDetailsAction } from "../actions/productActions";
 import Loader from "../components/loader";
 import AddToCart from "../components/add-to-cart";
+import { RouteComponentProps } from "react-router";
 
 export interface ProductDetailState {
   productDetails: Product;
 }
 
-const ProductDetail = (props: any) => {
+const ProductDetail = (props: RouteComponentProps<any>) => {
   const id = props.match.params.id;
   const productDetails = useSelector<ProductDetailState, any>(
     (state) => state.productDetails
@@ -47,7 +48,7 @@ const ProductDetail = (props: any) => {
     return (
       <Container fluid>
         <Row>
-          <Col xs={12} sm={6}>
+          <Col xs={12} sm={6} style={{textAlign: 'center'}}>
             <Image
               src={String(imageSrc)}
               alt="ii"
@@ -75,6 +76,7 @@ const ProductDetail = (props: any) => {
               source={product.source}
               available={product.available}
               title={product.title}
+              {...props}
             />
           </Col>
         </Row>

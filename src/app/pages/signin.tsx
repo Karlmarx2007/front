@@ -29,10 +29,12 @@ const SignIn = (props: any) => {
   );
   const { loading, userInfo, error } = userSignIn;
   const dispatch = useDispatch();
-
+  console.log('signin props >> ', props);
+  
+  const redirect =  props.location.search ? props.location.search.split('=')[1] : '/'
   useEffect(() => {    
     if (userInfo) {
-      props.history.push('/')
+      props.history.push(redirect);
     }
   }, [userInfo, props.history]);
 
@@ -71,7 +73,7 @@ const SignIn = (props: any) => {
                 <Button type="submit" variant="info" size="lg" block>Sign-In</Button>
                 <hr />
                 <h6>New User?</h6>
-                <Link to={'/signup'}>
+                <Link to={redirect == '/' ? '/signup' : '/signup?redirect=' + redirect}>
                   <Button variant="secondary" size="lg" block>Create Account</Button>
                 </Link>
               </Form>

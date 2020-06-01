@@ -1,43 +1,77 @@
-import React, { useState } from 'react';
-import { Menu } from 'antd';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React from 'react';
+import { Badge } from 'antd';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
-
+import { NavLink } from 'react-router-dom';
+import { ShoppingOutlined, UserOutlined } from '@ant-design/icons';
 import { IUserSignIn } from '../pages/signin';
+import styled from 'styled-components';
+import { CartItem } from '../models/cart-item';
+import { ICartState } from '../pages/cart';
+
+const StyledLogo = styled(NavLink)`
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--color-primary);;
+`;
+const StyledLink = styled(NavLink)`
+  text-transform: capitalize;
+  color: var(--color-primary);
+  padding-bottom: 0.4rem;
+  font-size: 1.2rem;
+  border-bottom: 3px solid transparent;
+  transition: border-color 1s;
+  &:hover {
+    color: var(--color-primary);
+    border-color: var(--color-medium);
+  }
+  &.current {
+    border-color: var(--color-primary);
+  }
+`;
+const StyledLi = styled.li`
+  padding: 0.1rem 1rem
+`;
+
+const StyledUl = styled.ul`
+  display: flex;
+  list-style: none;
+`;
+
+const StyledNav = styled.nav`
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+`;
+
 
 const NavBar = () => {
+  const cart: { cartItems: CartItem[] } = useSelector<ICartState, any>(state => state.cart);
+
   const userSignIn = useSelector<IUserSignIn, any>(
     (state) => state.userSignIn
   );
-  const { userInfo } = userSignIn;  
-  const [state, setState] = useState('user');
-
-  const handleClick = (e: any)=> {
-    setState(e.key)
-  }
-
-  const menuItemStyle = {
-    paddingTop: '15px'
-  }
+  const { userInfo } = userSignIn;
 
   return (
-    <Menu
-      theme="dark"
-      mode="horizontal"
-      selectedKeys={[state]}
-      onClick={handleClick}
-      style={{ lineHeight: "40px" }}
-    >
-      <Menu.Item key="user" style={menuItemStyle}>
-        {userInfo ? <Link to="/profile">{userInfo._doc.name}</Link> : <Link to="/signin"><FontAwesomeIcon icon="user" className="fas" size="2x" /></Link>}
-      </Menu.Item>
-      <Menu.Item key="shopping-bag" style={menuItemStyle}>
-        <Link to="/cart"><FontAwesomeIcon icon="shopping-bag" className="fas" size="2x" /></Link>
-      </Menu.Item>
-    </Menu>
+    <StyledNav>
+      <StyledLogo to="/">W C</StyledLogo>
+      <StyledUl>
+        <StyledLi>
+          {
+            userInfo ?
+              <StyledLink activeClassName="current" to="/inventory">{userInfo._doc.name}</StyledLink> :
+              <StyledLink activeClassName="current" to="/signin"><UserOutlined /></StyledLink>}
+        </StyledLi>
+        <StyledLi>
+          <StyledLink activeClassName="current" to="/cart">
+            <Badge count={cart.cartItems.length} style={{ backgroundColor: '#b38507' }}>
+              <ShoppingOutlined style={{fontSize: '1.2rem'}}/>
+            </Badge>
+          </StyledLink>
+        </StyledLi>
+      </StyledUl>
+    </StyledNav>
   );
 }
-    
 
 export default NavBar;

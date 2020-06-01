@@ -1,7 +1,7 @@
 import { CartItem } from './../models/cart-item';
 import { Cart } from "../constants/cartConstants";
 
-function cartReducer(state = { cartItems: [] }, action: any) {
+function cartReducer(state = { cartItems: [], shippingAddress: {} }, action: any) {
   switch (action.type) {
     case Cart.CART_ADD_ITEM:
       const item: CartItem = action.payload;
@@ -25,6 +25,8 @@ function cartReducer(state = { cartItems: [] }, action: any) {
       const filtered = state.cartItems.filter((x: CartItem) => x.id !== productId);      
       return { cartItems: filtered }
       
+    case Cart.SAVE_SHIPPING_ADDRESS:      
+      return { ...state, shippingAddress: action.payload }
     default:
       return state;
   }

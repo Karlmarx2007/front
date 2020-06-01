@@ -7,6 +7,7 @@ import { Product } from '../models/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CreateProduct from '../components/create-product';
 import { IUserSignIn } from './signin';
+import Confirm from '../components/confirm';
 
 export interface INewProduct {
   newProductDetails: any
@@ -104,7 +105,14 @@ const Inventory = () => {
                             <td>{p.dominant}</td>
                             <td>{p.available ? 'Available' : 'Out of stock'}</td>
                             <td><FontAwesomeIcon icon="edit" className="fas" onClick={() => createProductHandler(true, p)} /></td>
-                            <td><FontAwesomeIcon icon="trash" className="fas" onClick={() => handleDelete(p._id)} /></td>
+                            {/* <td><FontAwesomeIcon icon="trash" className="fas" onClick={() => handleDelete(p._id)} /></td> */}
+                            <td>
+                              <Confirm
+                                icon="trash"
+                                confirm={() => handleDelete(p._id)}
+                              />
+                              {/* <FontAwesomeIcon icon="trash" className="fas" onClick={() => handleDelete(p._id)} /> */}
+                            </td>
                           </tr>
                         )}
                       </tbody>
