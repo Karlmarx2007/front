@@ -51,7 +51,6 @@ const StyledNav = styled.nav`
   }
 `; 
 
-
 const NavBar = () => {
   const cart: { cartItems: CartItem[] } = useSelector<ICartState, any>(state => state.cart);
   const dispatch = useDispatch();
@@ -63,7 +62,6 @@ const NavBar = () => {
 
   return (
     <StyledNav>
-      <StyledLogo to="/">W C</StyledLogo>
       <StyledUl>
         <StyledLi>
           <Input placeholder="search..." allowClear onChange={onChange} />

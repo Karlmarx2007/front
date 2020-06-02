@@ -44,7 +44,9 @@ const AddToCart: React.SFC<Props> = ({ ...props }) => {
   });
 
   const dispatch = useDispatch();
-
+  message.config({
+    top: 100,
+  });
   const success = () => message.success('Item added to cart');
 
   return (
