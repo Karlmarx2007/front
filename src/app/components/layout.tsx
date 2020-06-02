@@ -258,11 +258,16 @@ const StyledListItem = styled(ListItem)`
 const StyledSpan = styled.span`
 font-size: 1rem;
 `
+const StyledIcon = styled(ListItemIcon)``;
 
 const StyledLink = styled(NavLink)`
   &.active {
     ${StyledListItem} {
       background-color: #F5F5F5;
+      color: var(--color-primary);
+    }
+
+    ${StyledIcon} {
       color: var(--color-primary);
     }
 
@@ -323,31 +328,31 @@ function MainLayout(props: any) {
       <List>
         <StyledLink to='/' exact>
           <StyledListItem button key={1}>            
-            <ListItemIcon><FilterVintageIcon /></ListItemIcon>
+            <StyledIcon><FilterVintageIcon /></StyledIcon>
             <StyledSpan>All</StyledSpan>
           </StyledListItem>
         </StyledLink>
         <StyledLink to='/sativa'>
           <StyledListItem button key={2} >
-            <ListItemIcon><OfflineBoltIcon /></ListItemIcon>
+            <StyledIcon><OfflineBoltIcon /></StyledIcon>
             <StyledSpan>Sativa</StyledSpan>
           </StyledListItem>
         </StyledLink>
         <StyledLink to='/indica'>
           <StyledListItem button key={3}>
-            <ListItemIcon><SlowMotionVideoIcon /></ListItemIcon>
+            <StyledIcon><SlowMotionVideoIcon /></StyledIcon>
             <StyledSpan>Indica</StyledSpan>
           </StyledListItem>
         </StyledLink>
         <StyledLink to='/edibles'>
           <StyledListItem button key={4}>
-            <ListItemIcon><AppleIcon /></ListItemIcon>
+            <StyledIcon><AppleIcon /></StyledIcon>
             <StyledSpan>Edibles</StyledSpan>
           </StyledListItem>
         </StyledLink>
         <StyledLink to='/rolls'>
           <StyledListItem button key={5}>
-            <ListItemIcon><SmokingRoomsIcon /></ListItemIcon>
+            <StyledIcon><SmokingRoomsIcon /></StyledIcon>
             <StyledSpan>Rolls</StyledSpan>
           </StyledListItem>
         </StyledLink>
