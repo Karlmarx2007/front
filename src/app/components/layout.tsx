@@ -8,17 +8,17 @@ import { NavLink, BrowserRouter, Switch, Route } from 'react-router-dom';
 import routes from '../routes/routes';
 import styled from 'styled-components';
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content, Sider, Footer } = Layout;
 const StyledSider = styled(Sider)`
   background: #fff;
   width: 200px;
   transition: 300ms ease;
+  min-height: 100vh;
 `;
 
 const StyledHeader = styled(Header)`
   background-color: white;
-  border-bottom: 3px solid transparent;
-  border-color: #efeaea;
+  border-bottom: 1px solid var(--color-medium);
   width: 100%;
 `;
 
@@ -64,7 +64,7 @@ const MainLayout = () => {
             <Menu
               mode="inline"
               theme="light"
-              style={{ height: "100%", borderRight: 0, textAlign: 'left' }}
+              style={{ borderRight: 'solid 1px var(--color-medium)', textAlign: 'left' }}
             >
               <StyledMenuItem key="1">
                 <StyledNavLink activeClassName="active" to="/">
@@ -103,7 +103,7 @@ const MainLayout = () => {
               style={{
                 background: "#fff",
                 padding: '24px',
-                minHeight: '100vh'
+                minHeight: '100vh',
               }}
             >
               <Switch>
@@ -120,6 +120,8 @@ const MainLayout = () => {
           </Layout>
         </Layout>
       </Layout>
+      <Footer style={{ textAlign: 'center' }}>Weed Center ©2020 Created by Karl M</Footer>
+
     </BrowserRouter>
   );
 }

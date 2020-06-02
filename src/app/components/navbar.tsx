@@ -77,7 +77,7 @@ const NavBar = () => {
         <StyledLi>
           <StyledLink activeClassName="current" to="/cart">
             <Badge count={cart.cartItems.length} style={{ backgroundColor: '#b38507' }}>
-              <ShoppingOutlined style={{fontSize: '1.2rem'}}/>
+              <ShoppingOutlined style={{fontSize: '1.2rem', marginBottom: '5rem'}}/>
             </Badge>
           </StyledLink>
         </StyledLi>
