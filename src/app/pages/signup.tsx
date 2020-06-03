@@ -82,11 +82,11 @@ const SignUp = (props: any) => {
                   name="repeatPassword"
                   type="password"
                 />
-                <Button type="submit" variant="info" size="lg" block>Create Account</Button>
+                <Button type="submit" variant="outline-info" size="lg" block>Create Account</Button>
                 <hr />
                 <h6>Already a user?</h6>
                 <Link to={redirect === '/' ? '/signin' : '/signin?redirect=' + redirect}>
-                  <Button variant="secondary" size="lg" block>Sign-In</Button>
+                  <Button variant="outline-secondary" size="lg" block>Sign-In</Button>
                 </Link>
               </Form>
             )}

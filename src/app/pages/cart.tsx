@@ -31,8 +31,13 @@ const Cart = () => {
 
   return !cart.cartItems.length ? (
       <Container>
-      <h2 style={{ textAlign: 'center' }}>Your Shopping Cart</h2>
-      <p style={{ textAlign: 'center' }}>Your shopping cart is empty</p>
+        <h2 style={{ textAlign: 'center' }}>Your Shopping Cart</h2>
+        <p style={{ textAlign: 'center' }}>Your shopping cart is empty</p>
+        <div style={{ textAlign: 'center', marginTop: '4rem'}}>
+          <Link to='/' >
+            <Button variant="outline-info" style={{ width: '100%', maxWidth: '20rem' }}>Start Shopping</Button>
+          </Link>
+        </div>
       </Container>
   ) : (
       <Container>
@@ -47,7 +52,7 @@ const Cart = () => {
         </Row>
         <hr />
         <div style={{textAlign: 'center', width: '100%'}}>
-          <Link to={userInfo ? '/shipping' : '/signup?redirect=shipping'}><Button variant="info">Checkout</Button></Link>
+          <Link to={userInfo ? '/shipping' : '/signup?redirect=shipping'}><Button variant="outline-info" style={{ width: '100%', maxWidth: '20rem' }}>Checkout</Button></Link>
         </div>
     </Container>
  )

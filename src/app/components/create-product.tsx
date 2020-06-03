@@ -224,7 +224,7 @@ const CreateProduct: React.FC<Props> = (props) => {
                   </Col>
                 </Form.Row>
                 <Form.Row className="mt-4 mb-4">
-                  <Button type="submit" variant="success" block>{props.product ? 'Update' : 'Create'}</Button>
+                  <Button type="submit" variant="outline-info" block>{props.product ? 'Update' : 'Create'}</Button>
                 </Form.Row>
                 <Form.Row>
                   <Col>

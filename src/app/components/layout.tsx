@@ -1,132 +1,3 @@
-// import React from 'react';
-// import { Layout, Menu } from 'antd';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-
-// import NavBar from './navbar';
-// import { NavLink, BrowserRouter, Switch, Route } from 'react-router-dom';
-// import routes from '../routes/routes';
-// import styled from 'styled-components';
-
-// const { Header, Content, Sider, Footer } = Layout;
-// const StyledSider = styled(Sider)`
-//   background: #fff;
-//   width: 200px;
-//   transition: 300ms ease;
-//   min-height: 100vh;
-// `;
-
-// const StyledHeader = styled(Header)`
-//   background-color: white;
-//   border-bottom: 1px solid var(--color-medium);
-//   width: 100%;
-// `;
-
-// const StyledIcon = styled(FontAwesomeIcon)`
-// `;
-
-// const StyledSpan = styled.span`
-// `;
-
-// const StyledNavLink = styled(NavLink)`
-//   &:hover {
-//     ${StyledIcon}  {
-//       color: var(--color-primary);
-//     }
-//     ${StyledSpan}  {
-//       color: var(--color-primary);
-//     }
-//   }
-
-//   &.active {
-//     color: var(--color-primary);
-//   }
-// `;
-
-// const StyledMenuItem = styled(Menu.Item)`
-// `;
-
-
-// const MainLayout = () => {
-//   return (
-//     <BrowserRouter>
-//       <Layout>
-//         <StyledHeader className="header">
-//           <div className="logo" />
-//           <NavBar />
-//         </StyledHeader>
-//         <Layout>
-//           <StyledSider
-//             breakpoint="md"
-//             collapsedWidth="0"
-//           >
-//             <h6>Shopping Categories</h6>
-//             <Menu
-//               mode="inline"
-//               theme="light"
-//               style={{ borderRight: 'solid 1px var(--color-medium)', textAlign: 'left' }}
-//             >
-//               <StyledMenuItem key="1">
-//                 <StyledNavLink activeClassName="active" to="/">
-//                   <StyledIcon icon="cannabis" className="fas" />
-//                   <StyledSpan className="ml-2">All</StyledSpan>
-//                 </StyledNavLink>
-//               </StyledMenuItem>
-//               <StyledMenuItem key="2">
-//                 <StyledNavLink activeClassName="active" to="/indica">
-//                   <StyledIcon icon="couch" className="fas" />
-//                   <StyledSpan className="ml-2">Indica</StyledSpan>
-//                 </StyledNavLink>
-//               </StyledMenuItem>
-//               <StyledMenuItem key="3">
-//                 <StyledNavLink activeClassName="active" to="/sativa">
-//                   <StyledIcon icon="bolt" className="fas" />
-//                   <StyledSpan className="ml-2">Sativa</StyledSpan>
-//                 </StyledNavLink>
-//               </StyledMenuItem>
-//               <StyledMenuItem key="4">
-//                 <StyledNavLink activeClassName="active" to="/edibles" >
-//                   <StyledIcon icon="cookie-bite" className="fas" />
-//                   <StyledSpan className="ml-2">Edibles</StyledSpan>
-//                 </StyledNavLink>
-//               </StyledMenuItem>
-//               <StyledMenuItem key="5">
-//                 <StyledNavLink activeClassName="active" to="/rolls">
-//                   <StyledIcon icon="joint" className="fas" />
-//                   <StyledSpan className="ml-2">Rolls</StyledSpan>
-//                 </StyledNavLink>
-//               </StyledMenuItem>
-//             </Menu>
-//           </StyledSider>
-//           <Layout >
-//             <Content
-//               style={{
-//                 background: "#fff",
-//                 padding: '24px',
-//                 minHeight: '100vh',
-//               }}
-//             >
-//               <Switch>
-//                 {routes.map((route, index) => (
-//                   <Route
-//                     key={index}
-//                     path={route.path}
-//                     exact={route.exact}
-//                     component={route.main}
-//                   />
-//                 ))}
-//               </Switch>
-//             </Content>
-//           </Layout>
-//         </Layout>
-//       </Layout>
-//       <Footer style={{ textAlign: 'center' }}>Weed Center ©2020 Created by Karl M</Footer>
-
-//     </BrowserRouter>
-//   );
-// }
-
-// export default MainLayout;
 import React from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
@@ -135,30 +6,22 @@ import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
 import IconButton from '@material-ui/core/IconButton';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import Icon from '@material-ui/core/Icon';
 import Toolbar from '@material-ui/core/Toolbar';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
-import Typography from '@material-ui/core/Typography';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
 import { Link, Switch, Route, BrowserRouter, NavLink } from 'react-router-dom';
 import routes from '../routes/routes';
-import NavBar from './navbar';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FilterVintageIcon from '@material-ui/icons/FilterVintage';
 import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms';
 import AppleIcon from '@material-ui/icons/Apple';
 import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
-import { ShoppingOutlined, UserOutlined } from '@ant-design/icons';
 import { useSelector, useDispatch } from 'react-redux';
 import { IUserSignIn } from '../pages/signin';
 import AccountCircle from '@material-ui/icons/AccountCircle';
@@ -169,6 +32,7 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { CartItem } from '../models/cart-item';
 import { ICartState } from '../pages/cart';
 import { searchProduct } from '../actions/searchActions';
+import Typography from '@material-ui/core/Typography';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -292,7 +156,6 @@ function MainLayout(props: any) {
   const userSignIn = useSelector<IUserSignIn, any>(
     (state) => state.userSignIn
   );
-  const { userInfo } = userSignIn;
   const cart: { cartItems: CartItem[] } = useSelector<ICartState, any>(state => state.cart);
   const menuId = 'primary-search-account-menu';
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -300,10 +163,6 @@ function MainLayout(props: any) {
   };
   const handleMenuClose = () => {
     setAnchorEl(null);
-  };
-  const handleInventory = () => {
-    setAnchorEl(null);
-    // props.history.push('/inventory');
   };
   const renderMenu = (
     <Menu
@@ -323,11 +182,13 @@ function MainLayout(props: any) {
 
   const drawer = (
     <div>
-      <div className={classes.toolbar} style={{ background: '#acb5a3', textAlign: 'center'}}></div>
+      <div className={classes.toolbar} style={{ background: '#acb5a3', textAlign: 'center', padding: '10px 0' }}>
+        <Link to='/'><img src={require('../../assets/images/logo.png')} alt="logo" style={{ maxWidth: '9rem', maxHeight: '3rem' }} /></Link>
+      </div>
       <Divider />
       <List>
         <StyledLink to='/' exact>
-          <StyledListItem button key={1}>            
+          <StyledListItem button key={1}>
             <StyledIcon><FilterVintageIcon /></StyledIcon>
             <StyledSpan>All</StyledSpan>
           </StyledListItem>
@@ -377,7 +238,6 @@ function MainLayout(props: any) {
             >
               <MenuIcon />
             </IconButton>
-            {/* <NavBar /> */}
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />

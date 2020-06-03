@@ -69,11 +69,11 @@ const SignIn = (props: any) => {
                   name="password"
                   type="password"
                 />
-                <Button type="submit" variant="info" size="lg" block>Sign-In</Button>
+                <Button type="submit" variant="outline-info" size="lg" block>Sign-In</Button>
                 <hr />
                 <h6>New User?</h6>
                 <Link to={redirect === '/' ? '/signup' : '/signup?redirect=' + redirect}>
-                  <Button variant="secondary" size="lg" block>Create Account</Button>
+                  <Button variant="outline-secondary" size="lg" block>Create Account</Button>
                 </Link>
               </Form>
             )}

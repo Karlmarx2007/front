@@ -8,6 +8,7 @@ import { CartItem } from '../models/cart-item';
 import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../actions/cartActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Divider from '@material-ui/core/Divider/Divider';
 
 
 const StyledImage = styled(Image)`
@@ -31,14 +32,14 @@ const CartData = (props: CartItem) => {
   }
   return (
     <Fragment>
-      <hr/>
+      <Divider className="mt-2 mb-2"/>
       <Row>
         <Col style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
           <StyledImage src={String(imageSrc)} onError={(e) => handleImageError(e)} alt="ii" rounded fluid />
-          <FontAwesomeIcon icon="trash" className="fas mt-4" onClick={() => removeItemHandler(props.id)} style={{cursor: 'pointer'}}/>
+          <FontAwesomeIcon icon="trash" className="fas mt-1" onClick={() => removeItemHandler(props.id)} style={{cursor: 'pointer'}}/>
         </Col>
         <Col>
-          <p><b>{props.title}</b></p>
+          <p className="mt-3"><b>{props.title}</b></p>
           <p>{props.quantity}g</p>
           <p>${props.price.toFixed(2)}</p>
         </Col>

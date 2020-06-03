@@ -101,7 +101,7 @@ const AddToCart: React.SFC<Props> = ({ ...props }) => {
                   ))}
                 </Field>
               </Form.Row>
-              <Button type="submit" disabled={!props.available} variant="info" className="mt-2" block>
+              <Button type="submit" disabled={!props.available} variant="outline-info" className="mt-2" block>
                 Add to cart
               </Button>
             </Form>

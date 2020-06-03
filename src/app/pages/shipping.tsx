@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { createShippingAddress } from '../actions/cartActions';
 import { ShippingAddress } from '../models/shipping-address';
 import ProgressBar from '../components/progress-bar';
-import { IAppStore } from '../models/app-store';
 import { RouteComponentProps } from 'react-router-dom';
 
 export interface ICart {
@@ -53,7 +52,6 @@ const initialValues = {
 const Shipping = (props: RouteComponentProps<any>) => {
   const dispatch = useDispatch();
   const cart = useSelector<ICart, any>(state => state.cart);
-  console.log('cart > ', cart);
   useEffect(() => {
     if (cart.shippingAddress) {
       props.history.push('/payment-options');
@@ -104,7 +102,7 @@ const Shipping = (props: RouteComponentProps<any>) => {
                   label="Telephone"
                   name="telephone"
                 />
-                <Button type="submit" variant="success" block>Continue</Button>
+                <Button type="submit" variant="outline-info" block>Continue</Button>
               </Form>
             )}
           </Formik>
