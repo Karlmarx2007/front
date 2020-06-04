@@ -51,8 +51,6 @@ const PaymentOptions = () => {
           stripeKey='pk_test_xi2naF0xng3Zoih9N2YfmoQM00lOtR1bPT'
           token={makePayment}
           name='Maxio'
-          // currency='CAD'
-          // amount={10000}
           shippingAddress
           billingAddress
         >

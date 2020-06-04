@@ -52,7 +52,7 @@ const Cart = () => {
         </Row>
         <hr />
         <div style={{textAlign: 'center', width: '100%'}}>
-          <Link to={userInfo ? '/shipping' : '/signup?redirect=shipping'}><Button variant="outline-info" style={{ width: '100%', maxWidth: '20rem' }}>Checkout</Button></Link>
+          <Link to={userInfo ? '/review-items' : '/signup?redirect=review-items'}><Button variant="outline-info" style={{ width: '100%', maxWidth: '20rem' }}>Checkout</Button></Link>
         </div>
     </Container>
  )

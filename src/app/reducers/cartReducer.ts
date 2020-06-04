@@ -22,9 +22,12 @@ function cartReducer(state = { cartItems: [], shippingAddress: {} }, action: any
 
     case Cart.CART_REMOVE_ITEM:
       const productId = action.payload;
-      const filtered = state.cartItems.filter((x: CartItem) => x.id !== productId);      
-      return { cartItems: filtered }
-      
+      const filtered = state.cartItems.filter((x: CartItem) => x.id !== productId);
+      return { cartItems: filtered };
+    
+    case Cart.CART_REMOVE_ALL:
+      return { cartItems: [] };
+    
     case Cart.SAVE_SHIPPING_ADDRESS:      
       return { ...state, shippingAddress: action.payload }
     default:

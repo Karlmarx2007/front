@@ -35,7 +35,7 @@ const ProductDetail = (props: RouteComponentProps<any>) => {
   if (loading) {
     return (
       <div>
-        <Loader size="large" />
+        <Loader  />
       </div>
     );
   }

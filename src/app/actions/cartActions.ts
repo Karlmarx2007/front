@@ -33,6 +33,12 @@ const removeFromCart = (productId: string) => async (dispatch: any, getState: an
   }
 }
 
+const clearCart = () => async (dispatch: any) => { 
+  dispatch({
+    type: Cart.CART_REMOVE_ALL
+  });
+}
+
 const createShippingAddress = (shippingAddress: ShippingAddress) => async (dispatch: any) => {  
   dispatch({
     type: Cart.SAVE_SHIPPING_ADDRESS,
@@ -40,4 +46,4 @@ const createShippingAddress = (shippingAddress: ShippingAddress) => async (dispa
   });
 }
 
-export { addToCart, removeFromCart, createShippingAddress };
+export { addToCart, removeFromCart, clearCart, createShippingAddress };
