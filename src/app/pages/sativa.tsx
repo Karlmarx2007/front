@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Product } from "../models/product";
 import { useSelector, useDispatch } from "react-redux";
-import { sativaListAction } from "../actions/productActions";
+import { sativaListAction } from "../actions/product-actions";
 import ProductRenderer from "../components/product-renderer";
 
 interface ISativa {

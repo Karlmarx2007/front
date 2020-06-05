@@ -6,6 +6,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Photo from './photo';
+import Slide from '@material-ui/core/Slide/Slide';
+import Fade from '@material-ui/core/Fade/Fade';
 
 export interface ISearchState {
   searchWord: string;
@@ -24,7 +26,7 @@ const ProductRenderer: React.FC<Props> = ({products, loading, error}) => {
 
   return loading ? (
     <div>
-      <Loader size="large" />
+      <Loader />
     </div>
   ) : error ? (
     <div>{error}</div>
@@ -32,9 +34,12 @@ const ProductRenderer: React.FC<Props> = ({products, loading, error}) => {
         <Container className="d-flex justify-content-center flex-wrap-wrap">
           <Row>
             {products.filter((p: Product) => p.title.toLowerCase().includes(search)).map((p: Product) => (
-              <Col className="mb-2" key={p._id} style={{ display: 'inline-block' }}>
-                <Photo {...p} />
-              </Col>
+              <Fade in={true} key={p._id}>
+                <Col className="mb-2" style={{ display: 'inline-block' }}>
+                  <Photo {...p} />
+                </Col>
+              </Fade>
+              
             ))}
           </Row>
         </Container>

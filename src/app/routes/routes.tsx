@@ -12,7 +12,8 @@ import SignUp from '../pages/signup';
 import Inventory from '../pages/inventory';
 import { RouteComponentProps } from 'react-router-dom';
 import Shipping from '../pages/shipping';
-import PaymentOptions from '../pages/payment-options';
+import ReviewItems from '../pages/review-items';
+import PaymentSuccessful from '../pages/payment-successful';
 
 const routes = [
   {
@@ -61,8 +62,12 @@ const routes = [
     main: () => <Cart />
   },
   {
-    path: '/payment-options',
-    main: () => <PaymentOptions />
+    path: '/review-items',
+    main: (props: RouteComponentProps<any>) => <ReviewItems {...props}/>
+  },
+  {
+    path: '/payment-successful',
+    main: (props: RouteComponentProps<any>) => <PaymentSuccessful {...props}/>
   }
 ]
 

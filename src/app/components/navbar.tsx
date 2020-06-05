@@ -7,7 +7,7 @@ import { IUserSignIn } from '../pages/signin';
 import styled from 'styled-components';
 import { CartItem } from '../models/cart-item';
 import { ICartState } from '../pages/cart';
-import { searchProduct } from '../actions/searchActions';
+import { searchProduct } from '../actions/search-actions';
 
 const StyledLogo = styled(NavLink)`
   font-size: 1.5rem;
@@ -51,7 +51,6 @@ const StyledNav = styled.nav`
   }
 `; 
 
-
 const NavBar = () => {
   const cart: { cartItems: CartItem[] } = useSelector<ICartState, any>(state => state.cart);
   const dispatch = useDispatch();
@@ -63,7 +62,6 @@ const NavBar = () => {
 
   return (
     <StyledNav>
-      <StyledLogo to="/">W C</StyledLogo>
       <StyledUl>
         <StyledLi>
           <Input placeholder="search..." allowClear onChange={onChange} />
@@ -77,7 +75,7 @@ const NavBar = () => {
         <StyledLi>
           <StyledLink activeClassName="current" to="/cart">
             <Badge count={cart.cartItems.length} style={{ backgroundColor: '#b38507' }}>
-              <ShoppingOutlined style={{fontSize: '1.2rem'}}/>
+              <ShoppingOutlined style={{fontSize: '1.2rem', marginBottom: '5rem'}}/>
             </Badge>
           </StyledLink>
         </StyledLi>

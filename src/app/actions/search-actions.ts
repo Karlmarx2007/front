@@ -1,4 +1,4 @@
-import { Search } from './../constants/searchConstants';
+import { Search } from '../constants/searchConstants';
 
 const searchProduct = (name: string) => async (dispatch: any) => {
   dispatch({

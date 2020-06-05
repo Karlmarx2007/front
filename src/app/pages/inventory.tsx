@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IProductListState } from './all';
-import { productListAction, productDeleteAction } from '../actions/productActions';
+import { productListAction, productDeleteAction } from '../actions/product-actions';
 import { Container, Row, Col, Button, Table, Card } from 'react-bootstrap';
 import { Product } from '../models/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -89,6 +89,7 @@ const Inventory = () => {
                         <tr>
                           <th>#</th>
                           <th>Name</th>
+                          <th>Unit Price</th>
                           <th>Type</th>
                           <th>Dominant</th>
                           <th>Status</th>
@@ -101,6 +102,7 @@ const Inventory = () => {
                           <tr key={index + 1 + p.title}>
                             <td>{index + 1}</td>
                             <td>{p.title}</td>
+                            <td>${p.price}</td>
                             <td>{p.type}</td>
                             <td>{p.dominant}</td>
                             <td>{p.available ? 'Available' : 'Out of stock'}</td>

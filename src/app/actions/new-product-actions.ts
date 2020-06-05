@@ -1,4 +1,4 @@
-import { CREATE_PRODUCT } from './../constants/createProductConstants';
+import { CREATE_PRODUCT } from '../constants/createProductConstants';
 import axios from 'axios';
 
 const createNewProduct = (newProductValues: any, userInfo: any) => async (dispatch: any) => {

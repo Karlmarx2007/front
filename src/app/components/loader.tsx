@@ -1,6 +1,7 @@
 import React from 'react';
 import { Spin } from 'antd';
 import styled from 'styled-components';
+import Spinner from 'react-bootstrap/Spinner';
 
 type Props = {
   size?: 'small' | 'large';
@@ -8,15 +9,14 @@ type Props = {
 
 const StyledLoader = styled.div`
   text-align: center;
-  border-radius: 4px;
-  margin-bottom: 20px;
-  padding: 30px 50px;
-  margin: 20px 0;
+  padding: 170px 0;
+  width: 100%;
+  height: 100%;
 `;
 
 const Loader: React.FC<Props> = props => (
   <StyledLoader>
-    <Spin {...props} />
+    <Spinner animation="grow" variant="dark" style={{ width: '6rem', height: '6rem'}}></Spinner>
   </StyledLoader>
 );
 

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Product } from "../models/product";
 import { useSelector, useDispatch } from "react-redux";
-import { indicaListAction } from "../actions/productActions";
+import { indicaListAction } from "../actions/product-actions";
 import ProductRenderer from "../components/product-renderer";
 
 interface IndicaState {

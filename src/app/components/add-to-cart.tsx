@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 import { RouteComponentProps } from 'react-router-dom';
 
-import { addToCart } from "../actions/cartActions";
+import { addToCart } from "../actions/cart-actions";
 import { CartItem } from "../models/cart-item";
 import { calculatePrice } from "../utils";
 import { message } from "antd";
@@ -44,7 +44,9 @@ const AddToCart: React.SFC<Props> = ({ ...props }) => {
   });
 
   const dispatch = useDispatch();
-
+  message.config({
+    top: 100,
+  });
   const success = () => message.success('Item added to cart');
 
   return (
@@ -99,7 +101,7 @@ const AddToCart: React.SFC<Props> = ({ ...props }) => {
                   ))}
                 </Field>
               </Form.Row>
-              <Button type="submit" disabled={!props.available} variant="info" className="mt-2" block>
+              <Button type="submit" disabled={!props.available} variant="outline-info" className="mt-2" block>
                 Add to cart
               </Button>
             </Form>

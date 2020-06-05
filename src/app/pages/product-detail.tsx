@@ -3,7 +3,7 @@ import { Product } from "../models/product";
 import Image from "react-bootstrap/Image";
 import { Container, Row, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
-import { productDetailsAction } from "../actions/productActions";
+import { productDetailsAction } from "../actions/product-actions";
 import Loader from "../components/loader";
 import AddToCart from "../components/add-to-cart";
 import { RouteComponentProps } from "react-router";
@@ -35,7 +35,7 @@ const ProductDetail = (props: RouteComponentProps<any>) => {
   if (loading) {
     return (
       <div>
-        <Loader size="large" />
+        <Loader  />
       </div>
     );
   }

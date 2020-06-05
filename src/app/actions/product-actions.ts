@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ProductList, ProductDetails, IndicaList, SativaList, ProductDelete, ProductUpdate, EdibleList, RollsList } from './../constants/productConstants';
+import { ProductList, ProductDetails, IndicaList, SativaList, ProductDelete, ProductUpdate, EdibleList, RollsList } from '../constants/productConstants';
 
 
 const productListAction = () => async (dispatch:any) => {  
