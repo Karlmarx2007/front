@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from 'react';
+import React, {  } from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -6,14 +6,10 @@ import Button from 'react-bootstrap/Button';
 import { useSelector, useDispatch } from 'react-redux';
 import { CartItem } from '../models/cart-item';
 import CartData from '../components/cart-data';
-import { Link, RouteComponentProps, Redirect } from 'react-router-dom';
-import { IUserSignIn } from './signin';
-import axios from 'axios';
+import { RouteComponentProps, Redirect } from 'react-router-dom';
 import StripeCheckout from 'react-stripe-checkout';
-import Cookie from 'js-cookie';
-import { clearCart, paymentAction } from '../actions/cartActions';
+import { paymentAction } from '../actions/cart-actions';
 import Loader from '../components/loader';
-import PaymentSuccessful from './payment-successful';
 
 export interface ICartState {
   cart: {

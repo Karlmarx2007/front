@@ -1,4 +1,4 @@
-import { CREATE_PRODUCT } from './../constants/createProductConstants';
+import { CREATE_PRODUCT } from '../constants/createProductConstants';
 
 export function createNewProductReducer(state = {}, action: { type: CREATE_PRODUCT, payload: any, error: any }) {
   const { type, error, payload } = action;

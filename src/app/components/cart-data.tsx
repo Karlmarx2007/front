@@ -6,7 +6,7 @@ import Col from 'react-bootstrap/Col';
 
 import { CartItem } from '../models/cart-item';
 import { useDispatch } from 'react-redux';
-import { removeFromCart } from '../actions/cartActions';
+import { removeFromCart } from '../actions/cart-actions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Divider from '@material-ui/core/Divider/Divider';
 

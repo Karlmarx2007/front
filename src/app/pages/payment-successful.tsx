@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
-import { clearCart } from '../actions/cartActions';
+import { clearCart } from '../actions/cart-actions';
 import Cookie from 'js-cookie';
 
 

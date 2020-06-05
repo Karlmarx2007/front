@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 
 import TextInput from '../components/text-input';
 import { useDispatch, useSelector } from 'react-redux';
-import { signUp } from '../actions/userActions';
+import { signUp } from '../actions/user-actions';
 
 export interface IUserSignUp {
   userSignUp: any

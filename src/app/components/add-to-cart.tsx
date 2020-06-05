@@ -7,7 +7,7 @@ import Form from "react-bootstrap/Form";
 import { useDispatch } from "react-redux";
 import { RouteComponentProps } from 'react-router-dom';
 
-import { addToCart } from "../actions/cartActions";
+import { addToCart } from "../actions/cart-actions";
 import { CartItem } from "../models/cart-item";
 import { calculatePrice } from "../utils";
 import { message } from "antd";

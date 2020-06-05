@@ -7,7 +7,7 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { signIn } from '../actions/userActions';
+import { signIn } from '../actions/user-actions';
 import TextInput from '../components/text-input';
 
 export interface IUserSignIn { 

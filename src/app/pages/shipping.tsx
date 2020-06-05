@@ -7,7 +7,7 @@ import Card from 'react-bootstrap/Card';
 import TextInput from '../components/text-input';
 import SelectInput from '../components/select-input';
 import { useDispatch, useSelector } from 'react-redux';
-import { createShippingAddress } from '../actions/cartActions';
+import { createShippingAddress } from '../actions/cart-actions';
 import { ShippingAddress } from '../models/shipping-address';
 import ProgressBar from '../components/progress-bar';
 import { RouteComponentProps } from 'react-router-dom';

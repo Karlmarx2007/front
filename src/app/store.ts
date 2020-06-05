@@ -2,11 +2,11 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
 import Cookie from 'js-cookie';
 
-import { productListReducer, productDetailsReducer, sativaReducer, indicaListReducer, productDeleteReducer, productUpdateReducer, rollsReducer, edibleReducer } from './reducers/productReducer';
-import { cartReducer } from './reducers/cartReducer';
-import { userSignInReducer, userSignUpReducer } from './reducers/userReducer';
-import { createNewProductReducer } from './reducers/newProductReducer';
-import { searchReducer } from './reducers/searchReducer';
+import { productListReducer, productDetailsReducer, sativaReducer, indicaListReducer, productDeleteReducer, productUpdateReducer, rollsReducer, edibleReducer } from './reducers/product-reducer';
+import { cartReducer } from './reducers/cart-reducer';
+import { userSignInReducer, userSignUpReducer } from './reducers/user-reducer';
+import { createNewProductReducer } from './reducers/new-product-reducer';
+import { searchReducer } from './reducers/search-reducer';
 
 const cartItems = Cookie.getJSON('cartItems') || [];
 const userInfo = Cookie.getJSON('userInfo') || null;

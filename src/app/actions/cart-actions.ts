@@ -1,5 +1,5 @@
-import { ShippingAddress } from './../models/shipping-address';
-import { CartItem } from './../models/cart-item';
+import { ShippingAddress } from '../models/shipping-address';
+import { CartItem } from '../models/cart-item';
 import Cookie from "js-cookie";
 import { Cart } from '../constants/cartConstants';
 import axios from 'axios';
@@ -56,7 +56,7 @@ const paymentAction = (body: { token: any, products: CartItem[] }) => async (dis
     });
     dispatch({ type: Cart.PAYMENT_SUCCESS, payload: data });
   } catch (error) {
-    console.log('ERRRRRRRRRR >>> ', error);
+    console.log('error ', error);
 
     dispatch({ type: Cart.PAYMENT_FAIL, error: 'Error Making payment' })
   }

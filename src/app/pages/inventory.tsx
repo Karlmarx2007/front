@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { IProductListState } from './all';
-import { productListAction, productDeleteAction } from '../actions/productActions';
+import { productListAction, productDeleteAction } from '../actions/product-actions';
 import { Container, Row, Col, Button, Table, Card } from 'react-bootstrap';
 import { Product } from '../models/product';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

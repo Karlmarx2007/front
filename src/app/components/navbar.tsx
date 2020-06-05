@@ -7,7 +7,7 @@ import { IUserSignIn } from '../pages/signin';
 import styled from 'styled-components';
 import { CartItem } from '../models/cart-item';
 import { ICartState } from '../pages/cart';
-import { searchProduct } from '../actions/searchActions';
+import { searchProduct } from '../actions/search-actions';
 
 const StyledLogo = styled(NavLink)`
   font-size: 1.5rem;

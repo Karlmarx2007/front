@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 import { Product } from "../models/product";
 import { useSelector, useDispatch } from "react-redux";
-import { productListAction } from "../actions/productActions";
+import { productListAction } from "../actions/product-actions";
 import ProductRenderer from "../components/product-renderer";
 
 export interface IProductListState {

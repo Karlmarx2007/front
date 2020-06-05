@@ -12,7 +12,6 @@ import SignUp from '../pages/signup';
 import Inventory from '../pages/inventory';
 import { RouteComponentProps } from 'react-router-dom';
 import Shipping from '../pages/shipping';
-import PaymentOptions from '../pages/payment-options';
 import ReviewItems from '../pages/review-items';
 import PaymentSuccessful from '../pages/payment-successful';
 
@@ -61,10 +60,6 @@ const routes = [
   {
     path: '/cart',
     main: () => <Cart />
-  },
-  {
-    path: '/payment-options',
-    main: () => <PaymentOptions />
   },
   {
     path: '/review-items',

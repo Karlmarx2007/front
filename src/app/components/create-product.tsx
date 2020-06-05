@@ -10,9 +10,9 @@ import TextInput from './text-input';
 import SelectInput from './select-input';
 import TextArea from './text-area';
 import { useDispatch, useSelector } from 'react-redux';
-import { createNewProduct } from '../actions/newProductActions';
+import { createNewProduct } from '../actions/new-product-actions';
 import { Product } from '../models/product';
-import { updateProductAction } from '../actions/productActions';
+import { updateProductAction } from '../actions/product-actions';
 import { IUserSignIn } from '../pages/signin';
 
 export interface ICreateNewProduct {
@@ -228,10 +228,10 @@ const CreateProduct: React.FC<Props> = (props) => {
                 </Form.Row>
                 <Form.Row>
                   <Col>
-                    <Button variant="secondary" onClick={formik.handleReset} block>Reset Form</Button>
+                    <Button variant="outline-secondary" onClick={formik.handleReset} block>Reset Form</Button>
                   </Col>
                   <Col>
-                    <Button variant="secondary" onClick={() => props.productHandler(false)} block>Cancel</Button>
+                    <Button variant="outline-secondary" onClick={() => props.productHandler(false)} block>Cancel</Button>
                   </Col>
                 </Form.Row>
               </Form>

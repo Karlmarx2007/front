@@ -1,4 +1,4 @@
-import { CartItem } from './../models/cart-item';
+import { CartItem } from '../models/cart-item';
 import { Cart } from "../constants/cartConstants";
 
 function cartReducer(state = { cartItems: [] }, action: any) {

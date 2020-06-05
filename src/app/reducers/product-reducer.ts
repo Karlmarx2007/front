@@ -1,4 +1,4 @@
-import { RollsList } from './../constants/productConstants';
+import { RollsList } from '../constants/productConstants';
 import { ProductDetails, ProductList, IndicaList, SativaList, ProductDelete, ProductUpdate, EdibleList } from "../constants/productConstants"
 
 

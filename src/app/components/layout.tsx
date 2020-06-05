@@ -31,7 +31,7 @@ import Menu from '@material-ui/core/Menu';
 import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { CartItem } from '../models/cart-item';
 import { ICartState } from '../pages/cart';
-import { searchProduct } from '../actions/searchActions';
+import { searchProduct } from '../actions/search-actions';
 import Typography from '@material-ui/core/Typography';
 const drawerWidth = 240;
 
