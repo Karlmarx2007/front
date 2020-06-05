@@ -1,15 +1,17 @@
 import { USER } from "../constants/userConstants";
 
-export function userSignInReducer(state= {}, action: {type: USER, payload: any}) {
-  switch (action.type) {
+export function userSignInReducer(state = {}, action: { type: USER, payload: any }) {
+  const { type, payload } = action;
+
+  switch (type) {
     case USER.USER_SIGNIN_REQUEST:
       return { loading: true };
     
     case USER.USER_SIGNIN_SUCCESS:
-      return { loading: false, userInfo: action.payload };
+      return { loading: false, userInfo: payload };
     
     case USER.USER_SIGNIN_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: payload };
     
     default:
       return state;
@@ -17,15 +19,17 @@ export function userSignInReducer(state= {}, action: {type: USER, payload: any})
 }
 
 export function userSignUpReducer(state = {}, action: { type: USER, payload: any }) {
-  switch (action.type) {
+  const { type, payload } = action;
+
+  switch (type) {
     case USER.USER_SIGNUP_REQUEST:
       return { loading: true };
 
     case USER.USER_SIGNUP_SUCCESS:
-      return { loading: false, userInfo: action.payload };
+      return { loading: false, userInfo: payload };
 
     case USER.USER_SIGNUP_FAIL:
-      return { loading: false, error: action.payload };
+      return { loading: false, error: payload };
 
     default:
       return state;

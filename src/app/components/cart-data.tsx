@@ -27,6 +27,12 @@ const CartData = (props: CartItem) => {
     e.target.src = String(errorImage);
   }
 
+  const StyledCol = styled(Col)`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `;
+
   const removeItemHandler = (id: string) => {
     dispatch(removeFromCart(id));
   }
@@ -34,15 +40,15 @@ const CartData = (props: CartItem) => {
     <Fragment>
       <Divider className="mt-2 mb-2"/>
       <Row>
-        <Col style={{display: 'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <StyledCol>
           <StyledImage src={String(imageSrc)} onError={(e) => handleImageError(e)} alt="ii" rounded fluid />
           <FontAwesomeIcon icon="trash" className="fas mt-1" onClick={() => removeItemHandler(props.id)} style={{cursor: 'pointer'}}/>
-        </Col>
-        <Col>
+        </StyledCol>
+        <StyledCol>
           <p className="mt-3"><b>{props.title}</b></p>
           <p>{props.quantity}g</p>
           <p>${props.price.toFixed(2)}</p>
-        </Col>
+        </StyledCol>
       </Row>
     </Fragment>
   )

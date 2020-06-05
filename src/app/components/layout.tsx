@@ -149,13 +149,14 @@ function MainLayout(props: any) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
   const dispatch = useDispatch();
+  const userSignIn = useSelector<IUserSignIn, any>(
+    (state) => state.userSignIn
+  );
+  const { userInfo } = userSignIn;
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
-  const userSignIn = useSelector<IUserSignIn, any>(
-    (state) => state.userSignIn
-  );
   const cart: { cartItems: CartItem[] } = useSelector<ICartState, any>(state => state.cart);
   const menuId = 'primary-search-account-menu';
   const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -176,7 +177,7 @@ function MainLayout(props: any) {
     >
       <Link to='/inventory' style={{ color: 'black' }}><MenuItem onClick={handleMenuClose}>Inventory</MenuItem></Link>
       <Divider />
-      <MenuItem>Logout</MenuItem>
+      <MenuItem>{userInfo ? 'Logout' : 'Login'}</MenuItem>
     </Menu>
   );
 
@@ -254,13 +255,6 @@ function MainLayout(props: any) {
             </div>
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              <Link to='/cart' style={{color: 'white'}}>
-                <IconButton aria-label="show 4 new mails" color="inherit">
-                  <Badge badgeContent={cart.cartItems.length} color="primary">
-                    <ShoppingBasketIcon />
-                  </Badge>
-                </IconButton>
-              </Link>
               <IconButton
                 edge="end"
                 aria-label="account of current user"
@@ -271,6 +265,13 @@ function MainLayout(props: any) {
               >
                 <AccountCircle />
               </IconButton>
+              <Link to='/cart' style={{ color: 'white' }}>
+                <IconButton aria-label="show 4 new mails" color="inherit">
+                  <Badge badgeContent={cart.cartItems.length} color="primary">
+                    <ShoppingBasketIcon />
+                  </Badge>
+                </IconButton>
+              </Link>
             </div>
           </Toolbar>
         </AppBar>

@@ -47,12 +47,12 @@ const Cart = () => {
         }
         <hr/>
         <Row>
-          <Col>Total ({cart.cartItems.length} items):</Col>
-          <Col><span style={{ color: 'red' }}><b>CDN${totalPrice}</b></span></Col>
+          <Col style={{textAlign: 'center'}}>Total ({cart.cartItems.length} items):</Col>
+          <Col style={{ textAlign: 'center' }}><span style={{ color: 'red' }}><b>CDN${totalPrice}</b></span></Col>
         </Row>
         <hr />
         <div style={{textAlign: 'center', width: '100%'}}>
-          <Link to={userInfo ? '/review-items' : '/signup?redirect=review-items'}><Button variant="outline-info" style={{ width: '100%', maxWidth: '20rem' }}>Checkout</Button></Link>
+          <Link to={userInfo ? '/review-items' : '/signup?redirect=review-items'}><Button variant="outline-info" style={{ width: '100%', maxWidth: '20rem', marginTop: '2rem' }}>Checkout</Button></Link>
         </div>
     </Container>
  )

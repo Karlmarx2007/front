@@ -25,7 +25,7 @@ const reducer = combineReducers({
   newProductDetails: createNewProductReducer,
   productDeleted: productDeleteReducer,
   productUpdate: productUpdateReducer,
-  searchWord: searchReducer
+  searchWord: searchReducer,
 });
 
 const composeEnhancer = (window && (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose;
