@@ -26,7 +26,7 @@ const StyledDiv = styled.div`
 
 const ProductRenderer: React.FC<Props> = ({products, loading, error}) => {
   const search = useSelector<ISearchState, any>(
-    state => state.searchWord
+    state => state.searchWord.toLocaleLowerCase()
   );
 
   return loading ? (
