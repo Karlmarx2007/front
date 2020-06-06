@@ -13,7 +13,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
-import { Link, Switch, Route, BrowserRouter, NavLink } from 'react-router-dom';
+import { Link, Switch, Route, BrowserRouter, NavLink, useHistory } from 'react-router-dom';
 import routes from '../routes/routes';
 import styled from 'styled-components';
 import FilterVintageIcon from '@material-ui/icons/FilterVintage';
@@ -32,7 +32,8 @@ import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
 import { CartItem } from '../models/cart-item';
 import { ICartState } from '../pages/cart';
 import { searchProduct } from '../actions/search-actions';
-import Typography from '@material-ui/core/Typography';
+import Cookie from 'js-cookie';
+import { logout } from '../actions/user-actions';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -50,14 +51,14 @@ const useStyles = makeStyles((theme) => ({
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
-    backgroundColor: '#acb5a3'
+    backgroundColor: 'var(--color-primary)'
   },
   menuButton: {
     marginRight: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
       display: 'none',
     },
-    color: 'black'
+    color: '#FFFF'
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
@@ -113,6 +114,9 @@ const useStyles = makeStyles((theme) => ({
   sectionDesktop: {
     display: 'flex',
   },
+  subMenu: {
+    color: 'black'
+  }
 }));
 
 const StyledListItem = styled(ListItem)`
@@ -121,7 +125,7 @@ const StyledListItem = styled(ListItem)`
 
 const StyledSpan = styled.span`
 font-size: 1rem;
-`
+`;
 const StyledIcon = styled(ListItemIcon)``;
 
 const StyledLink = styled(NavLink)`
@@ -165,6 +169,26 @@ function MainLayout(props: any) {
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
+
+  const handleLogOut = () => {
+    handleMenuClose();
+    dispatch(logout());
+    Cookie.remove('userInfo');
+  };
+
+  const renderSubMenu = (
+    userInfo ?
+    <div>
+      <Link to='/inventory' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Inventory</MenuItem></Link>
+      <Divider />
+        <MenuItem style={{marginTop: '2rem'}} onClick={handleLogOut}>Logout</MenuItem>
+    </div> :
+    <div>
+      <Link to='/signin' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Sign In</MenuItem></Link>
+      <Link to='/signup' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Sign Up</MenuItem></Link>
+    </div>
+  );
+
   const renderMenu = (
     <Menu
       anchorEl={anchorEl}
@@ -175,15 +199,15 @@ function MainLayout(props: any) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <Link to='/inventory' style={{ color: 'black' }}><MenuItem onClick={handleMenuClose}>Inventory</MenuItem></Link>
-      <Divider />
-      <MenuItem>{userInfo ? 'Logout' : 'Login'}</MenuItem>
+      {renderSubMenu}
     </Menu>
   );
 
+  
+
   const drawer = (
     <div>
-      <div className={classes.toolbar} style={{ background: '#acb5a3', textAlign: 'center', padding: '10px 0' }}>
+      <div className={classes.toolbar} style={{ background: 'var(--color-primary)', textAlign: 'center', padding: '10px 0', height: '64px' }}>
         <Link to='/'><img src={require('../../assets/images/logo.png')} alt="logo" style={{ maxWidth: '9rem', maxHeight: '3rem' }} /></Link>
       </div>
       <Divider />

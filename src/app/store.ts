@@ -4,7 +4,7 @@ import Cookie from 'js-cookie';
 
 import { productListReducer, productDetailsReducer, sativaReducer, indicaListReducer, productDeleteReducer, productUpdateReducer, rollsReducer, edibleReducer } from './reducers/product-reducer';
 import { cartReducer } from './reducers/cart-reducer';
-import { userSignInReducer, userSignUpReducer } from './reducers/user-reducer';
+import { userSignInReducer } from './reducers/user-reducer';
 import { createNewProductReducer } from './reducers/new-product-reducer';
 import { searchReducer } from './reducers/search-reducer';
 
@@ -21,7 +21,6 @@ const reducer = combineReducers({
   rollsList: rollsReducer,
   cart: cartReducer,
   userSignIn: userSignInReducer,
-  userSignUp: userSignUpReducer,
   newProductDetails: createNewProductReducer,
   productDeleted: productDeleteReducer,
   productUpdate: productUpdateReducer,
