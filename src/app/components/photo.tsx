@@ -1,46 +1,18 @@
-// import React from "react";
-// import Image from "react-bootstrap/Image";
-// 
-// 
-// import styled from "styled-components";
-
 import React, { useState } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
-import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { Link } from "react-router-dom";
 import { Product } from "../models/product";
-import { faFileExcel } from '@fortawesome/free-solid-svg-icons';
 import green from '@material-ui/core/colors/green';
 import Radio, { RadioProps } from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
 
-
-// const StyledCard = styled(Card)`
-//   display: flex; 
-//   width: 13rem;
-//   height: 20rem;
-//   color: #3c3d3d;
-//   border:  0.3px solid transparent;
-//   margin: 0 auto;
-//   transition: border-color 600ms;
-//   &:hover {
-//     border-color: #cfd7e6;
-//   };
-// `;
-
-// const StyledImage = styled(Image)`
-//   height: 10rem;
-//   width: auto;
-// `;
 const useStyles = makeStyles({
   root: {
     maxWidth: 320,
@@ -94,7 +66,7 @@ const GreenRadio = withStyles({
 
 const Photo: React.FC<Product> = (props) => {
   const [selectedValue, setSelectedValue] = useState('');
-  const [color, setColor] = useState('');
+  const [] = useState('');
 
   const handleChange = (event: any) => {
     console.log('event.target.value > ', event.target.value);
@@ -188,27 +160,8 @@ const Photo: React.FC<Product> = (props) => {
           </FormControl>
         </form>
       </div>
-      {/* <CardActions>
-        <Button variant="outlined" style={{width: '100%'}}>Choose Amount</Button>
-      </CardActions> */}
     </Card>
   );
 };
 
 export default Photo;
-
-{/* <StyledCard className="mb-4">
-        <StyledImage src={String(imageSrc)} onError={(e) => handleImageError(e)} alt="ii" rounded fluid />
-        <Card.Body style={{textAlign: 'center', top: '30px'}}>
-          <Card.Title>{props.title}</Card.Title>
-          <Card.Text>
-            <b>from ${props.price}/g</b>
-            <br />
-            contains more {props.dominant}
-            <br />
-            <b>THC</b> {props.thcPercent.min} - {props.thcPercent.max}%
-            <br />
-            <b>CBD</b> {props.cbdPercent.min} - {props.cbdPercent.max}%
-          </Card.Text>
-        </Card.Body>
-      </StyledCard> */}
