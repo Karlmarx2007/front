@@ -35,15 +35,6 @@ const useStyles = makeStyles((theme) => ({
   },
   // necessary for content to be below app bar
   toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-    backgroundColor: 'white',
-    minHeight: '100vh'
-  },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -68,9 +59,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  inputRoot: {
-    color: 'inherit',
-  },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
     // vertical padding + font size from searchIcon
@@ -91,8 +79,6 @@ const useStyles = makeStyles((theme) => ({
     color: 'black'
   }
 }));
-
-
 
 const NavBar: React.FC<any> = (props: any) => {
   const classes = useStyles();
