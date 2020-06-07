@@ -1,86 +1,161 @@
-import React from 'react';
-import { Badge, Input } from 'antd';
-import { useSelector, useDispatch } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import { ShoppingOutlined, UserOutlined } from '@ant-design/icons';
-import { IUserSignIn } from '../pages/signin';
-import styled from 'styled-components';
+import React, { useState, useEffect } from 'react';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
+import { Link } from 'react-router-dom';
+import MenuIcon from '@material-ui/icons/Menu';
+import SearchIcon from '@material-ui/icons/Search';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Badge from '@material-ui/core/Badge';
+import ShoppingBasketIcon from '@material-ui/icons/ShoppingBasket';
+import { makeStyles, fade } from '@material-ui/core/styles';
+import { searchProduct } from '../actions/search-actions';
+import { useDispatch, useSelector } from 'react-redux';
 import { CartItem } from '../models/cart-item';
 import { ICartState } from '../pages/cart';
-import { searchProduct } from '../actions/search-actions';
+import useDebounce from '../custom-hooks/use-debounce';
 
-const StyledLogo = styled(NavLink)`
-  font-size: 1.5rem;
-  text-align: center;
-  color: var(--color-primary);;
-`;
-const StyledLink = styled(NavLink)`
-  text-transform: capitalize;
-  color: var(--color-primary);
-  padding-bottom: 0.4rem;
-  font-size: 1.2rem;
-  border-bottom: 3px solid transparent;
-  transition: border-color 1s;
-  &:hover {
-    color: var(--color-primary);
-    border-color: var(--color-medium);
+const drawerWidth = 240;
+
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+    },
+    backgroundColor: 'var(--color-primary)'
+  },
+  menuButton: {
+    marginRight: theme.spacing(2),
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
+    color: '#FFFF'
+  },
+  // necessary for content to be below app bar
+  toolbar: theme.mixins.toolbar,
+  drawerPaper: {
+    width: drawerWidth,
+  },
+  content: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    backgroundColor: 'white',
+    minHeight: '100vh'
+  },
+  search: {
+    position: 'relative',
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: fade(theme.palette.common.white, 0.15),
+    '&:hover': {
+      backgroundColor: fade(theme.palette.common.white, 0.25),
+    },
+    marginRight: theme.spacing(2),
+    marginLeft: 0,
+    width: '100%',
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing(3),
+      width: 'auto',
+    },
+  },
+  searchIcon: {
+    padding: theme.spacing(0, 2),
+    height: '100%',
+    position: 'absolute',
+    pointerEvents: 'none',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  inputRoot: {
+    color: 'inherit',
+  },
+  inputInput: {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
+    transition: theme.transitions.create('width'),
+    width: '100%',
+    [theme.breakpoints.up('md')]: {
+      width: '20ch',
+    },
+  },
+  grow: {
+    flexGrow: 1,
+  },
+  sectionDesktop: {
+    display: 'flex',
+  },
+  subMenu: {
+    color: 'black'
   }
-  &.current {
-    border-color: var(--color-primary);
-  }
-`;
-const StyledLi = styled.li`
-  padding: 0.1rem 1rem
-`;
+}));
 
-const StyledUl = styled.ul`
-  display: flex;
-  list-style: none;
-`;
 
-const StyledNav = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  height: 40px;
-  width: 100%;
 
-  @media only screen and (max-width: 600px) {
-    ${StyledLogo} {
-      display: none;
-    }
-  }
-`; 
-
-const NavBar = () => {
+const NavBar: React.FC<any> = (props: any) => {
+  const classes = useStyles();
   const cart: { cartItems: CartItem[] } = useSelector<ICartState, any>(state => state.cart);
+  const [searchWord, setSearchWord] = useState('');
   const dispatch = useDispatch();
-  const userSignIn = useSelector<IUserSignIn, any>(
-    (state) => state.userSignIn
-  );
-  const { userInfo } = userSignIn;
-  const onChange = (e: any) => dispatch(searchProduct(e.target.value));
+  const menuId = 'primary-search-account-menu';
 
+  const debouncedSearchTerm = useDebounce(searchWord, 500);
+  useEffect(() => {
+    dispatch(searchProduct(debouncedSearchTerm));
+  }, [debouncedSearchTerm]);
+  
   return (
-    <StyledNav>
-      <StyledUl>
-        <StyledLi>
-          <Input placeholder="search..." allowClear onChange={onChange} />
-        </StyledLi>
-        <StyledLi>
-          {
-            userInfo ?
-              <StyledLink activeClassName="current" to="/inventory">{userInfo._doc.name}</StyledLink> :
-              <StyledLink activeClassName="current" to="/signin"><UserOutlined /></StyledLink>}
-        </StyledLi>
-        <StyledLi>
-          <StyledLink activeClassName="current" to="/cart">
-            <Badge count={cart.cartItems.length} style={{ backgroundColor: '#b38507' }}>
-              <ShoppingOutlined style={{fontSize: '1.2rem', marginBottom: '5rem'}}/>
-            </Badge>
-          </StyledLink>
-        </StyledLi>
-      </StyledUl>
-    </StyledNav>
+    <AppBar position="fixed" className={classes.appBar}>
+      <Toolbar>
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={props.handleDrawerToggle}
+          className={classes.menuButton}
+        >
+          <MenuIcon />
+        </IconButton>
+        <div className={classes.search}>
+          <div className={classes.searchIcon}>
+            <SearchIcon />
+          </div>
+          <InputBase
+            placeholder="Search…"
+            classes={{
+              root: props.inputRoot,
+              input: props.inputInput,
+            }}
+            value={searchWord}
+            inputProps={{ 'aria-label': 'search' }}
+            onChange={(e) => setSearchWord(e.target.value)}
+            onBlur={() => setSearchWord('')}
+          />
+        </div>
+        <div className={classes.grow} />
+        <div className={classes.sectionDesktop}>
+          <IconButton
+            edge="end"
+            aria-label="account of current user"
+            aria-controls={menuId}
+            aria-haspopup="true"
+            onClick={props.handleProfileMenuOpen}
+            color="inherit"
+          >
+            <AccountCircle />
+          </IconButton>
+          <Link to='/cart' style={{ color: 'white' }}>
+            <IconButton aria-label="show 4 new mails" color="inherit">
+              <Badge badgeContent={cart.cartItems.length} color="primary">
+                <ShoppingBasketIcon />
+              </Badge>
+            </IconButton>
+          </Link>
+        </div>
+      </Toolbar>
+    </AppBar>
   );
 }
 
