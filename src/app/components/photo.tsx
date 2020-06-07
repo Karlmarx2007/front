@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
@@ -6,12 +6,25 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Link } from "react-router-dom";
-import { Product } from "../models/product";
-import green from '@material-ui/core/colors/green';
 import Radio, { RadioProps } from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
+import { CartItem } from '../models/cart-item';
+import { useDispatch } from 'react-redux';
+
+import { Product } from "../models/product";
+import { addToCart } from '../actions/cart-actions';
+import { calculatePrice } from '../utils';
+
+const GreenRadio = withStyles({
+  root: {
+    '&$checked': {
+      color: 'var(--color-primary)',
+    },
+  },
+  checked: {},
+})((props: RadioProps) => <Radio color="default" {...props} />);
 
 const useStyles = makeStyles({
   root: {
@@ -47,31 +60,51 @@ const useStyles = makeStyles({
     borderLeft: '1px solid #dadce0',
     color: 'black'
   },
-  radio: {
-    color: '#bfc2c7',
-    '&$checked': {
-      color: green[600],
+  amountNotSelected: {
+    border: '2px solid var(--color-primary)',
+    height: '3rem',
+    textAlign: 'center',
+    color: 'var(--color-primary)',
+    fontWeight: 'bold',
+    fontSize: '1rem',
+    padding: '0.6rem 0'
+  },
+  isAmountSelected: {
+    border: '2px solid var(--color-primary)',
+    height: '3rem',
+    textAlign: 'center',
+    backgroundColor: 'var(--color-primary)',
+    color: '#FFFF',
+    fontWeight: 'bold',
+    fontSize: '1rem',
+    padding: '0.6rem 0',
+    cursor: 'pointer',
+    '&:hover': {
+      backgroundColor: '#034638',
     },
+    '&:click': {
+      backgroundColor: 'white',
+    }
+  },
+  price: {
+    textAlign: 'center',
+    fontWeight: 'bold',
+    marginTop: '1rem',
+    fontSize: '1.1rem'
   }
 });
 
-const GreenRadio = withStyles({
-  root: {
-    '&$checked': {
-      color: green[600],
-    },
-  },
-  checked: {},
-})((props: RadioProps) => <Radio color="default" {...props} />);
+
 
 const Photo: React.FC<Product> = (props) => {
-  const [selectedValue, setSelectedValue] = useState('');
-  const [] = useState('');
+  const [state, setState] = useState({
+    isAmountSelected: false,
+    selectedGrams: 0,
+    price: 0
+  })
 
   const handleChange = (event: any) => {
-    console.log('event.target.value > ', event.target.value);
-    
-    setSelectedValue(event.target.value);
+    setState({...state, isAmountSelected: true, selectedGrams: parseFloat(event.target.value)})
   };
   const classes = useStyles();
   const imageSrc = props.source;
@@ -81,7 +114,25 @@ const Photo: React.FC<Product> = (props) => {
     e.target.src = String(errorImage);
   }
 
-  const handleSubmit = () => { };
+  const dispatch = useDispatch();
+
+  const handleCart = () => { 
+    const cartItem: CartItem = {
+      id: props._id,
+      price: state.price,
+      quantity: state.selectedGrams,
+      source: props.source,
+      title: props.title
+    };
+    dispatch(addToCart(cartItem));
+  };
+
+  useEffect(() => {
+    if (state.selectedGrams) {
+      const totalPrice = calculatePrice(props.price, state.selectedGrams);
+      setState({ ...state, price: totalPrice})
+    }
+  }, [state.selectedGrams]);
   
   return (
     <Card className={classes.root}>
@@ -113,14 +164,20 @@ const Photo: React.FC<Product> = (props) => {
                 </div>
               </div>
             </div>
-            <Typography component="h2" style={{ textAlign: 'center', fontWeight: 'bold', marginTop: '1rem', fontSize: '1rem' }}>
+            { !state.price && <Typography component="h2" className={classes.price}>
               ${props.price} /g
-            </Typography>
+            </Typography>}
+            {!!state.price && <div style={{display: 'flex', justifyContent: 'space-around'}}>
+              <Typography component="h2" className={classes.price}>
+                ${state.price}
+              </Typography>
+              <Typography style={{ marginTop: '1rem', color: 'black'}}>${props.price} /g</Typography>
+            </div> }
           </CardContent>
         </CardActionArea>
       </Link>
       <div style={{textAlign: 'center'}}>
-        <form onSubmit={handleSubmit}>
+        <form >
           <FormControl component="fieldset">
             <RadioGroup row aria-label="position" name="position" onChange={handleChange}>
               <FormControlLabel
@@ -128,7 +185,7 @@ const Photo: React.FC<Product> = (props) => {
                 control={
                   <GreenRadio
                     onChange={handleChange}
-                    checked={selectedValue === '1'}
+                    checked={state.selectedGrams === 1}
                     inputProps={{ 'aria-label': '1' }}
                   />
                 }
@@ -139,7 +196,7 @@ const Photo: React.FC<Product> = (props) => {
                 control={
                   <GreenRadio
                     onChange={handleChange}
-                    checked={selectedValue === '3.5'}
+                    checked={state.selectedGrams === 3.5}
                     inputProps={{ 'aria-label': '3.5' }}
                   />
                 }
@@ -150,7 +207,7 @@ const Photo: React.FC<Product> = (props) => {
                 control={
                   <GreenRadio
                     onChange={handleChange}
-                    checked={selectedValue === '7'}
+                    checked={state.selectedGrams === 7}
                     inputProps={{ 'aria-label': '7' }}
                   />
                 }
@@ -160,6 +217,8 @@ const Photo: React.FC<Product> = (props) => {
           </FormControl>
         </form>
       </div>
+      {!state.isAmountSelected && <div className={classes.amountNotSelected}>Select Amount</div>}
+      {state.isAmountSelected && <div className={classes.isAmountSelected} onClick={handleCart}>Add to Cart</div> }
     </Card>
   );
 };
