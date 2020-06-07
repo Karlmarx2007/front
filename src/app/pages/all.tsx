@@ -3,6 +3,7 @@ import React, { lazy, Suspense, useEffect } from "react";
 import { Product } from "../models/product";
 import { useSelector, useDispatch } from "react-redux";
 import { productListAction } from "../actions/product-actions";
+import Card from "react-bootstrap/Card";
 
 const ProductRenderer = lazy(() => import('../components/product-renderer'))
 
@@ -22,7 +23,7 @@ const All = () => {
   }, [dispatch]);
 
   return (
-    <Suspense fallback={<h1>Still Loading…</h1>}>
+    <Suspense fallback={<Card style={{maxWidth: '320', maxHeight: '354'}}></Card>}>
       <ProductRenderer products={products} loading={loading} error={error} />
     </Suspense>
   )
