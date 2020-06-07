@@ -24,4 +24,17 @@ const signUp = (signUpValues: { name: string, email: string, password: string, r
   }
 }
 
-export { signIn, signUp };
+const logout = () => async (dispatch: any, getState: any) => {
+  const { userSignIn: { userInfo } } = getState();
+  console.log('userinfo > ', userInfo);
+  
+  dispatch({ type: USER.USER_LOGOUT_REQUEST });
+  dispatch({ type: USER.USER_LOGOUT_SUCCESS });
+  const { data } = await axios.post('/api/users/logout', userInfo, {
+    headers: {
+      Authorization: 'Bearer' + userInfo.token
+    }
+  });
+}
+
+export { signIn, signUp, logout };

@@ -9,10 +9,8 @@ import { Link } from 'react-router-dom';
 import TextInput from '../components/text-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '../actions/user-actions';
+import { IUserSignIn } from './signin';
 
-export interface IUserSignUp {
-  userSignUp: any
-};
 
 const schema = yup.object({
   name: yup.string().required('Required'),
@@ -29,8 +27,8 @@ const initialValues = {
 };
 
 const SignUp = (props: any) => {
-  const userSignUp = useSelector<IUserSignUp, any>(
-    state => state.userSignUp
+  const userSignUp = useSelector<IUserSignIn, any>(
+    state => state.userSignIn
   );
   const { loading, userInfo, error } = userSignUp;
   const dispatch = useDispatch();

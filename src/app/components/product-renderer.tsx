@@ -2,12 +2,9 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Product } from '../models/product';
 import Loader from './loader';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Photo from './photo';
-import Slide from '@material-ui/core/Slide/Slide';
 import Fade from '@material-ui/core/Fade/Fade';
+import styled from 'styled-components';
 
 export interface ISearchState {
   searchWord: string;
@@ -19,9 +16,17 @@ type Props = {
   error: any
 }
 
+const StyledDiv = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  
+`;
+
 const ProductRenderer: React.FC<Props> = ({products, loading, error}) => {
   const search = useSelector<ISearchState, any>(
-    state => state.searchWord
+    state => state.searchWord.toLocaleLowerCase()
   );
 
   return loading ? (
@@ -31,18 +36,13 @@ const ProductRenderer: React.FC<Props> = ({products, loading, error}) => {
   ) : error ? (
     <div>{error}</div>
   ) : (
-        <Container className="d-flex justify-content-center flex-wrap-wrap">
-          <Row>
-            {products.filter((p: Product) => p.title.toLowerCase().includes(search)).map((p: Product) => (
-              <Fade in={true} key={p._id}>
-                <Col className="mb-2" style={{ display: 'inline-block' }}>
-                  <Photo {...p} />
-                </Col>
-              </Fade>
-              
-            ))}
-          </Row>
-        </Container>
+        <StyledDiv>
+          {products.filter((p: Product) => p.title.toLowerCase().includes(search)).map((p: Product) => (
+            <Fade in={true} key={p._id}>
+                <Photo {...p} />
+            </Fade>
+          ))}
+        </StyledDiv>
       );
 }
 
