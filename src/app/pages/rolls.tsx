@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React, { lazy, Suspense, useEffect } from "react";
 import { Product } from "../models/product";
 import { useSelector, useDispatch } from "react-redux";
 import { rollsListAction } from "../actions/product-actions";
-import ProductRenderer from "../components/product-renderer";
 
+const ProductRenderer = lazy(() => import('../components/product-renderer'))
 interface IRolls {
   rollsList: Product[];
 }
@@ -17,7 +17,10 @@ const Rolls = () => {
     dispatch(rollsListAction());
   }, [dispatch]);
 
-  return <ProductRenderer products={products} loading={loading} error={error} />
-};
+  return (
+    <Suspense fallback={<h1>Still Loading…</h1>}>
+      <ProductRenderer products={products} loading={loading} error={error} />
+    </Suspense>
+  )};
 
 export default Rolls;

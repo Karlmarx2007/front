@@ -69,8 +69,6 @@ const Photo: React.FC<Product> = (props) => {
   const [] = useState('');
 
   const handleChange = (event: any) => {
-    console.log('event.target.value > ', event.target.value);
-    
     setSelectedValue(event.target.value);
   };
   const classes = useStyles();
