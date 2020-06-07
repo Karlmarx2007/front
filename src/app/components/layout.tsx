@@ -29,6 +29,27 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
+  logo: {
+    color: '#FFFFFF',
+    display: 'flex',
+    justifyContent: 'center',
+    margin: 'auto'
+  },
+  logoImage: {
+    fontWeight: 'bold',
+    fontFamily: 'helvetica',
+    fontSize: '1.5rem',
+    border: '3px solid #FFFFFF',
+    borderRadius: '50%',
+    padding: '0.6rem'
+  },
+  logoName: {
+    padding: '1.2rem 0',
+    marginLeft: '0.2rem',
+    fontFamily: 'cursive',
+    fontSize: '0.5 rem',
+    fontStyle: 'italic'
+  },
   drawer: {
     [theme.breakpoints.up('sm')]: {
       width: drawerWidth,
@@ -148,12 +169,17 @@ function MainLayout(props: any) {
     </Menu>
   );
 
-  
-
   const drawer = (
     <div>
-      <div className={classes.toolbar} style={{ background: 'var(--color-primary)', textAlign: 'center', padding: '10px 0', height: '64px' }}>
-        <Link to='/'><img src={require('../../assets/images/logo.png')} alt="logo" style={{ maxWidth: '9rem', maxHeight: '3rem' }} /></Link>
+      <div className={classes.toolbar} style={{ background: 'var(--color-primary)', textAlign: 'center', padding: '0.2rem 0', height: '64px' }}>
+        <Link to='/'>
+          <div className={classes.logo}>
+            <div className={classes.logoImage}>C G</div>
+            <div className={classes.logoName}>
+              <span>Cannabis GO</span>
+            </div>
+          </div>
+        </Link>
       </div>
       <Divider />
       <List>
