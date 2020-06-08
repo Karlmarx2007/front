@@ -8,11 +8,20 @@ import { CartItem } from '../models/cart-item';
 import CartData from '../components/cart-data';
 import { Link } from 'react-router-dom';
 import { IUserSignIn } from './signin';
+import StyledButton from '../components/styled-button';
+import styled from 'styled-components';
 
 
 export interface ICartState {
   cart: CartItem[];
 }
+
+const StyledH2 = styled.h2`
+  text-align: center;
+  @media screen and (max-width: 576px){
+    font-size: 1.5rem;
+  }
+`;
 
 
 const Cart = () => {  
@@ -31,28 +40,32 @@ const Cart = () => {
 
   return !cart.cartItems.length ? (
       <Container>
-        <h2 style={{ textAlign: 'center' }}>Your Shopping Cart</h2>
+        <StyledH2>Your Shopping Cart</StyledH2>
         <p style={{ textAlign: 'center' }}>Your shopping cart is empty</p>
-        <div style={{ textAlign: 'center', marginTop: '4rem'}}>
-          <Link to='/' >
-            <Button variant="outline-info" style={{ width: '100%', maxWidth: '20rem' }}>Start Shopping</Button>
-          </Link>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '4rem' }}>
+          <div style={{ maxWidth: '20rem', width: '100%' }}>
+            <Link to='/all' >
+              <StyledButton label="Start Shopping" ></StyledButton>
+            </Link>
+          </div>
         </div>
       </Container>
   ) : (
       <Container>
-        <h2 style={{textAlign: 'center'}}>Your Shopping Cart</h2>
+        <StyledH2>Your Shopping Cart</StyledH2>
         {
           cart.cartItems.map((item, index) => <CartData key={index + item.title} {...item} />)
         }
         <hr/>
         <Row>
           <Col style={{textAlign: 'center'}}>Total ({cart.cartItems.length} items):</Col>
-          <Col style={{ textAlign: 'center' }}><span style={{ color: 'red' }}><b>CDN${totalPrice}</b></span></Col>
+          <Col style={{ textAlign: 'center' }}><span style={{ color: 'var(--color-primary)' }}><b>CDN${totalPrice}</b></span></Col>
         </Row>
         <hr />
-        <div style={{textAlign: 'center', width: '100%'}}>
-          <Link to={userInfo ? '/review-items' : '/signup?redirect=review-items'}><Button variant="outline-info" style={{ width: '100%', maxWidth: '20rem', marginTop: '2rem' }}>Checkout</Button></Link>
+        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '2rem'}}>
+          <div style={{ maxWidth: '20rem', width: '100%'}}>
+            <Link to={userInfo ? '/review-items' : '/signup?redirect=review-items'}><StyledButton label="Checkout" ></StyledButton></Link>
+          </div>
         </div>
     </Container>
  )

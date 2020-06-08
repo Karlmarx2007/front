@@ -14,6 +14,7 @@ import { createNewProduct } from '../actions/new-product-actions';
 import { Product } from '../models/product';
 import { updateProductAction } from '../actions/product-actions';
 import { IUserSignIn } from '../pages/signin';
+import StyledButton from './styled-button';
 
 export interface ICreateNewProduct {
   available: boolean;
@@ -224,7 +225,7 @@ const CreateProduct: React.FC<Props> = (props) => {
                   </Col>
                 </Form.Row>
                 <Form.Row className="mt-4 mb-4">
-                  <Button type="submit" variant="outline-info" block>{props.product ? 'Update' : 'Create'}</Button>
+                  <StyledButton type='submit' label={props.product ? 'Update' : 'Create'}/>
                 </Form.Row>
                 <Form.Row>
                   <Col>

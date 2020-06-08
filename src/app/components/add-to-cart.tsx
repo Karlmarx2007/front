@@ -35,7 +35,7 @@ const quantitySource = [
   { label: "7g", value: 7 },
 ];
 
-const AddToCart: React.SFC<Props> = ({ ...props }) => {
+const AddToCart: React.FC<Props> = ({ ...props }) => {
   console.log('props > ', props);
   
   const [state, setState] = useState({

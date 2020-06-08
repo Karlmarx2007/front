@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
 import Drawer from '@material-ui/core/Drawer';
@@ -8,8 +7,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
-import { fade, makeStyles, useTheme } from '@material-ui/core/styles';
-import { Link, Switch, Route, BrowserRouter, NavLink } from 'react-router-dom';
+import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { Link, Switch, Route, BrowserRouter, NavLink, RouteChildrenProps, withRouter, useHistory } from 'react-router-dom';
 import routes from '../routes/routes';
 import styled from 'styled-components';
 import FilterVintageIcon from '@material-ui/icons/FilterVintage';
@@ -111,8 +110,10 @@ const StyledLink = styled(NavLink)`
   }
 `;
 
-function MainLayout(props: any) {
-  const { window } = props;
+;
+
+const MainLayout = () => {
+  let history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
   const [] = React.useState('');
@@ -139,20 +140,21 @@ function MainLayout(props: any) {
   const handleLogOut = () => {
     handleMenuClose();
     dispatch(logout());
+    history.push('/signin');
     Cookie.remove('userInfo');
   };
 
   const renderSubMenu = (
     userInfo ?
-    <div>
-      <Link to='/inventory' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Inventory</MenuItem></Link>
-      <Divider />
-        <MenuItem style={{marginTop: '2rem'}} onClick={handleLogOut}>Logout</MenuItem>
-    </div> :
-    <div>
-      <Link to='/signin' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Sign In</MenuItem></Link>
-      <Link to='/signup' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Sign Up</MenuItem></Link>
-    </div>
+      <div>
+        <Link to='/inventory' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Inventory</MenuItem></Link>
+        <Divider />
+        <MenuItem style={{ marginTop: '2rem' }} onClick={handleLogOut}>Logout</MenuItem>
+      </div> :
+      <div>
+        <Link to='/signin' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Sign In</MenuItem></Link>
+        <Link to='/signup' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Sign Up</MenuItem></Link>
+      </div>
   );
 
   const renderMenu = (
@@ -183,7 +185,7 @@ function MainLayout(props: any) {
       </div>
       <Divider />
       <List>
-        <StyledLink to='/' exact>
+        <StyledLink to='/all' exact>
           <StyledListItem button key={1}>
             <StyledIcon><FilterVintageIcon /></StyledIcon>
             <StyledSpan>All</StyledSpan>
@@ -217,8 +219,8 @@ function MainLayout(props: any) {
     </div>
   );
 
-  const container = window !== undefined ? () => window().document.body : undefined;
- 
+  // const container = window !== undefined ? () => window().document.body : undefined;
+
   return (
     <BrowserRouter>
       <div className={classes.root}>
@@ -233,7 +235,6 @@ function MainLayout(props: any) {
           {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
           <Hidden smUp implementation="css">
             <Drawer
-              container={container}
               variant="temporary"
               anchor={theme.direction === 'rtl' ? 'right' : 'left'}
               open={mobileOpen}
@@ -277,13 +278,5 @@ function MainLayout(props: any) {
     </BrowserRouter>
   );
 }
-
-MainLayout.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
 export default MainLayout;

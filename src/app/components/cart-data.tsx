@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Image from "react-bootstrap/Image";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-
+import { useHistory } from "react-router-dom";
 import { CartItem } from '../models/cart-item';
 import { useDispatch } from 'react-redux';
 import { removeFromCart } from '../actions/cart-actions';
@@ -17,6 +17,8 @@ const StyledImage = styled(Image)`
 `;
 
 const CartData = (props: CartItem) => { 
+  const history = useHistory();
+  const reviewItemsPath = history.location.pathname === '/review-items';
   
   const dispatch = useDispatch();
   const imageSrc = props.source;
@@ -42,7 +44,7 @@ const CartData = (props: CartItem) => {
       <Row>
         <StyledCol>
           <StyledImage src={String(imageSrc)} onError={(e) => handleImageError(e)} alt="ii" rounded fluid />
-          <FontAwesomeIcon icon="trash" className="fas mt-1" onClick={() => removeItemHandler(props.id)} style={{cursor: 'pointer'}}/>
+          {!reviewItemsPath && <FontAwesomeIcon icon="trash" className="fas mt-1" onClick={() => removeItemHandler(props.id)} style={{cursor: 'pointer'}}/>}
         </StyledCol>
         <StyledCol>
           <p className="mt-3"><b>{props.title}</b></p>

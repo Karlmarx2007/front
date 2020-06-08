@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { signIn } from '../actions/user-actions';
 import TextInput from '../components/text-input';
+import StyledButton from '../components/styled-button';
 
 export interface IUserSignIn { 
   userSignIn: any
@@ -69,11 +70,11 @@ const SignIn = (props: any) => {
                   name="password"
                   type="password"
                 />
-                <Button type="submit" variant="outline-info" size="lg" block>Sign-In</Button>
+                <StyledButton label="Sign-In" type='submit'/>
                 <hr />
                 <h6>New User?</h6>
                 <Link to={redirect === '/' ? '/signup' : '/signup?redirect=' + redirect}>
-                  <Button variant="outline-secondary" size="lg" block>Create Account</Button>
+                  <Button variant="outline-secondary" block>Create Account</Button>
                 </Link>
               </Form>
             )}
