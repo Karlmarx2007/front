@@ -15,6 +15,7 @@ import Shipping from '../pages/shipping';
 import ReviewItems from '../pages/review-items';
 import PaymentSuccessful from '../pages/payment-successful';
 import Main from '../pages/main';
+import Unauthorized from '../pages/unauthorized';
 
 const routes = [
   {
@@ -74,6 +75,10 @@ const routes = [
   {
     path: '/payment-successful',
     main: (props: RouteComponentProps<any>) => <PaymentSuccessful {...props}/>
+  },
+  {
+    path: '/unauthorized',
+    main: () => <Unauthorized />
   }
 ]
 
