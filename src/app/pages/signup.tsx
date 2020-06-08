@@ -10,6 +10,7 @@ import TextInput from '../components/text-input';
 import { useDispatch, useSelector } from 'react-redux';
 import { signUp } from '../actions/user-actions';
 import { IUserSignIn } from './signin';
+import StyledButton from '../components/styled-button';
 
 
 const schema = yup.object({
@@ -80,11 +81,11 @@ const SignUp = (props: any) => {
                   name="repeatPassword"
                   type="password"
                 />
-                <Button type="submit" variant="outline-info" size="lg" block>Create Account</Button>
+                <StyledButton label="Create Account" type='submit' />
                 <hr />
                 <h6>Already a user?</h6>
                 <Link to={redirect === '/' ? '/signin' : '/signin?redirect=' + redirect}>
-                  <Button variant="outline-secondary" size="lg" block>Sign-In</Button>
+                  <Button variant="outline-secondary" block>Sign-In</Button>
                 </Link>
               </Form>
             )}

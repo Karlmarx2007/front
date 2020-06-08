@@ -14,11 +14,17 @@ import { RouteComponentProps } from 'react-router-dom';
 import Shipping from '../pages/shipping';
 import ReviewItems from '../pages/review-items';
 import PaymentSuccessful from '../pages/payment-successful';
+import Main from '../pages/main';
 
 const routes = [
   {
     path: '/',
     exact: true, 
+    main: () => <Main />,
+  },
+  {
+    path: '/all',
+    exact: true,
     main: () => <All />,
   },
   {

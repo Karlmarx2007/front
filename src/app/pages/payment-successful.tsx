@@ -11,6 +11,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { clearCart } from '../actions/cart-actions';
 import Cookie from 'js-cookie';
+import StyledButton from '../components/styled-button';
 
 
 const StyledCol = styled(Col)`
@@ -22,7 +23,7 @@ const StyledCol = styled(Col)`
   }
 `;
 const StyledHeading = styled.p`
-  color:green;
+  color:var(--color-primary);
   font-size: 2rem;
   @media only screen and (max-width: 450px){
     font-size: 1.5rem;
@@ -54,9 +55,11 @@ const PaymentSuccessful = (props: RouteComponentProps<any>) => {
           </StyledCol>
         </Row>
       </Card>
-      <Link to='/'>
-        <Button className="mt-4" variant="outline-info" style={{ width: '100%', maxWidth: '20rem' }}>OK</Button>
-      </Link>
+      <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '2rem' }}>
+        <div style={{ maxWidth: '20rem', width: '100%' }}>
+          <Link to='/'><StyledButton label="OK" ></StyledButton></Link>
+        </div>
+      </div>
   </Container> : <p>Oops... No Payment data found</p>;
 }
 
