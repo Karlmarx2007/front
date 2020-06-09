@@ -46,18 +46,18 @@ const ProductDetail = (props: RouteComponentProps<any>) => {
     return <div>Product not found hahaha</div>;
   } else {
     return (
-      <Container fluid>
+      <Container fluid style={{marginLeft: 'auto'}}>
         <Row>
-          <Col xs={12} sm={6} style={{textAlign: 'center'}}>
+          <Col xs={12} sm={6} style={{ textAlign: 'center', height: "100%", width: '100%'}}>
             <Image
               src={String(imageSrc)}
               alt="ii"
-              style={{ height: "10rem" }}
+              style={{ maxWidth: '80%', maxHeight: '80%', marginTop: '-2rem' }}
               rounded
               fluid
               onError={(e) => handleImageError(e)}
             />
-            <h6>{product.title}</h6>
+            {/* <h6>{product.title}</h6>
             <p>
               <b>from ${product.price}/g</b>
             </p>
@@ -67,7 +67,7 @@ const ProductDetail = (props: RouteComponentProps<any>) => {
             </p>
             <p>
               <b>CBD</b> {product.cbdPercent.min} - {product.cbdPercent.max}%
-            </p>
+            </p> */}
           </Col>
           <Col xs={12} sm={6}>
             <AddToCart
@@ -79,6 +79,10 @@ const ProductDetail = (props: RouteComponentProps<any>) => {
               {...props}
             />
           </Col>
+        </Row>
+        <Row>
+          <h2 style={{color: 'var(--color-primary)', marginTop: '2rem'}}>About this product</h2>
+          <span>{product.description}</span>
         </Row>
       </Container>
     );

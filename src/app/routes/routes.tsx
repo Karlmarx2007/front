@@ -53,14 +53,6 @@ const routes = [
     main: (props: string) => <SignUp {...props}/>,
   },
   {
-    path: '/inventory',
-    main: () => <Inventory />,
-  },
-  {
-    path: '/shipping',
-    main: (props: RouteComponentProps<any>) => <Shipping {...props} />,
-  },
-  {
     path: '/product/:id?',
     main: (props: RouteComponentProps<any>) => <ProductDetail {...props}/>,
   },
@@ -69,17 +61,30 @@ const routes = [
     main: () => <Cart />
   },
   {
+    path: '/unauthorized',
+    main: () => <Unauthorized />
+  },
+  /*Protected Routes */
+  {
+    path: '/inventory',
+    main: () => <Inventory />,
+    protected: true
+  },
+  {
+    path: '/shipping',
+    main: (props: RouteComponentProps<any>) => <Shipping {...props} />,
+    protected: true
+  },
+  {
     path: '/review-items',
-    main: (props: RouteComponentProps<any>) => <ReviewItems {...props}/>
+    main: (props: RouteComponentProps<any>) => <ReviewItems {...props} />,
+    protected: true
   },
   {
     path: '/payment-successful',
-    main: (props: RouteComponentProps<any>) => <PaymentSuccessful {...props}/>
+    main: (props: RouteComponentProps<any>) => <PaymentSuccessful {...props} />,
+    protected: true
   },
-  {
-    path: '/unauthorized',
-    main: () => <Unauthorized />
-  }
 ]
 
 export default routes;
