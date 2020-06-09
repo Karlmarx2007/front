@@ -43,7 +43,7 @@ const schema = yup.object({
   maxThc: yup.number().min(0).max(100).required('Required'),
   minCbd: yup.number().min(0).max(100).required('Required'),
   maxCbd: yup.number().min(0).max(100).required('Required'),
-  description: yup.string().max(2000).required('Required'),
+  description: yup.string().max(10000).required('Required'),
   minThcPerGram: yup.number().min(0).max(100).required('Required'),
   maxThcPerGram: yup.number().min(0).max(100).required('Required'),
   minCbdPerGram: yup.number().min(0).max(100).required('Required'),

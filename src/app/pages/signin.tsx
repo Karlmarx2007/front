@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signIn } from '../actions/user-actions';
 import TextInput from '../components/text-input';
 import StyledButton from '../components/styled-button';
+import { loginAuth } from '../auth';
 
 export interface IUserSignIn { 
   userSignIn: any
@@ -29,8 +30,7 @@ const SignIn = (props: any) => {
     (state) => state.userSignIn
   );
   const { loading, userInfo, error } = userSignIn;
-  const dispatch = useDispatch();
-  
+
   const redirect =  props.location.search ? props.location.search.split('=')[1] : '/'
   useEffect(() => {    
     if (userInfo) {
@@ -54,7 +54,7 @@ const SignIn = (props: any) => {
             initialValues={initialValues}
             validationSchema={schema}
             onSubmit={(values, { setSubmitting }) => {
-              dispatch(signIn(values));
+              loginAuth(values);
               setSubmitting(false);
             }}
           >

@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Link, Switch, Route, BrowserRouter, NavLink, RouteChildrenProps, withRouter, useHistory } from 'react-router-dom';
+import { Link, Switch, Route, BrowserRouter, NavLink, RouteChildrenProps, withRouter, useHistory, Redirect } from 'react-router-dom';
 import routes from '../routes/routes';
 import styled from 'styled-components';
 import FilterVintageIcon from '@material-ui/icons/FilterVintage';
@@ -22,6 +22,7 @@ import Menu from '@material-ui/core/Menu';
 import Cookie from 'js-cookie';
 import { logout } from '../actions/user-actions';
 import NavBar from './navbar';
+import ProtectedRoute from './protected-route';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -138,10 +139,13 @@ const MainLayout = () => {
   };
 
   const handleLogOut = () => {
+    console.log('!!!!!!!!');
+    
     handleMenuClose();
     dispatch(logout());
-    history.push('/signin');
     Cookie.remove('userInfo');
+    history.push('/signin');
+    
   };
 
   const renderSubMenu = (
@@ -264,7 +268,14 @@ const MainLayout = () => {
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Switch>
-            {routes.map((route, index) => (
+            {routes.map((route, index) => route.protected ? (
+              <ProtectedRoute
+                key={index}
+                path={route.path}
+                exact={route.exact}
+                component={route.main}
+              /> 
+            ) : (
               <Route
                 key={index}
                 path={route.path}

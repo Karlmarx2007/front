@@ -19,11 +19,12 @@ const Button = styled.button`
 type Props = {
   label: string;
   type?: 'button' | 'submit' | 'reset' | undefined;
+  disabled?: boolean;
 };
 
 const StyledButton = (props: Props) => {
   return (
-    <Button type={props.type} className="block">{props.label}</Button>
+    <Button type={props.type} disabled={props.disabled} className="block">{props.label}</Button>
   )
 }
 
