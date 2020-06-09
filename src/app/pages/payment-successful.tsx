@@ -1,9 +1,7 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { Container } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
-import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -36,7 +34,7 @@ const PaymentSuccessful = (props: RouteComponentProps<any>) => {
   useEffect(() => {
     dispatch(clearCart());
     Cookie.remove('cartItems');
-  }, []);
+  }, [dispatch]);
 
   return data ?
     <Container style={{textAlign: 'center'}}>

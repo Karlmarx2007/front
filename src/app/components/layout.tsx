@@ -8,7 +8,7 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Link, Switch, Route, BrowserRouter, NavLink, RouteChildrenProps, withRouter, useHistory, Redirect } from 'react-router-dom';
+import { Link, Switch, Route, BrowserRouter, NavLink, RouteChildrenProps, withRouter, useHistory, Redirect, useLocation, useRouteMatch } from 'react-router-dom';
 import routes from '../routes/routes';
 import styled from 'styled-components';
 import FilterVintageIcon from '@material-ui/icons/FilterVintage';
@@ -111,10 +111,15 @@ const StyledLink = styled(NavLink)`
   }
 `;
 
-;
+type Props = {
+  history: any
+}
 
-const MainLayout = () => {
-  let history = useHistory();
+const MainLayout: React.FC<Props> = (props) => {
+  const {history} = props;
+  // const history = useHistory();
+  // const location = useLocation();
+  // const match = useRouteMatch('/signin');
   const classes = useStyles();
   const theme = useTheme();
   const [] = React.useState('');
@@ -138,11 +143,11 @@ const MainLayout = () => {
     setAnchorEl(null);
   };
 
-  const handleLogOut = () => {
+  const handleLogOut = async () => {
     console.log('!!!!!!!!');
     
     handleMenuClose();
-    dispatch(logout());
+    await dispatch(logout());
     Cookie.remove('userInfo');
     history.push('/signin');
     
@@ -290,4 +295,4 @@ const MainLayout = () => {
   );
 }
 
-export default MainLayout;
+export default withRouter(MainLayout);

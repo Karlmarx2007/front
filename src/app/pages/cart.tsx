@@ -62,11 +62,24 @@ const Cart = () => {
           <Col style={{ textAlign: 'center' }}><span style={{ color: 'var(--color-primary)' }}><b>CDN${totalPrice}</b></span></Col>
         </Row>
         <hr />
-        <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '2rem'}}>
+        <Row style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '2rem' }}>
+          <Col style={{ maxWidth: '20rem', width: '100%' }}>
+            <Link to={userInfo ? '/review-items' : '/signup?redirect=review-items'}><StyledButton label="Checkout" ></StyledButton></Link>
+          </Col>
+        </Row>
+        <Row style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '2rem' }}>
+          <Col style={{ maxWidth: '20rem', width: '100%' }}>
+            <Link to='/'><Button variant='outline-secondary' block>Continue Shopping</Button></Link>
+          </Col>
+        </Row>
+        {/* <div style={{ display: 'flex', justifyContent: 'center', width: '100%', marginTop: '2rem'}}>
           <div style={{ maxWidth: '20rem', width: '100%'}}>
             <Link to={userInfo ? '/review-items' : '/signup?redirect=review-items'}><StyledButton label="Checkout" ></StyledButton></Link>
           </div>
-        </div>
+          <div style={{ maxWidth: '20rem', width: '100%' }}>
+            <Link to='/'><Button variant='outline-info'>Continue Shopping</Button></Link>
+          </div>
+        </div> */}
     </Container>
  )
 }
