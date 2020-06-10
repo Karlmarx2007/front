@@ -8,7 +8,7 @@ const loginAuth = (payload: {email: string, password: string}) => {
 }
 
 const logoutAuth = () => {
-  // store.dispatch(logout());
+  store.dispatch(logout());
   Cookie.remove('userInfo');
 }
 
