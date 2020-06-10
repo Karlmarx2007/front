@@ -118,7 +118,6 @@ const MainLayout: React.FC<Props> = () => {
   const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
-  const [] = React.useState('');
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
