@@ -46,7 +46,7 @@ const ProductDetail = (props: RouteComponentProps<any>) => {
     return <div>Product not found hahaha</div>;
   } else {
     return (
-      <Container fluid style={{marginLeft: 'auto'}}>
+      <Container fluid>
         <Row>
           <Col xs={12} sm={6} style={{ textAlign: 'center', height: "100%", width: '100%'}}>
             <Image

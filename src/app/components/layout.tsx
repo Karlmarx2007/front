@@ -8,21 +8,20 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import OfflineBoltIcon from '@material-ui/icons/OfflineBolt';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { Link, Switch, Route, BrowserRouter, NavLink, RouteChildrenProps, withRouter, useHistory, Redirect } from 'react-router-dom';
+import { Link, Switch, Route, NavLink, withRouter, useHistory } from 'react-router-dom';
 import routes from '../routes/routes';
 import styled from 'styled-components';
 import FilterVintageIcon from '@material-ui/icons/FilterVintage';
 import SlowMotionVideoIcon from '@material-ui/icons/SlowMotionVideo';
 import SmokingRoomsIcon from '@material-ui/icons/SmokingRooms';
 import AppleIcon from '@material-ui/icons/Apple';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { IUserSignIn } from '../pages/signin';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Cookie from 'js-cookie';
-import { logout } from '../actions/user-actions';
 import NavBar from './navbar';
 import ProtectedRoute from './protected-route';
+import { isAuthenticated, logoutAuth } from '../auth';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -111,17 +110,17 @@ const StyledLink = styled(NavLink)`
   }
 `;
 
-;
+type Props = {
+  history: any
+}
 
-const MainLayout = () => {
-  let history = useHistory();
+const MainLayout: React.FC<Props> = () => {
+  const history = useHistory();
   const classes = useStyles();
   const theme = useTheme();
-  const [] = React.useState('');
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const isMenuOpen = Boolean(anchorEl);
-  const dispatch = useDispatch();
   const userSignIn = useSelector<IUserSignIn, any>(
     (state) => state.userSignIn
   );
@@ -138,14 +137,13 @@ const MainLayout = () => {
     setAnchorEl(null);
   };
 
-  const handleLogOut = () => {
-    console.log('!!!!!!!!');
-    
+  const handleLogOut = async () => {
     handleMenuClose();
-    dispatch(logout());
-    Cookie.remove('userInfo');
-    history.push('/signin');
+    logoutAuth();
     
+    if (!isAuthenticated()) {
+      history.push('/signin');
+    }
   };
 
   const renderSubMenu = (
@@ -226,68 +224,66 @@ const MainLayout = () => {
   // const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <BrowserRouter>
-      <div className={classes.root}>
-        <CssBaseline />
-        <NavBar
-          handleDrawerToggle={() => handleDrawerToggle()}
-          handleProfileMenuOpen={(e: any) => handleProfileMenuOpen(e)}
-          {...classes}
-        />
-        {renderMenu}
-        <nav className={classes.drawer} aria-label="mailbox folders">
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden smUp implementation="css">
-            <Drawer
-              variant="temporary"
-              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css">
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              variant="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Switch>
-            {routes.map((route, index) => route.protected ? (
-              <ProtectedRoute
-                key={index}
-                path={route.path}
-                exact={route.exact}
-                component={route.main}
-              /> 
-            ) : (
-              <Route
-                key={index}
-                path={route.path}
-                exact={route.exact}
-                component={route.main}
-              />
-            ))}
-          </Switch>
-        </main>
-      </div>
-    </BrowserRouter>
+    <div className={classes.root}>
+      <CssBaseline />
+      <NavBar
+        handleDrawerToggle={() => handleDrawerToggle()}
+        handleProfileMenuOpen={(e: any) => handleProfileMenuOpen(e)}
+        {...classes}
+      />
+      {renderMenu}
+      <nav className={classes.drawer} aria-label="mailbox folders">
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Hidden smUp implementation="css">
+          <Drawer
+            variant="temporary"
+            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+        <Hidden xsDown implementation="css">
+          <Drawer
+            classes={{
+              paper: classes.drawerPaper,
+            }}
+            variant="permanent"
+            open
+          >
+            {drawer}
+          </Drawer>
+        </Hidden>
+      </nav>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Switch>
+          {routes.map((route, index) => route.protected ? (
+            <ProtectedRoute
+              key={index}
+              path={route.path}
+              exact={route.exact}
+              component={route.main}
+            /> 
+          ) : (
+            <Route
+              key={index}
+              path={route.path}
+              exact={route.exact}
+              component={route.main}
+            />
+          ))}
+        </Switch>
+      </main>
+    </div>
   );
 }
 
-export default MainLayout;
+export default withRouter(MainLayout);

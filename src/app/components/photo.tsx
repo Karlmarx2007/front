@@ -132,7 +132,7 @@ const Photo: React.FC<Product> = (props) => {
       const totalPrice = calculatePrice(props.price, state.selectedGrams);
       setState({ ...state, price: totalPrice})
     }
-  }, [state.selectedGrams]);
+  }, [props.price, state.selectedGrams]);
   
   return (
     <Card className={classes.root}>

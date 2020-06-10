@@ -90,7 +90,7 @@ const NavBar: React.FC<any> = (props: any) => {
   const debouncedSearchTerm = useDebounce(searchWord, 500);
   useEffect(() => {
     dispatch(searchProduct(debouncedSearchTerm));
-  }, [debouncedSearchTerm]);
+  }, [debouncedSearchTerm, dispatch]);
   
   return (
     <AppBar position="fixed" className={classes.appBar}>

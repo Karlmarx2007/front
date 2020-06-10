@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import { url } from 'inspector';
 import styled from 'styled-components';
 import background from '../../assets/images/background.jpg'
 import StyledButton from '../components/styled-button';
