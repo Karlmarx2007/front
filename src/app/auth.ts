@@ -17,4 +17,9 @@ const isAuthenticated = (): boolean => {
   return !!state.userSignIn && !!(state.userSignIn as any).userInfo;
 }
 
-export { loginAuth, logoutAuth, isAuthenticated };
+const isAdmin = () => {
+  const state = store.getState();
+  return !!state.userSignIn && !!(state.userSignIn as any).userInfo && !!(state.userSignIn as any).userInfo._doc.isAdmin;
+}
+
+export { loginAuth, logoutAuth, isAuthenticated, isAdmin };
