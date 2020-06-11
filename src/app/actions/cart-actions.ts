@@ -3,6 +3,7 @@ import { CartItem } from '../models/cart-item';
 import Cookie from "js-cookie";
 import { Cart } from '../constants/cartConstants';
 import axios from 'axios';
+import { environment } from '../environments/environments';
 const addToCart = (cartItem: CartItem) => async (dispatch: any, getState: any) => {
   try {
     
@@ -49,7 +50,7 @@ const paymentAction = (body: { token: any, products: CartItem[] }) => async (dis
   const { userSignIn: { userInfo } } = getState();
   try {
     dispatch({ type: Cart.PAYMENT_REQUEST });
-    const { data } = await axios.post('/api/payments/payment', body, {
+    const { data } = await axios.post(`${environment.prodUrl}/payments/payment`, body, {
       headers: {
         Authorization: 'Bearer' + userInfo.token
       }
