@@ -21,7 +21,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import NavBar from './navbar';
 import ProtectedRoute from './protected-route';
-import { isAuthenticated, logoutAuth } from '../auth';
+import { isAuthenticated, logoutAuth, isAdmin } from '../auth';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme) => ({
@@ -125,6 +125,8 @@ const MainLayout: React.FC<Props> = () => {
     (state) => state.userSignIn
   );
   const { userInfo } = userSignIn;
+  
+  
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -146,10 +148,18 @@ const MainLayout: React.FC<Props> = () => {
     }
   };
 
-  const renderSubMenu = (
-    userInfo ?
+  const renderSubMenu = 
+  
+    (
+    userInfo && isAdmin() ?
       <div>
         <Link to='/inventory' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Inventory</MenuItem></Link>
+        <Link to='/profile' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Profile</MenuItem></Link>
+        <Divider />
+        <MenuItem style={{ marginTop: '2rem' }} onClick={handleLogOut}>Logout</MenuItem>
+      </div> : userInfo ?
+      <div>
+        <Link to='/profile' className={classes.subMenu}><MenuItem onClick={handleMenuClose}>Profile</MenuItem></Link>
         <Divider />
         <MenuItem style={{ marginTop: '2rem' }} onClick={handleLogOut}>Logout</MenuItem>
       </div> :
