@@ -1,41 +1,32 @@
-import React, { useEffect } from 'react';
-import { Container, Row, Col } from 'react-bootstrap'
+import React, { lazy, Suspense, useEffect } from "react";
 
-import Photo from '../components/photo';
-import { Product } from '../models/product';
-import { useSelector, useDispatch } from 'react-redux';
-import { listProducts } from '../actions/productActions';
-import Loader from '../components/loader';
+import { Product } from "../models/product";
+import { useSelector, useDispatch } from "react-redux";
+import { productListAction } from "../actions/product-actions";
+import Card from "react-bootstrap/Card";
 
-export interface IRootState {
+const ProductRenderer = lazy(() => import('../components/product-renderer'))
+
+export interface IProductListState {
   productList: Product[];
 }
 
-const All = () => {  
-  const productList = useSelector<IRootState, any>(
-    state => state.productList
+const All = () => {
+  const productList = useSelector<IProductListState, any>(
+    (state) => state.productList
   );
-  const {products, loading, error} = productList;
+  const { products, loading, error } = productList;
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch])
+    dispatch(productListAction());
+  }, [dispatch]);
 
-  return loading ? <div><Loader size='large'/></div> : error ? <div>{error}</div> :
-  (
-    <Container className="d-flex justify-content-center">
-      <Row>
-        {products.map((p: Product) => (
-          <Col className="mb-2" key={p.id}>
-            <Photo
-              {...p}
-            />
-          </Col>
-        ))}
-      </Row>
-    </Container>
-  );
-}
+  return (
+    <Suspense fallback={<Card style={{maxWidth: '320', maxHeight: '354'}}></Card>}>
+      <ProductRenderer products={products} loading={loading} error={error} />
+    </Suspense>
+  )
+};
 
 export default All;

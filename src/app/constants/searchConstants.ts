@@ -1,0 +1,3 @@
+export enum Search {
+  SEARCH_PRODUCT_REQUEST = 'SEARCH_PRODUCT_REQUEST'
+}
