@@ -1,6 +1,7 @@
-import { environment } from './../environments/environments';
 import axios from 'axios';
+
 import { ProductList, ProductDetails, IndicaList, SativaList, ProductDelete, ProductUpdate, EdibleList, RollsList } from '../constants/productConstants';
+import { environment } from '../environments/environments';
 
 
 const productListAction = () => async (dispatch:any) => {  

@@ -57,17 +57,6 @@ const ProductDetail = (props: RouteComponentProps<any>) => {
               fluid
               onError={(e) => handleImageError(e)}
             />
-            {/* <h6>{product.title}</h6>
-            <p>
-              <b>from ${product.price}/g</b>
-            </p>
-            <p>contains more {product.dominant}</p>
-            <p>
-              <b>THC</b> {product.thcPercent.min} - {product.thcPercent.max}%
-            </p>
-            <p>
-              <b>CBD</b> {product.cbdPercent.min} - {product.cbdPercent.max}%
-            </p> */}
           </Col>
           <Col xs={12} sm={6}>
             <AddToCart

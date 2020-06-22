@@ -36,8 +36,6 @@ const quantitySource = [
 ];
 
 const AddToCart: React.FC<Props> = ({ ...props }) => {
-  console.log('props > ', props);
-  
   const [state, setState] = useState({
     price: props.price,
     quantity: 1

@@ -1,9 +1,8 @@
-import React, { lazy, Suspense, useEffect } from "react";
+import React, { useEffect } from "react";
 import { Product } from "../models/product";
 import { useSelector, useDispatch } from "react-redux";
 import { ediblesListAction } from "../actions/product-actions";
-
-const ProductRenderer = lazy(() => import('../components/product-renderer'))
+import ProductRenderer from "../components/product-renderer";
 
 interface IEdibles {
   edibleList: Product[];
@@ -19,9 +18,7 @@ const Edibles = () => {
   }, [dispatch]);
 
   return (
-    <Suspense fallback={<h1>Still Loading…</h1>}>
-      <ProductRenderer products={products} loading={loading} error={error} />
-    </Suspense>
+    <ProductRenderer products={products} loading={loading} error={error} />
   )
 };
 

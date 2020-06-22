@@ -1,11 +1,9 @@
-import React, { lazy, Suspense, useEffect } from "react";
-
-import { Product } from "../models/product";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { productListAction } from "../actions/product-actions";
-import Card from "react-bootstrap/Card";
 
-const ProductRenderer = lazy(() => import('../components/product-renderer'))
+import { productListAction } from "../actions/product-actions";
+import ProductRenderer from "../components/product-renderer";
+import { Product } from "../models/product";
 
 export interface IProductListState {
   productList: Product[];
@@ -23,9 +21,7 @@ const All = () => {
   }, [dispatch]);
 
   return (
-    <Suspense fallback={<Card style={{maxWidth: '320', maxHeight: '354'}}></Card>}>
-      <ProductRenderer products={products} loading={loading} error={error} />
-    </Suspense>
+    <ProductRenderer products={products} loading={loading} error={error} />
   )
 };
 
