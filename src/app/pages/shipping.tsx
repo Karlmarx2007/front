@@ -68,7 +68,6 @@ const Shipping = (props: RouteComponentProps<any>) => {
             validationSchema={schema}
             onSubmit={(values, { setSubmitting }) => {
               setSubmitting(false);
-              console.log(JSON.stringify(values, null, 2));
               const shipping: ShippingAddress = {
                 ...values,
                 telephone: parseInt(values.telephone)

@@ -6,11 +6,14 @@ import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import styled from 'styled-components';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { clearCart } from '../actions/cart-actions';
 import Cookie from 'js-cookie';
 import StyledButton from '../components/styled-button';
-
+import { Order } from '../models/order';
+import { IUserSignIn } from './signin';
+import { ICartState } from './cart';
+import { createOrder } from '../actions/order-actions';
 
 const StyledCol = styled(Col)`
   text-align: left;
@@ -31,9 +34,30 @@ const PaymentSuccessful = (props: RouteComponentProps<any>) => {
   const dispatch = useDispatch();
   const state: any = props.location.state;
   const data = state && state.data ? state.data : undefined;
+  const userSignIn = useSelector<IUserSignIn, any>((state) => state.userSignIn);
+  const { userInfo } = userSignIn;
+  const cart = useSelector<ICartState, any>(state => state.cart);
+  const order: Order = {
+    customerId: userInfo._doc._id,
+    customer: userInfo._doc.name,
+    status: data.status,
+    date: new Date(),
+    cartItems: cart.cartItems,
+    shippingAddress: {
+      addressLine1: data.source.address_line1,
+      addressLine2: data.source.address_line2,
+      city: data.source.address_city,
+      state: data.source.address_state,
+      postalCode: data.source.address_zip
+    }
+  }
+  
   useEffect(() => {
-    dispatch(clearCart());
-    Cookie.remove('cartItems');
+    if (cart.cartItems.length) {
+      dispatch(createOrder(order));
+      dispatch(clearCart());
+      Cookie.remove('cartItems');
+    }
   }, [dispatch]);
 
   return data ?

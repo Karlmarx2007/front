@@ -10,12 +10,13 @@ import Radio, { RadioProps } from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
-import { CartItem } from '../models/cart-item';
 import { useDispatch } from 'react-redux';
 
 import { Product } from "../models/product";
 import { addToCart } from '../actions/cart-actions';
 import { calculatePrice } from '../utils';
+import { message } from 'antd';
+import { CartItem } from '../models/cart-item';
 
 const GreenRadio = withStyles({
   root: {
@@ -125,6 +126,10 @@ const Photo: React.FC<Product> = (props) => {
       title: props.title
     };
     dispatch(addToCart(cartItem));
+    message.config({
+      top: 100,
+    });
+    message.success('Item added to cart');
   };
 
   useEffect(() => {

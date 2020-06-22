@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { USER } from '../constants/userConstants';
 import Cookie from 'js-cookie';
-import { environment } from '../environments/environments';
+
+import { USER } from '../constants/userConstants';
 
 const signIn = (signInValues: { email: string, password: string }) => async (dispatch: any) => {
   dispatch({ type: USER.USER_SIGNIN_REQUEST, payload: signInValues });
   try {
-    const { data } = await axios.post(`${environment.prodUrl}/users/signin`, signInValues);
+    const { data } = await axios.post(`/users/signin`, signInValues);
     dispatch({ type: USER.USER_SIGNIN_SUCCESS, payload: data });
     Cookie.set('userInfo', JSON.stringify(data));
-  } catch (error) {    
+  } catch (error) {
     dispatch({ type: USER.USER_SIGNIN_FAIL, payload: 'Oops... Invalid username or password' });
   }
 }
@@ -17,7 +17,7 @@ const signIn = (signInValues: { email: string, password: string }) => async (dis
 const signUp = (signUpValues: { name: string, email: string, password: string, repeatPassword: string }) => async (dispatch: any) => {
   dispatch({ type: USER.USER_SIGNUP_REQUEST, payload: signUpValues });
   try {
-    const { data } = await axios.post(`${environment.prodUrl}/users/signup`, signUpValues);
+    const { data } = await axios.post(`/users/signup`, signUpValues);
     dispatch({ type: USER.USER_SIGNUP_SUCCESS, payload: data });
     Cookie.set('userInfo', JSON.stringify(data));
   } catch (error) {
@@ -25,17 +25,9 @@ const signUp = (signUpValues: { name: string, email: string, password: string, r
   }
 }
 
-const logout = () => async (dispatch: any, getState: any) => {
-  const { userSignIn: { userInfo } } = getState();
-  console.log('userinfo > ', userInfo);
-  
+const logout = () => async (dispatch: any) => {
   dispatch({ type: USER.USER_LOGOUT_REQUEST });
   dispatch({ type: USER.USER_LOGOUT_SUCCESS });
-  // const { data } = await axios.post('${environment.prodUrl}/users/logout', userInfo, {
-  //   headers: {
-  //     Authorization: 'Bearer' + userInfo.token
-  //   }
-  // });
 }
 
 export { signIn, signUp, logout };

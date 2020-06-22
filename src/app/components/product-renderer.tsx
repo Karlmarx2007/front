@@ -1,11 +1,12 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { useSelector } from 'react-redux';
-import { Product } from '../models/product';
-import Loader from './loader';
-import Photo from './photo';
-import Fade from '@material-ui/core/Fade/Fade';
 import styled from 'styled-components';
 
+import ProductFallback from './product-fallback';
+import { Product } from '../models/product';
+import Loader from './loader';
+
+const Photo = lazy(() => import('./photo'));
 export interface ISearchState {
   searchWord: string;
 };
@@ -21,7 +22,6 @@ const StyledDiv = styled.div`
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-around;
-  
 `;
 
 const ProductRenderer: React.FC<Props> = ({products, loading, error}) => {
@@ -36,14 +36,12 @@ const ProductRenderer: React.FC<Props> = ({products, loading, error}) => {
   ) : error ? (
     <div>{error}</div>
   ) : (
-        <StyledDiv>
-          {products.filter((p: Product) => p.title.toLowerCase().includes(search)).map((p: Product) => (
-            <Fade in={true} key={p._id}>
-                <Photo {...p} />
-            </Fade>
-          ))}
-        </StyledDiv>
-      );
+    <StyledDiv>
+      {products.filter((p: Product) => p.title.toLowerCase().includes(search)).map((p: Product) => (
+        <Suspense fallback={<ProductFallback />} key={p._id}><Photo {...p} /></Suspense>
+      ))}
+    </StyledDiv>
+  );
 }
 
 export default ProductRenderer;

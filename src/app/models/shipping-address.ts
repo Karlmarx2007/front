@@ -4,5 +4,5 @@ export interface ShippingAddress {
   city: string;
   state: string;
   postalCode: string;
-  telephone: number;
+  telephone?: number;
 }
