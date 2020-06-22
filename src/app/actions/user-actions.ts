@@ -2,11 +2,12 @@ import axios from 'axios';
 import Cookie from 'js-cookie';
 
 import { USER } from '../constants/userConstants';
+import { environment } from '../environments/environments';
 
 const signIn = (signInValues: { email: string, password: string }) => async (dispatch: any) => {
   dispatch({ type: USER.USER_SIGNIN_REQUEST, payload: signInValues });
   try {
-    const { data } = await axios.post(`/users/signin`, signInValues);
+    const { data } = await axios.post(`${environment.prodUrl}/users/signin`, signInValues);
     dispatch({ type: USER.USER_SIGNIN_SUCCESS, payload: data });
     Cookie.set('userInfo', JSON.stringify(data));
   } catch (error) {
@@ -17,7 +18,7 @@ const signIn = (signInValues: { email: string, password: string }) => async (dis
 const signUp = (signUpValues: { name: string, email: string, password: string, repeatPassword: string }) => async (dispatch: any) => {
   dispatch({ type: USER.USER_SIGNUP_REQUEST, payload: signUpValues });
   try {
-    const { data } = await axios.post(`/users/signup`, signUpValues);
+    const { data } = await axios.post(`${environment.prodUrl}/users/signup`, signUpValues);
     dispatch({ type: USER.USER_SIGNUP_SUCCESS, payload: data });
     Cookie.set('userInfo', JSON.stringify(data));
   } catch (error) {
