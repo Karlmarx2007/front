@@ -85,7 +85,10 @@ const Profile = () => {
             </Table>
           </TableContainer>
     </Fragment>
-  ) : null
+      ) : <Fragment>
+          <h2 className={classes.heading}>My Orders</h2>
+          <div style={{textAlign: 'center'}}><p>No Orders found</p></div>
+        </Fragment>
 }
 
 export default Profile;
