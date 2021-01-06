@@ -23,7 +23,7 @@
         "@types/styled-components": "^5.0.1",
         "@welldone-software/why-did-you-render": "^4.0.6",
         "antd": "^4.1.4",
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "bootstrap": "^4.4.1",
         "checkout": "^1.0.1",
         "formik": "^2.1.4",
